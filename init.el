@@ -3,8 +3,84 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(connection-local-criteria-alist
+   '(((:application tramp)
+	  tramp-connection-local-default-system-profile tramp-connection-local-default-shell-profile tramp-connection-local-default-profile)) t)
+ '(connection-local-profile-alist
+   '((tramp-connection-local-darwin-ps-profile
+	  (tramp-process-attributes-ps-args "-acxww" "-o" "pid,uid,user,gid,comm=abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" "-o" "state=abcde" "-o" "ppid,pgid,sess,tty,tpgid,minflt,majflt,time,pri,nice,vsz,rss,etime,pcpu,pmem,args")
+	  (tramp-process-attributes-ps-format
+	   (pid . number)
+	   (euid . number)
+	   (user . string)
+	   (egid . number)
+	   (comm . 52)
+	   (state . 5)
+	   (ppid . number)
+	   (pgrp . number)
+	   (sess . number)
+	   (ttname . string)
+	   (tpgid . number)
+	   (minflt . number)
+	   (majflt . number)
+	   (time . tramp-ps-time)
+	   (pri . number)
+	   (nice . number)
+	   (vsize . number)
+	   (rss . number)
+	   (etime . tramp-ps-time)
+	   (pcpu . number)
+	   (pmem . number)
+	   (args)))
+	 (tramp-connection-local-busybox-ps-profile
+	  (tramp-process-attributes-ps-args "-o" "pid,user,group,comm=abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" "-o" "stat=abcde" "-o" "ppid,pgid,tty,time,nice,etime,args")
+	  (tramp-process-attributes-ps-format
+	   (pid . number)
+	   (user . string)
+	   (group . string)
+	   (comm . 52)
+	   (state . 5)
+	   (ppid . number)
+	   (pgrp . number)
+	   (ttname . string)
+	   (time . tramp-ps-time)
+	   (nice . number)
+	   (etime . tramp-ps-time)
+	   (args)))
+	 (tramp-connection-local-bsd-ps-profile
+	  (tramp-process-attributes-ps-args "-acxww" "-o" "pid,euid,user,egid,egroup,comm=abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" "-o" "state,ppid,pgid,sid,tty,tpgid,minflt,majflt,time,pri,nice,vsz,rss,etimes,pcpu,pmem,args")
+	  (tramp-process-attributes-ps-format
+	   (pid . number)
+	   (euid . number)
+	   (user . string)
+	   (egid . number)
+	   (group . string)
+	   (comm . 52)
+	   (state . string)
+	   (ppid . number)
+	   (pgrp . number)
+	   (sess . number)
+	   (ttname . string)
+	   (tpgid . number)
+	   (minflt . number)
+	   (majflt . number)
+	   (time . tramp-ps-time)
+	   (pri . number)
+	   (nice . number)
+	   (vsize . number)
+	   (rss . number)
+	   (etime . number)
+	   (pcpu . number)
+	   (pmem . number)
+	   (args)))
+	 (tramp-connection-local-default-shell-profile
+	  (shell-file-name . "/bin/sh")
+	  (shell-command-switch . "-c"))
+	 (tramp-connection-local-default-system-profile
+	  (path-separator . ":")
+	  (null-device . "/dev/null"))) t)
  '(package-selected-packages
-   '(elfeed magit with-editor company cmake-mode irony lsp-mode websocket org-roam dired-launch amx yasnippet yafolding ws-butler which-key vterm visual-fill-column valign use-package typescript-mode smartparens rainbow-delimiters pyvenv python-mode pdf-tools paredit org-tree-slide org-roam-ui org-drill org-download org-bullets ob-spice no-littering mu4e-alert mpv math-symbol-lists lsp-ui lsp-treemacs lsp-ivy ivy-prescient ivy-fuz helpful ggtags fuzzy forge flyspell-correct-ivy flycheck eterm-256color esup eshell-git-prompt elfeed-goodies doom-themes doom-modeline djvu dired-single dired-open dired-hide-dotfiles cpputils-cmake cpp-auto-include counsel-projectile company-irony company-c-headers company-box command-log-mode cmake-project cmake-ide cmake-font-lock clean-aindent-mode auto-package-update auctex-latexmk all-the-icons-ivy-rich all-the-icons-ivy all-the-icons-ibuffer all-the-icons-dired ac-ispell)))
+   '(smartparens elfeed-goodies elfeed dired-hide-dotfiles dired-single all-the-icons-dired eshell-git-prompt vterm eterm-256color all-the-icons-ibuffer forge magit with-editor company-box company-irony company cpputils-cmake irony pyvenv python-mode typescript-mode lsp-treemacs lsp-ivy lsp-ui lsp-mode yasnippet ggtags flycheck ws-butler yafolding org-roam-ui websocket org-roam org-download openwith dired-open mu4e mu4e-alert math-symbol-lists djvu mpv valign pdf-tools ac-ispell org-drill auctex ivy-fuz fuzzy flyspell-correct-ivy counsel-tramp eldoc-cmake paredit company-c-headers org-tree-slide minesweeper cmake-font-lock cmake-project cmake-mode cmake-ide cpp-auto-include sudoku auctex-latexmk)))
 
 
 (setq custom-safe-themes
@@ -29,6 +105,7 @@
 ;; visual things
 (setq visible-cursor nil)
 (setq blink-cursor-mode nil)
+(global-visual-line-mode 1)
 (scroll-bar-mode -1)        ; Disable visible scrollbar
 (setq standard-indent 2)
 (setq visible-bell nil)
