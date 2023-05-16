@@ -12,7 +12,9 @@
   :commands (dired dired-jump)
   :bind (("C-x C-j" . dired-jump)
     :map dired-mode-map
-        ("r" . dired-kill-subdir))
+        ("r" . dired-kill-subdir)
+		("w" . browse-url-of-dired-file)
+		("W" . dired-copy-filename-as-kill))
   :config (setq dired-dwim-target t)
   :custom ((dired-listing-switches "-agho --group-directories-first")))
 

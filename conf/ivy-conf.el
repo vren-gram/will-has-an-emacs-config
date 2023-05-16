@@ -4,6 +4,7 @@
   :bind (("C-s" . swiper)
      :map ivy-minibuffer-map
          ("TAB" . ivy-alt-done)
+		 ("M-RET" . ivy-immediate-done)
          ("C-l" . ivy-alt-done)
          ("C-j" . ivy-next-line)
          ("C-k" . ivy-previous-line)
@@ -23,14 +24,14 @@
   :ensure t)
 
 (use-package counsel
-  :bind 
-    (("C-x b" . 'counsel-switch-buffer)
-     :map minibuffer-local-map
-       ("C-r" . 'counsel-minibuffer-history))
+  :bind (("C-x b" . 'counsel-switch-buffer)
+		 :map minibuffer-local-map
+		 ("C-r" . 'counsel-minibuffer-history)
+	   	 ("M-RET" . minibuffer-force-complete))
   :custom
-    (counsel-linux-app-format-function #'counsel-linux-app-format-function-name-only)
+  (counsel-linux-app-format-function #'counsel-linux-app-format-function-name-only)
   :config 
-    (setq counsel-mode t))
+  (setq counsel-mode t))
 
 (use-package ivy-prescient
   :after 

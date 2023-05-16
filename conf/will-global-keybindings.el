@@ -1,4 +1,5 @@
-
+;; ============================================================
+;; global-keybindings
 (define-key global-map (kbd "C-x C-n") 'next-buffer)
 (define-key global-map (kbd "C-x C-p") 'previous-buffer)
 (define-key global-map (kbd "C-x C-o") 'other-window)
@@ -20,3 +21,16 @@
 (global-set-key (kbd "C-M-<up>") 'enlarge-window)
 
 (global-set-key (kbd "C-x C-d") 'dired)
+
+
+(defun go-to-init ()
+  (interactive)
+  (find-file "~/.emacs.d/init.el"))
+
+(global-set-key (kbd "<f8>") 'go-to-init)
+
+;; ============================================================
+;; whitelisted command
+(put 'dired-find-alternate-file 'disabled nil)
+(put 'erase-buffer 'disabled nil)
+(put 'narrow-to-region 'disabled nil)

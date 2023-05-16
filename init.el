@@ -3,85 +3,13 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(connection-local-criteria-alist
-   '(((:application tramp)
-	  tramp-connection-local-default-system-profile tramp-connection-local-default-shell-profile tramp-connection-local-default-profile)) t)
- '(connection-local-profile-alist
-   '((tramp-connection-local-darwin-ps-profile
-	  (tramp-process-attributes-ps-args "-acxww" "-o" "pid,uid,user,gid,comm=abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" "-o" "state=abcde" "-o" "ppid,pgid,sess,tty,tpgid,minflt,majflt,time,pri,nice,vsz,rss,etime,pcpu,pmem,args")
-	  (tramp-process-attributes-ps-format
-	   (pid . number)
-	   (euid . number)
-	   (user . string)
-	   (egid . number)
-	   (comm . 52)
-	   (state . 5)
-	   (ppid . number)
-	   (pgrp . number)
-	   (sess . number)
-	   (ttname . string)
-	   (tpgid . number)
-	   (minflt . number)
-	   (majflt . number)
-	   (time . tramp-ps-time)
-	   (pri . number)
-	   (nice . number)
-	   (vsize . number)
-	   (rss . number)
-	   (etime . tramp-ps-time)
-	   (pcpu . number)
-	   (pmem . number)
-	   (args)))
-	 (tramp-connection-local-busybox-ps-profile
-	  (tramp-process-attributes-ps-args "-o" "pid,user,group,comm=abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" "-o" "stat=abcde" "-o" "ppid,pgid,tty,time,nice,etime,args")
-	  (tramp-process-attributes-ps-format
-	   (pid . number)
-	   (user . string)
-	   (group . string)
-	   (comm . 52)
-	   (state . 5)
-	   (ppid . number)
-	   (pgrp . number)
-	   (ttname . string)
-	   (time . tramp-ps-time)
-	   (nice . number)
-	   (etime . tramp-ps-time)
-	   (args)))
-	 (tramp-connection-local-bsd-ps-profile
-	  (tramp-process-attributes-ps-args "-acxww" "-o" "pid,euid,user,egid,egroup,comm=abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" "-o" "state,ppid,pgid,sid,tty,tpgid,minflt,majflt,time,pri,nice,vsz,rss,etimes,pcpu,pmem,args")
-	  (tramp-process-attributes-ps-format
-	   (pid . number)
-	   (euid . number)
-	   (user . string)
-	   (egid . number)
-	   (group . string)
-	   (comm . 52)
-	   (state . string)
-	   (ppid . number)
-	   (pgrp . number)
-	   (sess . number)
-	   (ttname . string)
-	   (tpgid . number)
-	   (minflt . number)
-	   (majflt . number)
-	   (time . tramp-ps-time)
-	   (pri . number)
-	   (nice . number)
-	   (vsize . number)
-	   (rss . number)
-	   (etime . number)
-	   (pcpu . number)
-	   (pmem . number)
-	   (args)))
-	 (tramp-connection-local-default-shell-profile
-	  (shell-file-name . "/bin/sh")
-	  (shell-command-switch . "-c"))
-	 (tramp-connection-local-default-system-profile
-	  (path-separator . ":")
-	  (null-device . "/dev/null"))) t)
  '(package-selected-packages
-   '(smartparens elfeed-goodies elfeed dired-hide-dotfiles dired-single all-the-icons-dired eshell-git-prompt vterm eterm-256color all-the-icons-ibuffer forge magit with-editor company-box company-irony company cpputils-cmake irony pyvenv python-mode typescript-mode lsp-treemacs lsp-ivy lsp-ui lsp-mode yasnippet ggtags flycheck ws-butler yafolding org-roam-ui websocket org-roam org-download openwith dired-open mu4e mu4e-alert math-symbol-lists djvu mpv valign pdf-tools ac-ispell org-drill auctex ivy-fuz fuzzy flyspell-correct-ivy counsel-tramp eldoc-cmake paredit company-c-headers org-tree-slide minesweeper cmake-font-lock cmake-project cmake-mode cmake-ide cpp-auto-include sudoku auctex-latexmk)))
-
+   '(counsel-pydoc pydoc elpy python-info julia-formatter all-the-icons-ivy ess dired-icon lsp-julia julia-mode ac-octave bash-completion org-gcal vertico lisp-mode smartparens elfeed-goodies elfeed dired-hide-dotfiles dired-single all-the-icons-dired eshell-git-prompt vterm eterm-256color all-the-icons-ibuffer forge magit with-editor company-box company-irony company cpputils-cmake irony pyvenv python-mode typescript-mode lsp-treemacs lsp-ivy lsp-ui lsp-mode yasnippet ggtags flycheck ws-butler yafolding org-roam-ui websocket org-roam org-download openwith dired-open mu4e mu4e-alert math-symbol-lists djvu mpv valign pdf-tools ac-ispell org-drill auctex ivy-fuz fuzzy flyspell-correct-ivy counsel-tramp eldoc-cmake paredit company-c-headers org-tree-slide minesweeper cmake-font-lock cmake-project cmake-mode cmake-ide cpp-auto-include sudoku auctex-latexmk))
+ '(safe-local-variable-values
+   '((Package . CL-PPCRE)
+	 (Base . 10)
+	 (Package . CL-USER)
+	 (Syntax . COMMON-LISP))))
 
 (setq custom-safe-themes
       '("7a7b1d475b42c1a0b61f3b1d1225dd249ffa1abb1b7f726aec59ac7ca3bf4dae" default))
@@ -137,6 +65,25 @@
 (setq resize-mini-windows t)
 (setq confirm-kill-processes nil)
 (setq byte-compile-warnings '(cl-functions))
+
+;; ============================================================
+;; eldoc
+(setq eldoc-echo-area-use-multiline-p 2)
+(setq eldoc-echo-area-display-truncation-message nil)
+
+;; switch to help windows when invoked
+(setq help-window-select t)
+
+;; makes all yes prompts into y prompts
+(defalias 'yes-or-no-p 'y-or-n-p)
+
+;; redefining behavior to kill by default
+(defun quit-window (&optional kill window)
+  (interactive "P")
+  (with-current-buffer (window-buffer (window-normalize-window window))
+    (run-hooks 'quit-window-hook))
+  ;; used to be 'kill 'bury
+  (quit-restore-window window (if kill 'kill 'kill)))
 
 ;; ============================================================
 ;; backups
@@ -239,38 +186,6 @@
 (add-hook 'emacs-startup-hook #'will/display-startup-time)
 
 ;; ============================================================
-;; global-keybindings
-(define-key global-map (kbd "C-x C-n") 'next-buffer)
-(define-key global-map (kbd "C-x C-p") 'previous-buffer)
-(define-key global-map (kbd "C-x C-o") 'other-window)
-(define-key global-map (kbd "C-x C-k") 'kill-this-buffer)
-
-(global-set-key (kbd "C-x 4") 'toggle-window-split)
-(global-set-key (kbd "C-x 6") 'window-swap-states)
-(global-set-key (kbd "C-x C-5") 'toggle-frame-fullscreen)
-
-;; activate whitespace-mode to view all whitespace characters
-(global-set-key (kbd "C-c w") 'whitespace-mode)
-
-(global-set-key (kbd "C-q") 'c-hungry-delete-forward)
-
-;; buffer resizing
-(global-set-key (kbd "C-M-<left>") 'shrink-window-horizontally)
-(global-set-key (kbd "C-M-<right>") 'enlarge-window-horizontally)
-(global-set-key (kbd "C-M-<down>") 'shrink-window)
-(global-set-key (kbd "C-M-<up>") 'enlarge-window)
-
-(global-set-key (kbd "C-x C-d") 'dired)
-
-;; ============================================================
-;; whitelisted command
-(put 'dired-find-alternate-file 'disabled nil)
-(put 'erase-buffer 'disabled nil)
-(put 'narrow-to-region 'disabled nil)
-
-
-
-;; ============================================================
 (require 'package)
 (setq package-archives
       '(("melpa" . "https://melpa.org/packages/")
@@ -331,7 +246,7 @@
     :defer 0
     :diminish which-key-mode
     :config
-        (setq which-key-mode t)
+        (which-key-mode 1)
         (setq which-key-idle-delay 1))
 
 ;; ============================================================
@@ -341,15 +256,16 @@
   :bind (("C-s" . swiper)
 		 :map ivy-minibuffer-map
          ("TAB" . ivy-alt-done)
+		 ("C-'" . ivy-immediate-done)
          ("C-l" . ivy-alt-done)
          ("C-j" . ivy-next-line)
-         ("C-k" . ivy-previous-line)
+         ("C-k" . ivy-kill-line)
 		 :map ivy-switch-buffer-map
          ("C-k" . ivy-previous-line)
          ("C-l" . ivy-done)
          ("C-d" . ivy-switch-buffer-kill)
 		 :map ivy-reverse-i-search-map
-         ("C-k" . ivy-previous-line)
+         ;; ("C-k" . ivy-previous-line)
          ("C-d" . ivy-reverse-i-search-kill))
   :config
   (setq ivy--regex-function 'ivy--regex-plus)
@@ -372,23 +288,25 @@
      :map minibuffer-local-map
        ("C-r" . 'counsel-minibuffer-history))
   :custom
-    (counsel-linux-app-format-function #'counsel-linux-app-format-function-name-only)
-	
+  (counsel-linux-app-format-function #'counsel-linux-app-format-function-name-only)
   :config 
     (counsel-mode 1))
 
-(use-package amx
-  :config
-  (amx-mode 1))
+(use-package counsel-pydoc
+  :after
+  counsel)
 
 (use-package ivy-prescient
   :after 
-    counsel
+  counsel
   :custom 
-    (ivy-prescient-enable-filtering t)
+  (ivy-prescient-enable-filtering t)
+  (ivy-prescient-retain-classic-highlighting t)
   :config
-    (prescient-persist-mode 1)
-    (setq ivy-prescient-mode t))
+  (prescient-persist-mode 1)
+  (ivy-prescient-mode 1))
+
+(setq completion-styles '(prescient basic partial-completion emacs22))
 
 (use-package helpful
   :commands 
@@ -442,6 +360,15 @@
 ;; ============================================================
 (use-package auctex) 
 (use-package auctex-latexmk)
+
+(setq TeX-view-program-selection '(((output-dvi has-no-display-manager)
+									"dvi2tty")
+								   ((output-dvi style-pstricks)
+									"dvips and gv")
+								   (output-dvi "xdvi")
+								   (output-pdf "Zathura")
+								   (output-html "xdg-open")))
+
 ;; ============================================================
 ;; org
 
@@ -526,7 +453,8 @@
   (setq org-log-into-drawer t)
 
   (setq org-agenda-files '("~/Documents/org-mode/tasks.org"
-                           "~/Documents/org-mode/habits.org"))
+                           "~/Documents/org-mode/habits.org"
+						   "~/Documents/org-mode/zettel/scratch.org"))
   (setq org-agenda-span 10)
   (setq org-agenda-loop-over-headlines-in-active-region nil)
   (setq org-agenda-tags-column -30)
@@ -557,8 +485,6 @@
                       :html-background "Transparent"
                       :html-scale 1.0
                       :matchers ("begin" "$1" "$" "$$" "\\(" "\\[")))
-
-
 
   (setq org-latex-default-packages-alist
         '(("AUTO" "inputenc" t ("pdflatex"))
@@ -711,9 +637,7 @@
    (prog-mode . yafolding-mode)))
 
 (use-package ws-butler
-  :hook ((c-mode-common-hook . ws-butler-mode)
-         (python-mode-hook . ws-butler-mode)))
-
+  :hook ((c-mode-common-hook . ws-butler-mode)))
 
 (use-package flyspell
   :custom (setq flyspell-issue-message-flag nil
@@ -730,10 +654,10 @@
   :init (global-flycheck-mode 0)
   :hook ((c++-mode . flycheck-mode)
          (elisp-mode . flycheck-mode)
-         (python-mode . flycheck-mode)
          (octave-mode . flycheck-mode)
          (typescript-mode . flycheck-mode))
-  :custom (setq flycheck-check-syntax-automatically '(save mode-enable)))
+  :config
+         (setq flycheck-check-syntax-automatically '(save)))
 
 ;; tags for code navigation
 (use-package ggtags
@@ -754,8 +678,7 @@
   :ensure t
   :hook
   (c++-mode . yas-global-mode)
-  (cc-mode . yas-global-mode)
-  (python-mode . yas-global-mode))
+  (cc-mode . yas-global-mode))
 
 ;; ============================================================
 ;; misc languages
@@ -767,7 +690,7 @@
   :commands (lsp lsp-deferred)
   :hook (lsp-mode . will/lsp-mode-setup)
   :init
-  (setq lsp-keymap-prefix "C-c l") ;; Or 'C-l', 's-l'
+  (setq lsp-keymap-prefix "C-c M-l") ;; Or 'C-l', 's-l'
   :config
   (lsp-enable-which-key-integration t))
 
@@ -783,6 +706,36 @@
 (use-package lsp-treemacs
   :after lsp)
 
+
+
+(use-package eglot
+  :ensure t
+  :defer t
+  :bind (:map eglot-mode-map
+              ;; ("C-c C-d" . eldoc)
+              ("C-c C-e" . eglot-rename)
+              ("C-c C-o" . python-sort-imports)
+              ("C-c C-f" . eglot-format-buffer))
+  :hook ((python-mode . eglot-ensure)
+         ;; (python-mode . flyspell-prog-mode)
+         ;; (python-mode . superword-mode)
+         ;; (python-mode . hs-minor-mode)
+         (python-mode . (lambda () (set-fill-column 88))))
+  :config
+  (add-to-list 'eglot-stay-out-of 'flymake 'flycheck)
+  (setq-default eglot-workspace-configuration
+				'(:pylsp (:plugins
+						  (:jedi_completion (:include_params t :fuzzy t)
+						   :pylint (:enabled :json-false)
+						   :autopep8 (:enabled :json-false)
+						   :black (:enabled t :line_length 80)))
+						 :gopls (:usePlaceholders t))))
+
+;; :autopep8 (:enabled :json-false)
+;;                                        :black (:enabled t
+;;                                                :line_length 88
+;;                                                :cache_config t)))))))
+
 (use-package typescript-mode
   :mode "\\.ts\\'"
   :hook (typescript-mode . lsp-deferred)
@@ -791,9 +744,39 @@
 
 (use-package python-mode
   :ensure t
-  :hook ((python-mode-hook . lsp-deferred)
-         (python-mode-hook . whitespace-mode))
-  :custom (python-shell-interpreter "python3"))
+  :bind (:map python-mode-map
+			  ("C-c C-d" . pydoc-at-point)
+			  ("C-c C-p" . run-python)
+			  :map inferior-python-mode-map
+			  ("C-c C-d" . pydoc-at-point)
+			  ("C-c C-p" . run-python)
+			  ("C-c C-z" . other-window))
+  :hook (python-mode . eglot-ensure)
+  ;; (python-mode . lsp-deferred)
+  (python-mode . ws-butler-mode)
+  (python-mode . whitespace-mode)
+  (python-mode . yas-global-mode)
+  ;; (inferior-python-mode . auto-complete-mode)
+  ;; (python-mode . auto-complete-mode)
+  (python-mode . company-mode)
+  (inferior-python-mode . company-mode)
+  ;; (python-mode . (lambda () (python-shell-completion-native-turn-on)))
+  :custom
+  (python-shell-interpreter "python3")
+  :config
+  (setq python-indent-offset 4))
+
+(use-package auto-complete
+  :bind (:map ac-completing-map
+			  ("C-g" . ac-stop)
+			  ("C-n" . ac-next)
+              ("C-p" . ac-previous)
+			  ("<backtab>" . ac-previous)
+              ("RET" . ac-complete)
+              ("C-S-n" . ac-quick-help-scroll-down)
+              ("C-S-p" . ac-quick-help-scroll-up))
+  :config
+  (setq ac-timer 0.5))
 
 (use-package pyvenv
   :after python-mode
@@ -814,27 +797,30 @@
 (add-to-list 'auto-mode-alist '("\\.[sm]?t0$" . spice-mode))
 (add-to-list 'auto-mode-alist '("\\.[h]?spice$" . spice-mode))
 
-
 (add-to-list 'auto-mode-alist '("\\.m$" . octave-mode))
 
 (add-hook 'octave-mode-hook
           (lambda ()
+			(auto-complete-mode 1)
             (abbrev-mode 1)
             (auto-fill-mode 1)))
 
 (add-hook 'inferior-octave-mode-hook
           (lambda ()
+			(auto-complete-mode 1)
             (turn-on-font-lock)
             (define-key inferior-octave-mode-map [up]
               'comint-previous-input)
             (define-key inferior-octave-mode-map [down]
               'comint-next-input)))
 
+(setq inferior-octave-program "/usr/bin/octave")
+
 ;; ============================================================
 ;; c-lang conf
 (add-hook 'c-mode-common-hook (lambda ()
-	(when (derived-mode-p 'c-mode 'c++-mode 'java-mode 'asm-mode)
-	(ggtags-mode 1))))
+								(when (derived-mode-p 'c-mode 'c++-mode 'java-mode 'asm-mode)
+								  (ggtags-mode 1))))
 (add-hook 'c++-mode-hook (lambda () (setq whitespace-mode nil)
                                     (setq whitespace-mode t)))
 
@@ -901,38 +887,45 @@
 (use-package cpp-auto-include)
 
 (use-package company
-    :hook
-        (c-common-mode-hook . company-mode)
-        (c++-mode-hook . company-mode)
-        (python-mode-hook . company-mode)
-        (lisp-mode-hook . company-mode)
-    :custom
-        (setq company-minimum-prefix-length 1)
-        (setq company-idle-delay 0.2)
-        (setq company-show-numbers t)
-        (setq company-tooltip-limit 20)
-        (setq company-dabbrev-downcase nil)
-    :bind
-        (:map company-active-map ("<tab>" . company-select-next))
-        ("C-;" . company-complete-selection)
-    :config
-        (add-to-list 'company-backends 'company-c-headers 'company-irony 'company-gtags))
+  :hook ((c-common-mode-hook . company-mode)
+		 (c++-mode-hook . company-mode)
+		 (python-mode-hook . company-mode)
+		 (lisp-mode-hook . company-mode)
+		 (emacs-lisp-mode-hook . company-mode))
+  :config
+  (setq company-minimum-prefix-length 0)
+  (setq company-idle-delay 1.5)
+  (setq company-show-numbers t)
+  (setq company-tooltip-limit 20)
+  (setq company-dabbrev-downcase nil)
+  :bind
+  (:map company-active-map
+		(("<tab>" . company-select-next)
+		 ("<backtab>" . company-select-previous) )
+		("C-;" . company-complete-selection)
+   :map company-mode-map (("C-'" . company-complete-selection)
+						  ("C-<tab>" . company-complete)))
+  :config
+  (add-to-list 'company-backends
+			   'company-c-headers
+			   'company-irony
+			   'company-gtags))
 
 (use-package company-irony :ensure t :defer t)
 
-(use-package company-box :hook (company-mode . company-box-mode))
+;; (use-package company-box :hook (company-mode . company-box-mode))
 
 (use-package projectile
-    :diminish projectile-mode
-    :config (projectile-mode)
-    :custom ((projectile-completion-system 'ivy))
-    :bind-keymap
-        ("C-c p" . projectile-command-map)
-    :init
-    ; NOTE: Set this to the folder where you keep your Git repos!
-        (when (file-directory-p "~/Documents/code")
-        (setq projectile-project-search-path '("~/Documents/code")))
-        (setq projectile-switch-project-action #'projectile-dired))
+  :diminish projectile-mode
+  :config (projectile-mode)
+  :custom ((projectile-completion-system 'ivy))
+  :bind-keymap
+  ("C-c p" . projectile-command-map)
+  :init
+  ;; NOTE: Set this to the folder where you keep your Git repos!
+  (when (file-directory-p "~/Documents/code")
+    (setq projectile-project-search-path '("~/Documents/code")))
+  (setq projectile-switch-project-action #'projectile-dired))
 
 (use-package company-c-headers :defer t)
 ;; ============================================================
@@ -958,11 +951,13 @@
 (use-package valign)
 (use-package mpv)
 
+
 (use-package djvu)
 (use-package math-symbol-lists)
+(use-package bash-completion
+  :hook (bash-mode . (lambda () (bash-completion-setup))))
 
-
-
+(load "/home/will/.emacs.d/conf/will-global-keybindings.el")
 (load "/home/will/.emacs.d/conf/ibuffer-conf.el")
 (load "/home/will/.emacs.d/conf/shell-conf.el")
 (load "/home/will/.emacs.d/conf/dired-conf.el")
@@ -970,4 +965,3 @@
 (load "/home/will/.emacs.d/conf/mu4e-conf.el")
 (load "/home/will/.emacs.d/conf/erc-conf.el")
 (load "/home/will/.emacs.d/conf/lisp-conf.el")
-

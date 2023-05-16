@@ -23,11 +23,19 @@
                            :attachments
                            :signature
                            :decryption))
+
   (add-hook 'mu4e-compose-mode-hook 'mml-secure-message-sign-pgpmime)
+
   (setq mu4e-view-show-images t)
   (setq mu4e-compose-format-flowed t)
   (setq mu4e-get-mail-command "mbsync -a")
   (setq mu4e-maildir "~/Maildir/")
+
+  ;; prevent duplicate unread messages count
+  (setq mu4e-headers-skip-duplicates nil)
+  (setq mu4e-headers-include-related nil)
+
+
   (setq message-kill-buffer-on-exit t)
   ;; Don't ask for a 'context' upon opening mu4e
   (setq mu4e-context-policy nil)
@@ -49,7 +57,7 @@
                (lambda (msg)
                  (when msg
                    (string-prefix-p "/gmail" (mu4e-message-field msg :maildir))))
-               :vars '((user-mail-address . "william.emerson.tower")
+               :vars '((user-mail-address . "william.emerson.tower@gmail.com")
                        (user-full-name    . "Will Tower")
                        (smtpmail-smtp-server  . "smtp.gmail.com")
                        (mu4e-compose-signature . "Sine Cera, Will")
@@ -60,6 +68,8 @@
                        (mu4e-sent-folder  . "/gmail/Sent Mail")
                        (mu4e-refile-folder  . "/gmail/All Mail")
                        (mu4e-trash-folder  . "/gmail/Trash"))))))
+
+(setq user-mail-address "william.emerson.tower@gmail.com")
 
 
 (use-package smtpmail

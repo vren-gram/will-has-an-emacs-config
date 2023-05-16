@@ -14,13 +14,14 @@
         ("https://xkcd.com/atom.xml" comic)
         ("https://www.badspacecomics.com/blog-feed.xml" comic)
         ("https://aella.substack.com/feed/" blog rat)
-        ("http://www.gwern.net/atom.xml" blog rat)
+        ("http://www.gwern.net/rss" blog rat)
         ("https://pbfcomics.com/feed/" comic)
         ("https://www.youtube.com/feeds/videos.xml?channel_id=UCl4hLK-YKeHuCAvS8ZPVv5Q" youtube) ;;the mountain goats youtube
         ("https://applieddivinitystudies.com/atom.xml" blog rat)
         ("https://slimemoldtimemold.com/feed/" blog rat)
         ("https://medium.com/feed/@ThingMaker" blog rat) ;; duncan sabien
         ("https://dominiccummings.substack.com/feed/" blog)
+		("https://dominiccummings.substack.com//feed/" blog rat)
         ("https://thingofthings.substack.com/feed/" blog rat) ;;Ozy!
         ("https://edwardsnowden.substack.com/feed/" blog)
         ("https://moreisdifferent.substack.com/feed/" blog rat) ;; Dan! you know, from the meetups
@@ -39,13 +40,9 @@
         ("https://mapandterritory.org/feed" blog rat)
         ("https://www.scottaaronson.com/blog/?feed=rss2" blog rat)
         ("https://radimentary.wordpress.com/feed/" blog rat)
-        ;; ("https://vren-diagram.tumblr.com/rss" tumblr)
-        ;; ("https://snailboxes.tumblr.com/rss" tumblr Anna)
-        ;; ("https://chekhovsdisconnectedwormbell.tumblr.com/rss" tumblr Jean)
         ("https://hwfo.substack.com/feed/" blog rat)
         ("https://www.benkuhn.net/rss" blog rat) ;; ben has come to my house
-        (" http://markwatson.com/blog/atom.xml" blog software lisp) ;; worked at olive AI? Wrote a lisp book
-        ("https://eukaryotewritesblog.com/feed/" blog rat Georgia)
+        ("https://eukaryotewritesblog.com/rss/" blog rat Georgia)
         ("https://livingwithinreason.com/feed/" blog rat Wes)
         ("https://hollyelmore.substack.com/feed/" blog rat Holly)))
 
