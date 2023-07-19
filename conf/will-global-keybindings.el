@@ -22,6 +22,7 @@
 
 (global-set-key (kbd "C-x C-d") 'dired)
 
+(global-set-key (kbd "C-j") 'newline)
 
 (defun go-to-init ()
   (interactive)
