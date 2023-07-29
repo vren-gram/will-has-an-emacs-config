@@ -25,18 +25,17 @@
   (setq prettify-symbols-alist
         '(("lambda" . 955))))
 
-
 (add-hook 'lisp-mode-hook 'will/pretty-lambda)
 (add-hook 'lisp-mode-hook 'prettify-symbols-mode)
-(add-hook 'lisp-mode-hook 'auto-complete-mode)
+;; (add-hook 'lisp-mode-hook 'auto-complete-mode)
 (add-hook 'lisp-mode-hook 'slime-autodoc-mode)
-(add-hook 'lisp-mode-hook '(lambda () (indents-tabs-mode -1)))
+(add-hook 'lisp-mode-hook '(lambda () (indent-tabs-mode -1)))
 (define-key lisp-mode-map [(tab)] 'slime-fuzzy-indent-and-complete-symbol)
-(define-key lisp-mode-map (kbd "M-z") 'run-lisp)
+(define-key lisp-mode-map (kbd "M-z") 'slime)
 
 (add-hook 'emacs-lisp-mode-hook 'will/pretty-lambda)
 (add-hook 'emacs-lisp-mode-hook 'prettify-symbols-mode)
-(add-hook 'emacs-lisp-mode-hook '(lambda () (indents-tabs-mode -1)))
+(add-hook 'emacs-lisp-mode-hook '(lambda () (indent-tabs-mode -1)))
 
 (use-package slime
 			 :bind ((:map slime-repl-mode-map
@@ -47,7 +46,7 @@
 						  ("q" . quit-window)))
 			 :hook ((slime-repl-mode . (lambda () (paredit-mode +1)))
 					(slime-repl-mode . (lambda () (rainbow-delimiters-mode +1)))
-					(slime-repl-mode . (lambda () (auto-complete-mode '1)))
+					;; (slime-repl-mode . (lambda () (auto-complete-mode '1)))
 					(slime-repl-mode . slime-autodoc-mode))
 			 :config
 			 (setq slime-description-autofocus t)
