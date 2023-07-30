@@ -490,6 +490,7 @@
 
   (setq org-refile-targets
         '(("~/Documents/org-mode/tasks.org" :maxlevel . 1)
+          ("~/Documents/org-mode/archive.org" :maxlevel . 1)
           ("~/Documents/org-mode/habits.org" :maxlevel . 1)))
 
   ;; Save Org buffers after refiling!
