@@ -454,10 +454,9 @@
 (use-package org
   :pin org
   :commands (org-capture org-agenda)
-  :hook
-  ((org-mode . will/org-mode-setup)
-   (org-mode . will/org-mode-visual-fill)
-   (org-mode . will/org-font-setup))
+  :hook ((org-mode . will/org-mode-setup)
+         (org-mode . will/org-mode-visual-fill)
+         (org-mode . will/org-font-setup))
   ;; :hook (#'valign-mode)
   :defer 2
   :bind (("C-c n w" . insert-attr-decls)
@@ -571,8 +570,7 @@
 ;;org download allows images to be yanked from the web and from the clipboard
 (use-package org-download
     :after org
-    :bind
-        (:map org-mode-map(
+    :bind (:map org-mode-map(
             ("s-Y" . org-download-screenshot)
             ("s-y" . org-download-clipboard)))
     :config
@@ -580,7 +578,7 @@
         (setq org-download-annotate-function (lambda (_link) ""))
         (setq org-download-image-attr-list nil))
 
-(add-hook 'emacs-startup-hook #'(lambda () (setq org-roam-db-autosync-mode t)))
+(add-hook 'emacs-startup-hook #'(lambda () (org-roam-db-autosync-mode 1)))
 
 (use-package org-roam
   :hook (org-mode . will/org-mode-setup)
@@ -590,18 +588,17 @@
          ("C-c n t" . org-roam-tag-add)
          ("C-c n a" . org-roam-alias-add)
          ("C-c n r" . org-roam-node-random))
-  :config
-  (require 'org-roam-protocol)
-  (setq org-refile-allow-creating-parent-nodes 'confirm)
-  (setq org-roam-buffer-postrender-functions '(org-latex-preview))
-  (setq org-roam-completion-everywhere t)
-  (setq org-roam-db-autosync-mode t)
-  (setq org-roam-db-update-on-save t)
-  (setq org-roam-directory "/home/will/Documents/org-mode/zettel/")
+  :config (require 'org-roam-protocol)
+             (setq org-refile-allow-creating-parent-nodes 'confirm)
+             (setq org-roam-buffer-postrender-functions '(org-latex-preview))
+             (setq org-roam-completion-everywhere t)
+             (setq org-roam-db-autosync-mode t)
+             (setq org-roam-db-update-on-save t)
+             (setq org-roam-directory "/home/will/Documents/org-mode/zettel/")
 
   (setq org-roam-node-display-template
         (concat "${title:*} "
-                (propertize "${tags:20}" 'face 'org-tag)))
+                (propertize "${tags:10}" 'face 'org-tag)))
 
   (setq org-roam-mode-section-functions
         (list #'org-roam-backlinks-section
@@ -609,11 +606,19 @@
 
   (setq org-roam-capture-templates
         '(("d" "default" plain "%?" :target
-           (file+head "%<%Y-%m-%d>-${slug}.org"
+           (file+head "${slug}.org"
                       "#+title: ${title}\n#+STARTUP: = latexpreview")
            :unnarrowed t)))
 
   (setq org-ellipsis " ▾")
+
+  (setq org-roam-db-node-include-function
+         (defun will/org-roam-include ()
+           (not (member "drill" (org-get-tags)))))
+
+             ;; Don't forget to run the following commands!
+             ;; M-x org-roam-db-clear-all
+             ;; M-x org-roam-db-sync
 
   ;; roam dailies config
   (setq org-roam-dailies-directory "daily/")
