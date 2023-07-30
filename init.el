@@ -477,6 +477,7 @@
   (setq org-agenda-files '("~/Documents/org-mode/tasks.org"
                            "~/Documents/org-mode/habits.org"
                            "~/Documents/org-mode/zettel/scratch.org"))
+  (setq org-agenda-start-day "-2d")
   (setq org-agenda-span 10)
   (setq org-agenda-loop-over-headlines-in-active-region nil)
   (setq org-agenda-tags-column -30)
