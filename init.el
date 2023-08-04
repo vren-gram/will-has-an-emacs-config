@@ -474,8 +474,9 @@
   (setq org-log-into-drawer t)
   (setq org-src-preserve-indentation t)
 
-  (setq org-agenda-files '("~/Documents/org-mode/tasks.org"
-                           "~/Documents/org-mode/habits.org"
+  (setq org-agenda-files '("~/Documents/org-mode/orgzly/tasks.org"
+                           "~/Documents/org-mode/orgzly/habits.org"
+                           "~/Documents/org-mode/orgzly/archive.org"
                            "~/Documents/org-mode/zettel/scratch.org"))
   (setq org-agenda-start-day "-2d")
   (setq org-agenda-span 10)
@@ -490,16 +491,16 @@
   (setq org-todo-keywords '((sequence "TODO(t)" "DONE(d!)")))
 
   (setq org-refile-targets
-        '(("~/Documents/org-mode/tasks.org" :maxlevel . 1)
-          ("~/Documents/org-mode/archive.org" :maxlevel . 1)
-          ("~/Documents/org-mode/habits.org" :maxlevel . 1)))
+        '(("~/Documents/org-mode/orgzly/tasks.org" :maxlevel . 1)
+          ("~/Documents/org-mode/orgzly/archive.org" :maxlevel . 1)
+          ("~/Documents/org-mode/orgzly/habits.org" :maxlevel . 1)))
 
   ;; Save Org buffers after refiling!
   (advice-add 'org-refile :after 'org-save-all-org-buffers)
 
   (setq org-capture-templates
         '(("t" "TODO" entry
-           (file+headline "~/Documents/org-mode/tasks.org" "Tasks") "* TODO %? %i %a")))
+           (file+headline "~/Documents/org-mode/orgzly/tasks.org" "Tasks") "* TODO %? %i %a")))
 
   (setq org-format-latex-options
         '(:foreground default
