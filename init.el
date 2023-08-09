@@ -52,6 +52,7 @@
 (scroll-bar-mode -1)        ; Disable visible scrollbar
 (setq standard-indent 2)
 (setq visible-bell nil)
+(setq ring-bell-function 'ignore)
 (setq indicate-buffer-boundaries nil)
 ;; ============================================================
 ;; Default UI
@@ -65,7 +66,7 @@
 (setq default-frame-alist '((alpha 100 . 100)))
 ;; ============================================================
 ;; initial buffer things
-(setq initial-buffer-choice "")
+(setq initial-buffer-choice "~/")
 (setq initial-major-mode 'org-mode)
 (setq initial-scratch-message "")
 (setq frame-resize-pixelwise t)
@@ -153,11 +154,13 @@
                     :height will/default-font-size)
 
 (set-face-attribute 'fixed-pitch nil
-                    :font "SF Mono"
+                    :font "Courier New"
+                    ;; :font "SF Mono"
                     :height will/default-font-size)
 
 (set-face-attribute 'variable-pitch nil
-                    :font "Noto Sans"
+                    :font "Consolas"
+                    ;; :font "Noto Sans"
                     :height will/default-variable-font-size
                     :weight 'light)
 
@@ -239,7 +242,7 @@
   :hook prog-mode)
 
 (use-package rainbow-delimiters
-  :hook prog-mode)
+  :hook (prog-mode . rainbow-delimiters-mode))
 
 (use-package yafolding
   :ensure t
@@ -419,7 +422,8 @@
                   (org-level-7 . 1.1)
                   (org-level-8 . 1.1)))
     (set-face-attribute (car face) nil
-                        :font "Cantarell"
+                        :font "Microsoft Sans Serif"
+                        ;; :font "Cantarell"
                         :weight 'regular
                         :height (cdr face)))
 
@@ -474,9 +478,9 @@
   (setq org-log-into-drawer t)
   (setq org-src-preserve-indentation t)
 
-  (setq org-agenda-files '("~/Documents/org-mode/tasks.org"
-                           "~/Documents/org-mode/habits.org"
-                           "~/Documents/org-mode/zettel/scratch.org"))
+  (setq org-agenda-files '("~/org-mode/tasks.org"
+                           "~/org-mode/habits.org"
+                           "~/org-mode/zettel/scratch.org"))
   (setq org-agenda-start-day "-2d")
   (setq org-agenda-span 10)
   (setq org-agenda-loop-over-headlines-in-active-region nil)
@@ -487,20 +491,21 @@
   (add-to-list 'org-modules 'org-habit)
   (setq org-habit-graph-column 60)
 
-  (setq org-todo-keywords '((sequence "TODO(t)" "DONE(d!)")))
+  (setq org-todo-keywords '((sequence "TODO(t)" "BLOCKED(b)" "|" "DONE(d!)")))
 
   (setq org-refile-targets
-        '(("~/Documents/org-mode/tasks.org" :maxlevel . 1)
-          ("~/Documents/org-mode/archive.org" :maxlevel . 1)
-          ("~/Documents/org-mode/habits.org" :maxlevel . 1)))
+        '(("~/org-mode/tasks.org" :maxlevel . 1)
+          ("~/org-mode/archive.org" :maxlevel . 1)
+          ("~/org-mode/habits.org" :maxlevel . 1)))
 
   ;; Save Org buffers after refiling!
   (advice-add 'org-refile :after 'org-save-all-org-buffers)
 
   (setq org-capture-templates
         '(("t" "TODO" entry
-           (file+headline "~/Documents/org-mode/tasks.org" "Tasks") "* TODO %? %i %a")))
+           (file+headline "~/org-mode/tasks.org" "Tasks") "* TODO %? %i %a")))
 
+  '(setq org-agenda-custom-commands '('(org-agenda-skip-entry-if 'regexp "lunch")))
   (setq org-format-latex-options
         '(:foreground default
                       :background default
@@ -596,7 +601,7 @@
              (setq org-roam-completion-everywhere t)
              (setq org-roam-db-autosync-mode t)
              (setq org-roam-db-update-on-save t)
-             (setq org-roam-directory "/home/will/Documents/org-mode/zettel/")
+             (setq org-roam-directory "~/org-mode/zettel/")
 
   (setq org-roam-node-display-template
         (concat "${title:*} "
@@ -629,6 +634,8 @@
            "* %?"
            :target (file+head "%<%Y-%m-%d>.org"
                               "#+title: %<%Y-%m-%d>\n")))))
+
+(org-agenda nil "a")
 
 (use-package websocket
     :after org)
@@ -859,8 +866,8 @@
              ("C-c p" . projectile-command-map)
              :init
              ;; NOTE: Set this to the folder where you keep your Git repos!
-             (when (file-directory-p "~/Documents/code")
-               (setq projectile-project-search-path '("~/Documents/code")))
+             (when (file-directory-p "~/code")
+               (setq projectile-project-search-path '("~/code")))
              (setq projectile-switch-project-action #'projectile-dired))
 
 ;; ============================================================
@@ -892,11 +899,11 @@
 (use-package bash-completion
   :hook (bash-mode . (lambda () (bash-completion-setup))))
 
-(load "/home/will/.emacs.d/conf/will-global-keybindings.el")
-(load "/home/will/.emacs.d/conf/ibuffer-conf.el")
-(load "/home/will/.emacs.d/conf/shell-conf.el")
-(load "/home/will/.emacs.d/conf/dired-conf.el")
-(load "/home/will/.emacs.d/conf/elfeed-conf.el")
-(load "/home/will/.emacs.d/conf/mu4e-conf.el")
-(load "/home/will/.emacs.d/conf/erc-conf.el")
-(load "/home/will/.emacs.d/conf/lisp-conf.el")
+(load "~/.emacs.d/conf/will-global-keybindings.el")
+(load "~/.emacs.d/conf/ibuffer-conf.el")
+(load "~/.emacs.d/conf/shell-conf.el")
+(load "~/.emacs.d/conf/dired-conf.el")
+(load "~/.emacs.d/conf/elfeed-conf.el")
+(load "~/.emacs.d/conf/mu4e-conf.el")
+(load "~/.emacs.d/conf/erc-conf.el")
+(load "~/.emacs.d/conf/lisp-conf.el")
