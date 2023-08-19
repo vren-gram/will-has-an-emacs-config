@@ -3,6 +3,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(org-agenda-files
+   '("/home/will/Documents/org-mode/tasks.org"
+     "/home/will/Documents/org-mode/zettel/scratch.org"))
  '(package-selected-packages
    '(nginx-mode c-mode auto-complete dashboard adaptive-wrap c++-mode
      irony-eldoc company-irony-c-headers flycheck-google-cpplint
