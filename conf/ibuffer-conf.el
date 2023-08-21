@@ -33,8 +33,10 @@
                  ("agenda" (or
                             (name . "^\\*Org Agenda\\*$")
 							(name . "^\\*Calendar*\\*$")
-                            (filename . "Tasks.org")
-                            (filename . "Habits.org")))
+                            (filename . "tasks.org")
+                            (filename . "habits.org")
+                            (filename . "archive.org")
+                            (filename . "scratch.org")))
                  ("org" (mode . org-mode))
                  ("magit" (or
                            (name . "\*magit")

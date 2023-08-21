@@ -1,4 +1,3 @@
-
 (use-package all-the-icons
   :if (display-graphic-p)
   :custom  (when (display-graphic-p)))
@@ -7,6 +6,25 @@
 (use-package all-the-icons-dired
   :hook (dired-mode . all-the-icons-dired-mode))
 
+(defun dired-duplicate-this-file ()
+  "Duplicate file on this line."
+  (interactive)
+  (let* ((this  (dired-get-filename t))
+         (ctr   1)
+         (new   (format "%s[%d]" this ctr)))
+    (while (file-exists-p new)
+      (setq ctr  (1+ ctr)
+            new  (format "%s[%d]" this ctr)))
+     (dired-copy-file this new nil))
+  (revert-buffer))
+
+(use-package dired-subtree
+  :after dired
+  :ensure t
+  :bind (:map dired-mode-map
+			  ("i" . dired-subtree-insert)
+			  ("r" . dired-subtree-remove)))
+
 (use-package dired
   :ensure nil
   :commands (dired dired-jump)
@@ -14,8 +32,11 @@
     :map dired-mode-map
         ("r" . dired-kill-subdir)
 		("w" . browse-url-of-dired-file)
-		("W" . dired-copy-filename-as-kill))
-  :config (setq dired-dwim-target t)
+		("W" . dired-copy-filename-as-kill)
+        ("y" . dired-duplicate-this-file))
+  :config
+        (setq dired-dwim-target t)
+        (setq dired-recursive-copies 'always)
   :custom ((dired-listing-switches "-agho --group-directories-first")))
 
 (use-package dired-single

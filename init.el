@@ -4,26 +4,11 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(nginx-mode c-mode auto-complete dashboard adaptive-wrap c++-mode
-     irony-eldoc company-irony-c-headers flycheck-google-cpplint
-     rust-mode skewer-mode nodejs-repl js2-mode bundler inf-ruby
-     counsel-pydoc pydoc elpy python-info julia-formatter
-     all-the-icons-ivy ess dired-icon lsp-julia julia-mode ac-octave
-     bash-completion org-gcal vertico lisp-mode smartparens
-     elfeed-goodies elfeed dired-hide-dotfiles dired-single
-     all-the-icons-dired eshell-git-prompt vterm eterm-256color
-     all-the-icons-ibuffer forge magit with-editor company-box
-     company-irony company cpputils-cmake irony pyvenv python-mode
-     typescript-mode lsp-treemacs lsp-ivy lsp-ui lsp-mode yasnippet
-     ggtags flycheck ws-butler yafolding org-roam-ui websocket
-     org-roam org-download openwith dired-open mu4e mu4e-alert
-     math-symbol-lists djvu mpv valign pdf-tools ac-ispell org-drill
-     auctex ivy-fuz fuzzy flyspell-correct-ivy counsel-tramp
-     eldoc-cmake paredit company-c-headers org-tree-slide minesweeper
-     cmake-font-lock cmake-project cmake-mode cmake-ide
-     cpp-auto-include sudoku auctex-latexmk))
+   '(treesit-auto fontsloth nginx-mode c-mode auto-complete dashboard adaptive-wrap c++-mode irony-eldoc company-irony-c-headers flycheck-google-cpplint rust-mode skewer-mode nodejs-repl js2-mode bundler inf-ruby counsel-pydoc pydoc elpy python-info julia-formatter all-the-icons-ivy ess dired-icon lsp-julia julia-mode ac-octave bash-completion org-gcal vertico lisp-mode smartparens elfeed-goodies elfeed dired-hide-dotfiles dired-single all-the-icons-dired eshell-git-prompt vterm eterm-256color all-the-icons-ibuffer forge magit with-editor company-box company-irony company cpputils-cmake irony pyvenv python-mode typescript-mode lsp-treemacs lsp-ivy lsp-ui lsp-mode yasnippet ggtags flycheck ws-butler yafolding org-roam-ui websocket org-roam org-download openwith dired-open mu4e mu4e-alert math-symbol-lists djvu mpv valign pdf-tools ac-ispell org-drill auctex ivy-fuz fuzzy flyspell-correct-ivy counsel-tramp eldoc-cmake paredit company-c-headers org-tree-slide minesweeper cmake-font-lock cmake-project cmake-mode cmake-ide cpp-auto-include sudoku auctex-latexmk))
  '(safe-local-variable-values
-   '((Package . CL-PPCRE) (Base . 10) (Package . CL-USER)
+   '((Package . CL-PPCRE)
+     (Base . 10)
+     (Package . CL-USER)
      (Syntax . COMMON-LISP))))
 
 ;; (setq custom-safe-themes
@@ -310,7 +295,7 @@
      ("C-c C-f" . counsel-ag)
      ("M-x" . counsel-M-x)
      :map minibuffer-local-map
-       ("C-r" . 'counsel-minibuffer-history))
+     ("C-r" . 'counsel-minibuffer-history))
   :custom
   (counsel-linux-app-format-function #'counsel-linux-app-format-function-name-only)
   :config
@@ -467,7 +452,9 @@
          ("C-c l"  . org-store-link)
          ("C-c a" . org-agenda)
          ("C-c c" . org-capture)
-         ("C-c j" . org-roam-dailies-goto-today))
+         ("C-c j" . org-roam-dailies-goto-today)
+         ("C-c C-x C-j" . org-agenda-clock-goto)
+         :map org-mode-map ("C-c C-x C-a" . org-toggle-archive-tag))
 
 
   :config
@@ -480,7 +467,8 @@
 
   (setq org-agenda-files '("~/org-mode/tasks.org"
                            "~/org-mode/habits.org"
-                           "~/org-mode/zettel/scratch.org"))
+                           "~/org-mode/zettel/scratch.org"
+                           "~/org-mode/archive.org"))
   (setq org-agenda-start-day "-2d")
   (setq org-agenda-span 10)
   (setq org-agenda-loop-over-headlines-in-active-region nil)
@@ -492,6 +480,34 @@
   (setq org-habit-graph-column 60)
 
   (setq org-todo-keywords '((sequence "TODO(t)" "BLOCKED(b)" "|" "DONE(d!)")))
+
+  (setq org-priority-highest 1)
+  (setq org-priority-default 3)
+  (setq org-priority-lowest 7)
+
+  (setq org-clocktable-defaults '(:maxlevel 2
+                                  :lang "en"
+                                  :scope agenda-with-archives
+                                  :block nil
+                                  :wstart 1
+                                  :mstart 1
+                                  :tstart nil
+                                  :tend nil
+                                  :step nil
+                                  :stepskip0 nil
+                                  :fileskip0 nil
+                                  :tags nil
+                                  :match nil
+                                  :emphasize nil
+                                  :link nil
+                                  :narrow 40!
+                                  :indent t
+                                  :hidefiles nil
+                                  :formula nil
+                                  :timestamp nil
+                                  :level nil
+                                  :tcolumns nil
+                                  :formatter nil))
 
   (setq org-refile-targets
         '(("~/org-mode/tasks.org" :maxlevel . 1)
@@ -907,3 +923,4 @@
 (load "~/.emacs.d/conf/mu4e-conf.el")
 (load "~/.emacs.d/conf/erc-conf.el")
 (load "~/.emacs.d/conf/lisp-conf.el")
+(put 'downcase-region 'disabled nil)
