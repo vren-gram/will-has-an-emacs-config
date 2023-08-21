@@ -64,6 +64,7 @@
 (setq case-replace t)
 (setq resize-mini-windows t)
 (setq byte-compile-warnings '(cl-functions))
+(put 'downcase-region 'disabled nil)
 
 ;; ============================================================
 ;; eldoc
@@ -923,4 +924,3 @@
 (load "~/.emacs.d/conf/mu4e-conf.el")
 (load "~/.emacs.d/conf/erc-conf.el")
 (load "~/.emacs.d/conf/lisp-conf.el")
-(put 'downcase-region 'disabled nil)
