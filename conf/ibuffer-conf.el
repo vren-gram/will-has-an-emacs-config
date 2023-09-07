@@ -1,4 +1,3 @@
-
 (use-package all-the-icons-ibuffer)
 
 (use-package ibuffer
@@ -50,5 +49,9 @@
 				   (mode . context-mode)
 				   (mode . ams-tex-mode)
 				   (mode . bibtex-mode)))))))
+
+  (setq ibuffer-formats '((mark modified read-only locked " " (name 30 30 :left)
+                                " " filename-and-process) (mark " " (name 16 -1) " " filename)))
+
   (setq ibuffer-expert t)
   (setq ibuffer-show-empty-filter-groups nil))
