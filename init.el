@@ -4,12 +4,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(treesit-auto fontsloth nginx-mode c-mode auto-complete dashboard adaptive-wrap c++-mode irony-eldoc company-irony-c-headers flycheck-google-cpplint rust-mode skewer-mode nodejs-repl js2-mode bundler inf-ruby counsel-pydoc pydoc elpy python-info julia-formatter all-the-icons-ivy ess dired-icon lsp-julia julia-mode ac-octave bash-completion org-gcal vertico lisp-mode smartparens elfeed-goodies elfeed dired-hide-dotfiles dired-single all-the-icons-dired eshell-git-prompt vterm eterm-256color all-the-icons-ibuffer forge magit with-editor company-box company-irony company cpputils-cmake irony pyvenv python-mode typescript-mode lsp-treemacs lsp-ivy lsp-ui lsp-mode yasnippet ggtags flycheck ws-butler yafolding org-roam-ui websocket org-roam org-download openwith dired-open mu4e mu4e-alert math-symbol-lists djvu mpv valign pdf-tools ac-ispell org-drill auctex ivy-fuz fuzzy flyspell-correct-ivy counsel-tramp eldoc-cmake paredit company-c-headers org-tree-slide minesweeper cmake-font-lock cmake-project cmake-mode cmake-ide cpp-auto-include sudoku auctex-latexmk))
- '(safe-local-variable-values
-   '((Package . CL-PPCRE)
-     (Base . 10)
-     (Package . CL-USER)
-     (Syntax . COMMON-LISP))))
+   '(eglot pandoc emacsql-sqlite-builtin esqlite company-jedi virtualenv csv-mode pyvenv-auto treesit-auto fontsloth nginx-mode c-mode auto-complete dashboard adaptive-wrap c++-mode irony-eldoc company-irony-c-headers flycheck-google-cpplint rust-mode skewer-mode nodejs-repl js2-mode bundler inf-ruby counsel-pydoc pydoc elpy python-info julia-formatter all-the-icons-ivy ess dired-icon lsp-julia julia-mode ac-octave bash-completion org-gcal vertico lisp-mode smartparens elfeed-goodies elfeed dired-hide-dotfiles dired-single all-the-icons-dired eshell-git-prompt vterm eterm-256color all-the-icons-ibuffer forge magit with-editor company-box company-irony company cpputils-cmake irony python-mode typescript-mode lsp-treemacs lsp-ivy lsp-ui lsp-mode yasnippet ggtags flycheck ws-butler yafolding org-roam-ui websocket org-roam org-download openwith dired-open mu4e mu4e-alert math-symbol-lists djvu mpv valign pdf-tools ac-ispell org-drill auctex ivy-fuz fuzzy flyspell-correct-ivy counsel-tramp eldoc-cmake paredit company-c-headers org-tree-slide minesweeper cmake-font-lock cmake-project cmake-mode cmake-ide cpp-auto-include sudoku auctex-latexmk)))
 
 ;; (setq custom-safe-themes
       ;; '("7a7b1d475b42c1a0b61f3b1d1225dd249ffa1abb1b7f726aec59ac7ca3bf4dae" default))
@@ -454,8 +449,10 @@
          ("C-c a" . org-agenda)
          ("C-c c" . org-capture)
          ("C-c j" . org-roam-dailies-goto-today)
-         ("C-c C-x C-j" . org-agenda-clock-goto)
-         :map org-mode-map ("C-c C-x C-a" . org-toggle-archive-tag))
+         ("C-c C-x C-j" . org-clock-goto)
+         :map org-mode-map
+         ("C-c C-x C-a" . org-toggle-archive-tag)
+         ("C-M-." . org-time-stamp-inactive))
 
 
   :config
@@ -545,7 +542,7 @@
           ("" "amssymb" t nil)
           ("" "hyperref" t nil)))
 
-  (setq org-image-actual-width '(600)))
+  (setq org-image-actual-width '(400)))
 
 (setq calendar-latitude 42.36)
 (setq calendar-longitude -71.057)
@@ -595,10 +592,10 @@
 (use-package org-download
     :after org
     :bind (:map org-mode-map(
-            ("s-Y" . org-download-screenshot)
-            ("s-y" . org-download-clipboard)))
+            ("S-Y" . org-download-screenshot)
+            ("S-y" . org-download-clipboard)))
     :config
-        (setq org-download-screenshot-method "spectacle -br -o %s")
+        (setq org-download-screenshot-method "image-magick/convert %s")
         (setq org-download-annotate-function (lambda (_link) ""))
         (setq org-download-image-attr-list nil))
 
@@ -651,8 +648,6 @@
            "* %?"
            :target (file+head "%<%Y-%m-%d>.org"
                               "#+title: %<%Y-%m-%d>\n")))))
-
-(org-agenda nil "a")
 
 (use-package websocket
     :after org)
@@ -718,8 +713,8 @@
   :bind (:map eglot-mode-map
               ;; ("C-c C-d" . eldoc)
               ("C-c C-e" . eglot-rename)
-              ("C-c C-o" . python-sort-imports)
-              ("C-c C-f" . eglot-format-buffer))
+              ;; ("C-c C-f" . eglot-format-buffer)
+              ("C-c C-o" . python-sort-imports))
   :hook ((python-mode . eglot-ensure)
          (c++-mode . eglot-ensure)
          (typescript-mode . eglot-ensure)
@@ -727,12 +722,25 @@
   :config
   (add-to-list 'eglot-stay-out-of 'flymake 'flycheck)
   (setq-default eglot-workspace-configuration
-                '(:pylsp (:plugins
-                          (:jedi_completion (:include_params t :fuzzy t)
-                           :pylint (:enabled :json-false)
-                           :autopep8 (:enabled :json-false)
-                           :black (:enabled t :line_length 80)))
-                  :gopls (:usePlaceholders t))))
+                `((:pylsp .
+                          (:plugins
+                           (:jedi_completion (:include_params t :fuzzy t)
+                                             :pydocstyle (:enabled nil)
+                                             :pycodestyle (:enabled nil)
+                                             :mccabe (:enabled nil)
+                                             :pyflakes (:enabled nil)
+                                             :autopep8 (:enabled :json-false)
+                                             :black (:enabled t)))))))
+
+
+  ;; (setq-default eglot-workspace-configuration
+  ;;               '(:pylsp . (:plugins
+  ;;                           (:jedi_completion (:include_params t :fuzzy t)
+  ;;                                             :pylint (:enabled :json-false)
+  ;;                                             :autopep8 (:enabled :json-false)
+  ;;                                             :black (:enabled t :line_length 80)))
+  ;;                        :gopls (:usePlaceholders t))))
+
 
 (use-package typescript-mode
   :mode "\\.ts\\'"
@@ -748,15 +756,17 @@
               ("C-c C-d" . pydoc-at-point)
               ("C-c C-p" . run-python)
               ("C-c C-z" . other-window))
-  :hook (python-mode . eglot-ensure)
-             (python-mode . whitespace-mode)
-             (python-mode . yas-global-mode)
-             (python-mode . company-mode)
-             (inferior-python-mode . company-mode)
-  :custom
-  (python-shell-interpreter "python3")
+  :hook
+  (python-mode . eglot-ensure)
+  (python-mode . whitespace-mode)
+  (python-mode . yas-global-mode)
+  (python-mode . company-mode)
+  (inferior-python-mode . company-mode)
+  (inferior-python-mode . python-shell-completion-native-turn-off)
   :config
-  (setq python-indent-offset 4))
+  (setq python-indent-offset 4)
+  (setq python-shell-interpreter "ipython")
+  (setq python-shell-interpreter-args "-i"))
 
 (use-package pyvenv
   :after python-mode

@@ -29,11 +29,11 @@
   :config
   (setq typescript-indent-level 2))
 
-(use-package python-mode
-  :ensure t
-  :hook ((python-mode-hook . lsp-deferred)
-         (python-mode-hook . whitespace-mode))
-  :custom (python-shell-interpreter "python3"))
+;; (use-package python-mode
+;;   :ensure t
+;;   :hook ((python-mode-hook . lsp-deferred)
+;;          (python-mode-hook . whitespace-mode))
+;;   :custom (python-shell-interpreter "python"))
 
 (use-package pyvenv
   :after python-mode

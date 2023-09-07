@@ -1,5 +1,3 @@
-
-
 (defun toggle-window-split () (interactive)
     (if (= (count-windows) 2)
     (let* ((this-win-buffer (window-buffer))

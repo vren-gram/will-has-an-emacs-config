@@ -40,7 +40,6 @@
         ("https://slimemoldtimemold.com/feed/" blog rat)
         ("https://medium.com/feed/@ThingMaker" blog rat) ;; duncan sabien
         ("https://dominiccummings.substack.com/feed/" blog)
-		("https://dominiccummings.substack.com//feed/" blog rat)
         ("https://thingofthings.substack.com/feed/" blog rat) ;;Ozy!
         ("https://edwardsnowden.substack.com/feed/" blog)
         ("https://moreisdifferent.substack.com/feed/" blog rat) ;; Dan! you know, from the meetups

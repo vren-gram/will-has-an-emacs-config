@@ -2,6 +2,9 @@
 ;; global-keybindings
 (define-key global-map (kbd "C-x C-n") 'next-buffer)
 (define-key global-map (kbd "C-x C-p") 'previous-buffer)
+(define-key global-map (kbd "M-]") 'next-buffer)
+(define-key global-map (kbd "M-[") 'previous-buffer)
+
 (define-key global-map (kbd "C-x C-o") 'other-window)
 (define-key global-map (kbd "C-x C-k") 'kill-this-buffer)
 
