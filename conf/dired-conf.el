@@ -37,7 +37,7 @@
   :config
         (setq dired-dwim-target t)
         (setq dired-recursive-copies 'always)
-  :custom ((dired-listing-switches "-agho --group-directories-first")))
+        (setq dired-listing-switches "-ghFGDa --group-directories-first"))
 
 (use-package dired-single
   :commands (dired dired-jump))
