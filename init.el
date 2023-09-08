@@ -722,7 +722,7 @@
   :config
   (setq typescript-indent-level 2))
 
-(use-package python-mode
+(use-package python
   :ensure t
   :bind (:map python-mode-map
               ("C-c C-d" . pydoc-at-point)
@@ -736,10 +736,9 @@
              (python-mode . yas-global-mode)
              (python-mode . company-mode)
              (inferior-python-mode . company-mode)
-  :custom
-  (python-shell-interpreter "python3")
   :config
-  (setq python-indent-offset 4))
+  (setq python-indent-offset 4)
+  (setq python-shell-interpreter "ipython"))
 
 (use-package pyvenv
   :after python-mode
