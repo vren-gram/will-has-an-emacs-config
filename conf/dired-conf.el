@@ -7,14 +7,19 @@
 (use-package all-the-icons-dired
   :hook (dired-mode . all-the-icons-dired-mode))
 
+(use-package dired-subtree
+             :bind (:map dired-mode-map
+                         ("r" . dired-subtree-remove)
+                         ("i" . dired-subtree-insert)))
+
 (use-package dired
   :ensure nil
   :commands (dired dired-jump)
   :bind (("C-x C-j" . dired-jump)
-    :map dired-mode-map
-        ("r" . dired-kill-subdir)
-		("w" . browse-url-of-dired-file)
-		("W" . dired-copy-filename-as-kill))
+         :map dired-mode-map
+         ;; ("r" . dired-kill-subdir)
+		 ("w" . browse-url-of-dired-file)
+		 ("W" . dired-copy-filename-as-kill))
   :config (setq dired-dwim-target t)
   :custom ((dired-listing-switches "-agho --group-directories-first")))
 
