@@ -3,8 +3,8 @@
   :custom  (when (display-graphic-p)))
 
 
-(use-package all-the-icons-dired
-  :hook (dired-mode . all-the-icons-dired-mode))
+;; (use-package all-the-icons-dired
+  ;; :hook (dired-mode . all-the-icons-dired-mode))
 
 (defun dired-duplicate-this-file ()
   "Duplicate file on this line."

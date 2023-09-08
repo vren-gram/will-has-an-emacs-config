@@ -244,7 +244,9 @@
 (use-package doom-modeline
   :ensure t
   :hook (after-init . doom-modeline-mode)
-  :custom ((doom-modeline-height 15)))
+  :config
+  (setq doom-modeline-height 15)
+  (setq doom-modeline-icon nil))
 
 ;; ============================================================
 (use-package which-key
@@ -333,7 +335,7 @@
 
 (use-package ivy-fuz)
 
-(use-package all-the-icons-ivy-rich)
+;; (use-package all-the-icons-ivy-rich)
 
 (setcdr (assq t ivy-format-functions-alist) #'ivy-format-function-line)
 (setq ivy-rich-path-style 'abbrev)
