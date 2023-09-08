@@ -3,25 +3,22 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(org-agenda-files
-   '("/home/will/Documents/org-mode/tasks.org"
-     "/home/will/Documents/org-mode/zettel/scratch.org"))
  '(package-selected-packages
-   '(nginx-mode c-mode auto-complete dashboard adaptive-wrap c++-mode
-     irony-eldoc company-irony-c-headers flycheck-google-cpplint
-     rust-mode skewer-mode nodejs-repl js2-mode bundler inf-ruby
-     counsel-pydoc pydoc elpy python-info julia-formatter
-     all-the-icons-ivy ess dired-icon lsp-julia julia-mode ac-octave
-     bash-completion org-gcal vertico lisp-mode smartparens
-     elfeed-goodies elfeed dired-hide-dotfiles dired-single
-     all-the-icons-dired eshell-git-prompt vterm eterm-256color
-     all-the-icons-ibuffer forge magit with-editor company-box
-     company-irony company cpputils-cmake irony pyvenv python-mode
-     typescript-mode lsp-treemacs lsp-ivy lsp-ui lsp-mode yasnippet
-     ggtags flycheck ws-butler yafolding org-roam-ui websocket
-     org-roam org-download openwith dired-open mu4e mu4e-alert
-     math-symbol-lists djvu mpv valign pdf-tools ac-ispell org-drill
-     auctex ivy-fuz fuzzy flyspell-correct-ivy counsel-tramp
+   '(dired-subtree nginx-mode c-mode auto-complete dashboard
+     adaptive-wrap c++-mode irony-eldoc company-irony-c-headers
+     flycheck-google-cpplint rust-mode skewer-mode nodejs-repl
+     js2-mode bundler inf-ruby counsel-pydoc pydoc elpy python-info
+     julia-formatter all-the-icons-ivy ess dired-icon lsp-julia
+     julia-mode ac-octave bash-completion org-gcal vertico lisp-mode
+     smartparens elfeed-goodies elfeed dired-hide-dotfiles
+     dired-single all-the-icons-dired eshell-git-prompt vterm
+     eterm-256color all-the-icons-ibuffer forge magit with-editor
+     company-box company-irony company cpputils-cmake irony pyvenv
+     python-mode typescript-mode lsp-treemacs lsp-ivy lsp-ui lsp-mode
+     yasnippet ggtags flycheck ws-butler yafolding org-roam-ui
+     websocket org-roam org-download openwith dired-open mu4e
+     mu4e-alert math-symbol-lists djvu mpv valign pdf-tools ac-ispell
+     org-drill auctex ivy-fuz fuzzy flyspell-correct-ivy counsel-tramp
      eldoc-cmake paredit company-c-headers org-tree-slide minesweeper
      cmake-font-lock cmake-project cmake-mode cmake-ide
      cpp-auto-include sudoku auctex-latexmk))
@@ -466,7 +463,8 @@
          ("C-c l"  . org-store-link)
          ("C-c a" . org-agenda)
          ("C-c c" . org-capture)
-         ("C-c j" . org-roam-dailies-goto-today))
+         ("C-c j" . org-roam-dailies-goto-today)
+         ("C-c C-x C-a" . org-toggle-archive-tag))
 
 
   :config
@@ -492,6 +490,10 @@
   (setq org-habit-graph-column 60)
 
   (setq org-todo-keywords '((sequence "TODO(t)" "DONE(d!)")))
+
+  (setq org-lowest-priority 7)
+  (setq org-highest-priority 1)
+  (setq org-default-priority 3)
 
   (setq org-refile-targets
         '(("~/Documents/org-mode/orgzly/tasks.org" :maxlevel . 1)
