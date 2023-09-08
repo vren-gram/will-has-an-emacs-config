@@ -7,3 +7,4 @@
 /.org-generic-id-locations
 /server/
 /fonts/
+*.elc
