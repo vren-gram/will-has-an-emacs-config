@@ -61,6 +61,7 @@
 (tool-bar-mode -1)          ; Disable the toolbar
 (tooltip-mode -1)           ; Disable tooltips
 (menu-bar-mode -1)            ; Disable the menu bar
+(put 'downcase-region 'disabled nil)
 ;; default transparency settings
 (setq default-frame-alist '((alpha 100 . 100)))
 ;; ============================================================
