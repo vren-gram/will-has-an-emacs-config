@@ -79,7 +79,9 @@
 (setq case-replace t)
 (setq resize-mini-windows t)
 (setq byte-compile-warnings '(cl-functions))
-
+;; ============================================================
+;; set global auto revert to help with syncthing and magit
+(setq global-auto-revert-mode 't)
 ;; ============================================================
 ;; eldoc
 (setq eldoc-echo-area-use-multiline-p 2)
@@ -381,8 +383,10 @@
     (setq visual-fill-column-width 105))
 
 ;; ============================================================
-(use-package auctex)
-(use-package auctex-latexmk)
+(use-package auctex
+             :ensure t)
+(use-package auctex-latexmk
+             :ensure t)
 (setq TeX-view-program-selection '(((output-dvi has-no-display-manager)
                                     "dvi2tty")
                                    ((output-dvi style-pstricks)
@@ -495,9 +499,9 @@
   (setq org-lowest-priority 7)
   (setq org-highest-priority 1)
   (setq org-default-priority 3)
-
   (setq org-refile-targets
-        '(("~/Documents/org-mode/orgzly/tasks.org" :maxlevel . 1)
+        '(
+          ("~/Documents/org-mode/orgzly/tasks.org" :maxlevel . 1)
           ("~/Documents/org-mode/orgzly/archive.org" :maxlevel . 1)
           ("~/Documents/org-mode/orgzly/habits.org" :maxlevel . 1)))
 
@@ -506,7 +510,7 @@
 
   (setq org-capture-templates
         '(("t" "TODO" entry
-           (file+headline "~/Documents/org-mode/orgzly/tasks.org" "Tasks") "* TODO %? %i %a")))
+           (file "~/Documents/org-mode/orgzly/tasks.org") "* TODO %? %i %a")))
 
   (setq org-format-latex-options
         '(:foreground default
