@@ -6,3 +6,4 @@
 /var/
 /.org-generic-id-locations
 /conf/erc-conf.lisp
+*.elc
