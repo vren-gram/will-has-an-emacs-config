@@ -479,7 +479,7 @@
   (add-to-list 'org-modules 'org-habit)
   (setq org-habit-graph-column 60)
 
-  (setq org-todo-keywords '((sequence "TODO(t)" "BLOCKED(b)" "|" "DONE(d!)")))
+  (setq org-todo-keywords '((sequence "TODO(t)" "JUGGLING(j)" "BLOCKED(b)" "|" "DONE(d!)" "CANCELLED(c!)")))
 
   (setq org-priority-highest 1)
   (setq org-priority-default 3)
