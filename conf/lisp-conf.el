@@ -2,7 +2,7 @@
 
 ;; (load (expand-file-name "~/.quicklisp/slime-helper.el"))
 
-(setq inferior-lisp-program "sbcl --dynamic-space-size 8192")
+(setq inferior-lisp-program "clisp.exe -m 8192MB")
 
 (use-package smartparens
     :hook ((lisp-mode . smartparens-mode)

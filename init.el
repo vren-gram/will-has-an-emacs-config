@@ -4,7 +4,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(eglot pandoc emacsql-sqlite-builtin esqlite company-jedi virtualenv csv-mode pyvenv-auto treesit-auto fontsloth nginx-mode c-mode auto-complete dashboard adaptive-wrap c++-mode irony-eldoc company-irony-c-headers flycheck-google-cpplint rust-mode skewer-mode nodejs-repl js2-mode bundler inf-ruby counsel-pydoc pydoc elpy python-info julia-formatter all-the-icons-ivy ess dired-icon lsp-julia julia-mode ac-octave bash-completion org-gcal vertico lisp-mode smartparens elfeed-goodies elfeed dired-hide-dotfiles dired-single all-the-icons-dired eshell-git-prompt vterm eterm-256color all-the-icons-ibuffer forge magit with-editor company-box company-irony company cpputils-cmake irony python-mode typescript-mode lsp-treemacs lsp-ivy lsp-ui lsp-mode yasnippet ggtags flycheck ws-butler yafolding org-roam-ui websocket org-roam org-download openwith dired-open mu4e mu4e-alert math-symbol-lists djvu mpv valign pdf-tools ac-ispell org-drill auctex ivy-fuz fuzzy flyspell-correct-ivy counsel-tramp eldoc-cmake paredit company-c-headers org-tree-slide minesweeper cmake-font-lock cmake-project cmake-mode cmake-ide cpp-auto-include sudoku auctex-latexmk)))
+   '(org-habit-stats eglot pandoc emacsql-sqlite-builtin esqlite company-jedi virtualenv csv-mode pyvenv-auto treesit-auto fontsloth nginx-mode c-mode auto-complete dashboard adaptive-wrap c++-mode irony-eldoc company-irony-c-headers flycheck-google-cpplint rust-mode skewer-mode nodejs-repl js2-mode bundler inf-ruby counsel-pydoc pydoc elpy python-info julia-formatter all-the-icons-ivy ess dired-icon lsp-julia julia-mode ac-octave bash-completion org-gcal vertico lisp-mode smartparens elfeed-goodies elfeed dired-hide-dotfiles dired-single all-the-icons-dired eshell-git-prompt vterm eterm-256color all-the-icons-ibuffer forge magit with-editor company-box company-irony company cpputils-cmake irony python-mode typescript-mode lsp-treemacs lsp-ivy lsp-ui lsp-mode yasnippet ggtags flycheck ws-butler yafolding org-roam-ui websocket org-roam org-download openwith dired-open mu4e mu4e-alert math-symbol-lists djvu mpv valign pdf-tools ac-ispell org-drill auctex ivy-fuz fuzzy flyspell-correct-ivy counsel-tramp eldoc-cmake paredit company-c-headers org-tree-slide minesweeper cmake-font-lock cmake-project cmake-mode cmake-ide cpp-auto-include sudoku auctex-latexmk)))
 
 ;; (setq custom-safe-themes
       ;; '("7a7b1d475b42c1a0b61f3b1d1225dd249ffa1abb1b7f726aec59ac7ca3bf4dae" default))
@@ -345,19 +345,33 @@
 (setcdr (assq t ivy-format-functions-alist) #'ivy-format-function-line)
 (setq ivy-rich-path-style 'abbrev)
 
-(setq ivy-rich-display-transformers-list
-      '(ivy-switch-buffer (
-                           :columns
-                           ((ivy-rich-switch-buffer-icon (:width 2))
-                            (ivy-rich-candidate (:width 30))
-                            (ivy-rich-switch-buffer-size (:width 8))
-                            (ivy-rich-switch-buffer-indicators (:width 4 :face error :align right))
-                            (ivy-rich-switch-buffer-major-mode (:width 12 :face warning))
-                            (ivy-rich-switch-buffer-project (:width 15 :face success))
-                            (ivy-rich-switch-buffer-path (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path 
-                                                                         (ivy-rich-minibuffer-width 0.3))))))
-                           :predicate
-                           (lambda (cand) (get-buffer cand)))))
+(defvar ivy-rich--ivy-switch-buffer-cache
+  (make-hash-table :test 'equal))
+
+(define-advice ivy-rich--ivy-switch-buffer-transformer
+    (:around (old-fn x) cache)
+  (let ((ret (gethash x ivy-rich--ivy-switch-buffer-cache)))
+    (unless ret
+      (setq ret (funcall old-fn x))
+      (puthash x ret ivy-rich--ivy-switch-buffer-cache))
+    ret))
+
+(define-advice +ivy/switch-buffer
+    (:before (&rest _) ivy-rich-reset-cache)
+  (clrhash ivy-rich--ivy-switch-buffer-cache))
+
+;; (setq ivy-rich-display-transformers-list
+;;       '(ivy-switch-buffer (
+;;                            :columns
+;;                            ((ivy-rich-candidate (:width 30))
+;;                             (ivy-rich-switch-buffer-size (:width 8))
+;;                             (ivy-rich-switch-buffer-indicators (:width 4 :face error :align right))
+;;                             (ivy-rich-switch-buffer-major-mode (:width 12 :face warning))
+;;                             (ivy-rich-switch-buffer-project (:width 15 :face success))
+;;                             (ivy-rich-switch-buffer-path (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path
+;;                                                                          (ivy-rich-minibuffer-width 0.3))))))
+;;                            :predicate
+;;                            (lambda (cand) (get-buffer cand)))))
 
 (use-package counsel-projectile
     :after projectile
@@ -915,7 +929,6 @@
 
 (use-package with-editor
              :after magit)
-
 
 ;; ============================================================
 (use-package semantic

@@ -8,3 +8,4 @@
 /server/
 /fonts/
 *.elc
+/auto-save-list/
