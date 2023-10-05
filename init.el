@@ -18,6 +18,11 @@
  '(line-number-current-line ((t (:foreground "#676E95" :strike-through nil :underline nil :slant normal :weight normal :height 1.0 :width normal :family "Hack"))))
  '(mu4e-compose-header-face ((t (:inherit message-separator :foreground "white" :slant italic))))
  '(mu4e-ok-face ((t (:inherit font-lock-comment-face :foreground "medium spring green" :slant normal :weight bold))))
+ '(org-agenda-clocking ((t (:background "DarkGoldenrod1" :foreground "snow"))))
+ '(org-agenda-done ((t (:inherit org-done :foreground "DarkGoldenrod4"))))
+ '(org-scheduled-today ((t (:foreground "#EEFFFF"))))
+ '(org-table ((t (:inherit fixed-pitch :background "black" :foreground "snow" :slant normal :weight regular :height 120 :width normal :foundry "outline" :family "Hack"))))
+ '(org-time-grid ((t (:foreground "DarkGoldenrod2"))))
  '(trailing-whitespace ((t (:background "dim gray"))))
  '(whitespace-big-indent ((t (:background "black" :foreground "firebrick")))))
 
@@ -464,7 +469,7 @@
   (setq org-log-done 'time)
   (setq org-log-into-drawer t)
   (setq org-src-preserve-indentation t)
-
+  (setq org-agenda-clockreport-parameter-plist '(:link t :maxlevel 2 :block lastmonth :step day))
   (setq org-agenda-files '("~/org-mode/tasks.org"
                            "~/org-mode/habits.org"
                            "~/org-mode/zettel/scratch.org"
