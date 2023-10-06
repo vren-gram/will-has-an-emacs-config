@@ -460,11 +460,6 @@
 (use-package org
   :pin org
   :commands (org-capture org-agenda)
-  :hook ((org-mode . will/org-mode-setup)
-         (org-mode . will/org-mode-visual-fill)
-         (org-mode . will/org-font-setup))
-  ;; :hook (#'valign-mode)
-  :defer 2
   :bind (("C-c n w" . insert-attr-decls)
          ("C-c l"  . org-store-link)
          ("C-c a" . org-agenda)
@@ -474,8 +469,11 @@
          :map org-mode-map
          ("C-c C-x C-a" . org-toggle-archive-tag)
          ("C-M-." . org-time-stamp-inactive))
+  :hook ((org-mode . will/org-mode-setup)
+         (org-mode . will/org-mode-visual-fill)
+         (org-mode . will/org-font-setup))
 
-
+  :defer 2
   :config
   (setq org-ellipsis " ▾")
   (setq org-startup-with-inline-images t)
@@ -510,22 +508,8 @@
                                   :block nil
                                   :wstart 1
                                   :mstart 1
-                                  :tstart nil
-                                  :tend nil
-                                  :step nil
-                                  :stepskip0 nil
-                                  :fileskip0 nil
-                                  :tags nil
-                                  :match nil
-                                  :emphasize nil
-                                  :link nil
                                   :narrow 40!
                                   :indent t
-                                  :hidefiles nil
-                                  :formula nil
-                                  :timestamp nil
-                                  :level nil
-                                  :tcolumns nil
                                   :formatter nil))
 
   (setq org-refile-targets
@@ -533,14 +517,10 @@
           ("~/org-mode/archive.org" :maxlevel . 1)
           ("~/org-mode/habits.org" :maxlevel . 1)))
 
-  ;; Save Org buffers after refiling!
-  (advice-add 'org-refile :after 'org-save-all-org-buffers)
-
   (setq org-capture-templates
         '(("t" "TODO" entry
            (file+headline "~/org-mode/tasks.org" "Tasks") "* TODO %? %i %a")))
 
-  '(setq org-agenda-custom-commands '('(org-agenda-skip-entry-if 'regexp "lunch")))
   (setq org-format-latex-options
         '(:foreground default
                       :background default
