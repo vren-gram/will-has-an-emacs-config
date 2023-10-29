@@ -38,6 +38,12 @@
  '(line-number-current-line ((t (:foreground "#676E95" :strike-through nil :underline nil :slant normal :weight normal :height 1.0 :width normal :family "Hack"))))
  '(mu4e-compose-header-face ((t (:inherit message-separator :foreground "white" :slant italic))))
  '(mu4e-ok-face ((t (:inherit font-lock-comment-face :foreground "medium spring green" :slant normal :weight bold))))
+ '(org-agenda-clocking ((t (:background "SeaGreen3"))))
+ '(org-agenda-done ((t (:inherit org-done :foreground "AntiqueWhite4"))))
+ '(org-scheduled-previously ((t (:foreground "OrangeRed1"))))
+ '(org-scheduled-today ((t (:foreground "khaki1"))))
+ '(org-table ((t (:inherit fixed-pitch :background "black" :foreground "snow" :slant normal :weight regular :height 120 :width normal :foundry "SRC" :family "Hack"))))
+ '(org-upcoming-deadline ((t (:foreground "PaleGreen1"))))
  '(trailing-whitespace ((t (:background "dim gray"))))
  '(whitespace-big-indent ((t (:background "black" :foreground "firebrick")))))
 
@@ -465,7 +471,7 @@
   ;; :hook (#'valign-mode)
   :defer 2
   :bind (("C-c n w" . insert-attr-decls)
-         ("C-c l"  . org-store-link)
+         ("C-c l" . org-store-link)
          ("C-c a" . org-agenda)
          ("C-c c" . org-capture)
          ("C-c j" . org-roam-dailies-goto-today)
@@ -473,6 +479,7 @@
 
 
   :config
+  (global-set-key (kbd "C-c a") 'org-agenda)
   (setq org-ellipsis " ▾")
   (setq org-startup-with-inline-images t)
   (setq org-agenda-start-with-log-mode t)
