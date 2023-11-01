@@ -38,12 +38,13 @@
  '(line-number-current-line ((t (:foreground "#676E95" :strike-through nil :underline nil :slant normal :weight normal :height 1.0 :width normal :family "Hack"))))
  '(mu4e-compose-header-face ((t (:inherit message-separator :foreground "white" :slant italic))))
  '(mu4e-ok-face ((t (:inherit font-lock-comment-face :foreground "medium spring green" :slant normal :weight bold))))
- '(org-agenda-clocking ((t (:background "SeaGreen3"))))
- '(org-agenda-done ((t (:inherit org-done :foreground "AntiqueWhite4"))))
+ '(org-agenda-clocking ((t (:background "medium sea green" :foreground "blanched almond"))))
+ '(org-agenda-done ((t (:inherit org-done :foreground "DarkSeaGreen4"))))
+ '(org-scheduled ((t (:foreground "pale green"))))
  '(org-scheduled-previously ((t (:foreground "OrangeRed1"))))
- '(org-scheduled-today ((t (:foreground "khaki1"))))
- '(org-table ((t (:inherit fixed-pitch :background "black" :foreground "snow" :slant normal :weight regular :height 120 :width normal :foundry "SRC" :family "Hack"))))
+ '(org-scheduled-today ((t (:foreground "lemon chiffon"))))
  '(org-upcoming-deadline ((t (:foreground "PaleGreen1"))))
+ '(org-table ((t (:inherit fixed-pitch :background "black" :foreground "snow" :slant normal :weight regular :height 120 :width normal :foundry "SRC" :family "Hack"))))
  '(trailing-whitespace ((t (:background "dim gray"))))
  '(whitespace-big-indent ((t (:background "black" :foreground "firebrick")))))
 
@@ -72,7 +73,7 @@
 (setq default-frame-alist '((alpha 100 . 100)))
 ;; ============================================================
 ;; initial buffer things
-(setq initial-buffer-choice "")
+(setq initial-buffer-choice 'org-agenda)
 (setq initial-major-mode 'org-mode)
 (setq initial-scratch-message "")
 (setq frame-resize-pixelwise t)
@@ -475,7 +476,9 @@
          ("C-c a" . org-agenda)
          ("C-c c" . org-capture)
          ("C-c j" . org-roam-dailies-goto-today)
-         ("C-c C-x C-a" . org-toggle-archive-tag))
+         ("C-c C-x C-a" . org-toggle-archive-tag)
+         ("C-c a" . org-agenda)
+         ("C-c C-x C-j" . org-clock-goto))
 
 
   :config
@@ -503,9 +506,19 @@
 
   (setq org-todo-keywords '((sequence "TODO(t)" "DONE(d!)")))
 
-  (setq org-lowest-priority 7)
+  (setq org-clocktable-defaults '(:maxlevel 2
+                                  :lang "en"
+                                  :scope agenda-with-archives
+                                  :block nil
+                                  :wstart 1
+                                  :mstart 1
+                                  :narrow 40!
+                                  :indent t
+                                  :formatter nil))
+
   (setq org-highest-priority 1)
   (setq org-default-priority 3)
+  (setq org-lowest-priority 7)
   (setq org-refile-targets
         '(
           ("~/Documents/org-mode/orgzly/tasks.org" :maxlevel . 1)
