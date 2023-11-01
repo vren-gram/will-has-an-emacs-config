@@ -490,7 +490,7 @@
   (setq org-agenda-files '("~/Documents/org-mode/orgzly/tasks.org"
                            "~/Documents/org-mode/orgzly/habits.org"
                            "~/Documents/org-mode/orgzly/archive.org"
-                           "~/Documents/org-mode/zettel/scratch.org"))
+                           "~/Documents/org-mode/orgzly/scratch.org"))
   (setq org-agenda-start-day "-2d")
   (setq org-agenda-span 10)
   (setq org-agenda-loop-over-headlines-in-active-region nil)
