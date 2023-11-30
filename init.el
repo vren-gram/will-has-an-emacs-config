@@ -509,7 +509,7 @@
   (add-to-list 'org-modules 'org-habit)
   (setq org-habit-graph-column 60)
 
-  (setq org-todo-keywords '((sequence "TODO(t)" "DONE(d!)")))
+  (setq org-todo-keywords '((sequence "TODO(t)" "|" "DONE(d!)" "CANCELLED(c)")))
 
   (setq org-clocktable-defaults '(:maxlevel 3
                                   :lang "en"
