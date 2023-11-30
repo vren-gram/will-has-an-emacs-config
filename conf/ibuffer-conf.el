@@ -36,7 +36,8 @@
                             (filename . "tasks.org")
                             (filename . "habits.org")
                             (filename . "archive.org")
-                            (filename . "scratch.org")))
+                            (filename . "scratch.org")
+                            (filename . "recurring.org")))
                  ("org" (mode . org-mode))
                  ("magit" (or
                            (name . "\*magit")

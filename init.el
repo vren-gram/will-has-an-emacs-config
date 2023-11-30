@@ -3,6 +3,11 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(org-agenda-files
+   '("~/Documents/org-mode/orgzly/recurring.org"
+     "/home/will/Documents/org-mode/orgzly/tasks.org"
+     "/home/will/Documents/org-mode/orgzly/habits.org"
+     "/home/will/Documents/org-mode/orgzly/archive.org"))
  '(package-selected-packages
    '(dired-subtree nginx-mode c-mode auto-complete dashboard
      adaptive-wrap c++-mode irony-eldoc company-irony-c-headers
@@ -43,8 +48,8 @@
  '(org-scheduled ((t (:foreground "pale green"))))
  '(org-scheduled-previously ((t (:foreground "OrangeRed1"))))
  '(org-scheduled-today ((t (:foreground "lemon chiffon"))))
- '(org-upcoming-deadline ((t (:foreground "PaleGreen1"))))
  '(org-table ((t (:inherit fixed-pitch :background "black" :foreground "snow" :slant normal :weight regular :height 120 :width normal :foundry "SRC" :family "Hack"))))
+ '(org-upcoming-deadline ((t (:foreground "PaleGreen1"))))
  '(trailing-whitespace ((t (:background "dim gray"))))
  '(whitespace-big-indent ((t (:background "black" :foreground "firebrick")))))
 
@@ -73,7 +78,7 @@
 (setq default-frame-alist '((alpha 100 . 100)))
 ;; ============================================================
 ;; initial buffer things
-(setq initial-buffer-choice 'org-agenda)
+(setq initial-buffer-choice 'scratch)
 (setq initial-major-mode 'org-mode)
 (setq initial-scratch-message "")
 (setq frame-resize-pixelwise t)
@@ -493,7 +498,7 @@
   (setq org-agenda-files '("~/Documents/org-mode/orgzly/tasks.org"
                            "~/Documents/org-mode/orgzly/habits.org"
                            "~/Documents/org-mode/orgzly/archive.org"
-                           "~/Documents/org-mode/orgzly/scratch.org"))
+                           "~/Documents/org-mode/orgzly/recurring.org"))
   (setq org-agenda-start-day "-2d")
   (setq org-agenda-span 10)
   (setq org-agenda-loop-over-headlines-in-active-region nil)
@@ -506,7 +511,7 @@
 
   (setq org-todo-keywords '((sequence "TODO(t)" "DONE(d!)")))
 
-  (setq org-clocktable-defaults '(:maxlevel 2
+  (setq org-clocktable-defaults '(:maxlevel 3
                                   :lang "en"
                                   :scope agenda-with-archives
                                   :block nil
@@ -521,9 +526,9 @@
   (setq org-lowest-priority 7)
   (setq org-refile-targets
         '(
-          ("~/Documents/org-mode/orgzly/tasks.org" :maxlevel . 1)
-          ("~/Documents/org-mode/orgzly/archive.org" :maxlevel . 1)
-          ("~/Documents/org-mode/orgzly/habits.org" :maxlevel . 1)))
+          ("~/Documents/org-mode/orgzly/tasks.org" :maxlevel . 2)
+          ("~/Documents/org-mode/orgzly/archive.org" :maxlevel . 2)
+          ("~/Documents/org-mode/orgzly/habits.org" :maxlevel . 2)))
 
   ;; Save Org buffers after refiling!
   (advice-add 'org-refile :after 'org-save-all-org-buffers)
@@ -558,7 +563,7 @@
 
 (setq calendar-latitude 42.36)
 (setq calendar-longitude -71.057)
-(setq calendar-location-name "Boston, MA")
+(setq calendar-location-name "Providence, RI")
 
 (use-package org-bullets
     :hook (org-mode . org-bullets-mode)
@@ -640,7 +645,7 @@
   (setq org-roam-capture-templates
         '(("d" "default" plain "%?" :target
            (file+head "${slug}.org"
-                      "#+title: ${title}\n#+STARTUP: = latexpreview")
+                      "#+title: ${title}\n#+STARTUP: = latexpreview\n#+STARTUP: showall")
            :unnarrowed t)))
 
   (setq org-ellipsis " ▾")
