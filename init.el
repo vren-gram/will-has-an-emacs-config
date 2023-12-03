@@ -78,7 +78,7 @@
 (setq default-frame-alist '((alpha 100 . 100)))
 ;; ============================================================
 ;; initial buffer things
-(setq initial-buffer-choice 'scratch)
+(setq initial-buffer-choice t)
 (setq initial-major-mode 'org-mode)
 (setq initial-scratch-message "")
 (setq frame-resize-pixelwise t)
