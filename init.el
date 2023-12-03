@@ -632,7 +632,7 @@
              (setq org-roam-completion-everywhere t)
              (setq org-roam-db-autosync-mode t)
              (setq org-roam-db-update-on-save t)
-             (setq org-roam-directory "/home/will/Documents/org-mode/zettel/")
+             (setq org-roam-directory "/home/will/documents/org-mode/zettel/")
 
   (setq org-roam-node-display-template
         (concat "${title:*} "
