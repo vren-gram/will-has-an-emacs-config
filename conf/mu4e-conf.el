@@ -29,7 +29,7 @@
   (setq mu4e-view-show-images t)
   (setq mu4e-compose-format-flowed t)
   (setq mu4e-get-mail-command "mbsync -a")
-  (setq mu4e-maildir "~/Maildir/")
+  (setq mu4e-maildir "~/maildir/")
 
   ;; prevent duplicate unread messages count
   (setq mu4e-headers-skip-duplicates nil)

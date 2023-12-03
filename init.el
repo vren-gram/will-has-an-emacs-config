@@ -4,29 +4,29 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(org-agenda-files
-   '("~/Documents/org-mode/orgzly/recurring.org"
-     "/home/will/Documents/org-mode/orgzly/tasks.org"
-     "/home/will/Documents/org-mode/orgzly/habits.org"
-     "/home/will/Documents/org-mode/orgzly/archive.org"))
+   '("/home/will/documents/org-mode/orgzly/recurring.org"
+     "/home/will/documents/org-mode/orgzly/tasks.org"
+     "/home/will/documents/org-mode/orgzly/habits.org"
+     "/home/will/documents/org-mode/orgzly/archive.org"))
  '(package-selected-packages
-   '(dired-subtree nginx-mode c-mode auto-complete dashboard
-     adaptive-wrap c++-mode irony-eldoc company-irony-c-headers
-     flycheck-google-cpplint rust-mode skewer-mode nodejs-repl
-     js2-mode bundler inf-ruby counsel-pydoc pydoc elpy python-info
-     julia-formatter all-the-icons-ivy ess dired-icon lsp-julia
-     julia-mode ac-octave bash-completion org-gcal vertico lisp-mode
-     smartparens elfeed-goodies elfeed dired-hide-dotfiles
-     dired-single all-the-icons-dired eshell-git-prompt vterm
-     eterm-256color all-the-icons-ibuffer forge magit with-editor
-     company-box company-irony company cpputils-cmake irony pyvenv
-     python-mode typescript-mode lsp-treemacs lsp-ivy lsp-ui lsp-mode
-     yasnippet ggtags flycheck ws-butler yafolding org-roam-ui
-     websocket org-roam org-download openwith dired-open mu4e
-     mu4e-alert math-symbol-lists djvu mpv valign pdf-tools ac-ispell
-     org-drill auctex ivy-fuz fuzzy flyspell-correct-ivy counsel-tramp
-     eldoc-cmake paredit company-c-headers org-tree-slide minesweeper
-     cmake-font-lock cmake-project cmake-mode cmake-ide
-     cpp-auto-include sudoku auctex-latexmk))
+   '(ac-ispell ac-octave adaptive-wrap all-the-icons-dired
+     all-the-icons-ibuffer all-the-icons-ivy auctex auctex-latexmk
+     auto-complete bash-completion bundler c++-mode c-mode
+     cmake-font-lock cmake-ide cmake-mode cmake-project company
+     company-box company-c-headers company-irony
+     company-irony-c-headers counsel-pydoc counsel-tramp
+     cpp-auto-include cpputils-cmake dashboard dired-hide-dotfiles
+     dired-icon dired-open dired-single dired-subtree djvu eldoc-cmake
+     elfeed elfeed-goodies elpy eshell-git-prompt ess eterm-256color
+     flycheck flycheck-google-cpplint flyspell-correct-ivy forge fuzzy
+     ggtags inf-ruby irony irony-eldoc ivy-fuz js2-mode
+     julia-formatter julia-mode lisp-mode lsp-ivy lsp-julia lsp-mode
+     lsp-treemacs lsp-ui magit math-symbol-lists minesweeper mpv mu4e
+     mu4e-alert nginx-mode nodejs-repl openwith org-download org-drill
+     org-gcal org-roam org-roam-ui org-tree-slide paredit pdf-tools
+     pomm pydoc python-info python-mode pyvenv rust-mode skewer-mode
+     smartparens sudoku typescript-mode valign vertico vterm websocket
+     with-editor ws-butler yafolding yasnippet))
  '(safe-local-variable-values
    '((Package . CL-PPCRE) (Base . 10) (Package . CL-USER)
      (Syntax . COMMON-LISP))))
@@ -495,10 +495,10 @@
   (setq org-log-into-drawer t)
   (setq org-src-preserve-indentation t)
 
-  (setq org-agenda-files '("~/Documents/org-mode/orgzly/tasks.org"
-                           "~/Documents/org-mode/orgzly/habits.org"
-                           "~/Documents/org-mode/orgzly/archive.org"
-                           "~/Documents/org-mode/orgzly/recurring.org"))
+  (setq org-agenda-files '("~/documents/org-mode/orgzly/tasks.org"
+                           "~/documents/org-mode/orgzly/habits.org"
+                           "~/documents/org-mode/orgzly/archive.org"
+                           "~/documents/org-mode/orgzly/recurring.org"))
   (setq org-agenda-start-day "-2d")
   (setq org-agenda-span 10)
   (setq org-agenda-loop-over-headlines-in-active-region nil)
@@ -526,16 +526,16 @@
   (setq org-lowest-priority 7)
   (setq org-refile-targets
         '(
-          ("~/Documents/org-mode/orgzly/tasks.org" :maxlevel . 2)
-          ("~/Documents/org-mode/orgzly/archive.org" :maxlevel . 2)
-          ("~/Documents/org-mode/orgzly/habits.org" :maxlevel . 2)))
+          ("~/documents/org-mode/orgzly/tasks.org" :maxlevel . 2)
+          ("~/documents/org-mode/orgzly/archive.org" :maxlevel . 2)
+          ("~/documents/org-mode/orgzly/habits.org" :maxlevel . 2)))
 
   ;; Save Org buffers after refiling!
   (advice-add 'org-refile :after 'org-save-all-org-buffers)
 
   (setq org-capture-templates
         '(("t" "TODO" entry
-           (file "~/Documents/org-mode/orgzly/tasks.org") "* TODO %? %i %a")))
+           (file "~/documents/org-mode/orgzly/tasks.org") "* TODO %? %i %a")))
 
   (setq org-format-latex-options
         '(:foreground default
@@ -894,8 +894,8 @@
              ("C-c p" . projectile-command-map)
              :init
              ;; NOTE: Set this to the folder where you keep your Git repos!
-             (when (file-directory-p "~/Documents/code")
-               (setq projectile-project-search-path '("~/Documents/code")))
+             (when (file-directory-p "~/documents/code")
+               (setq projectile-project-search-path '("~/documents/code")))
              (setq projectile-switch-project-action #'projectile-dired))
 
 ;; ============================================================
