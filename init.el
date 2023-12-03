@@ -645,7 +645,7 @@
   (setq org-roam-capture-templates
         '(("d" "default" plain "%?" :target
            (file+head "${slug}.org"
-                      "#+title: ${title}\n#+STARTUP: = latexpreview\n#+STARTUP: showall")
+                      "#+title: ${title}\n#+STARTUP: = latexpreview showall")
            :unnarrowed t)))
 
   (setq org-ellipsis " ▾")
