@@ -927,6 +927,15 @@
 (use-package bash-completion
   :hook (bash-mode . (lambda () (bash-completion-setup))))
 
+(use-package pomm
+             :hook ((after-init . pomm-mode-line-mode))
+             :config
+             (when (or (eq system-type 'gnu/linux)
+                       (eq system-type 'linux))
+               (setq pomm-audio-enabled t)
+               (setq pomm-audio-player-executable "/usr/bin/mpv"))
+             (setq pomm-state-file-location "~/.emacs.d/var/pomm"))
+
 (load "/home/will/.emacs.d/conf/will-global-keybindings.el")
 (load "/home/will/.emacs.d/conf/ibuffer-conf.el")
 (load "/home/will/.emacs.d/conf/shell-conf.el")
