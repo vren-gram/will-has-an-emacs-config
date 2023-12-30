@@ -395,8 +395,8 @@
     (setq visual-fill-column-width 105))
 
 ;; ============================================================
-(use-package auctex
-             :ensure t)
+(use-package tex
+             :ensure auctex)
 (use-package auctex-latexmk
              :ensure t)
 (setq TeX-view-program-selection '(((output-dvi has-no-display-manager)
