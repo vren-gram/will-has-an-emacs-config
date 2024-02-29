@@ -62,7 +62,8 @@
         ("https://www.benkuhn.net/rss" blog rat) ;; ben has come to my house
         ("https://eukaryotewritesblog.com/rss/" blog rat Georgia)
         ("https://livingwithinreason.com/feed/" blog rat Wes)
-        ("https://hollyelmore.substack.com/feed/" blog rat Holly)))
+        ("https://hollyelmore.substack.com/feed/" blog rat Holly)
+        ("https://www.bryanbraun.com/rss.xml" blog programming)))
 
 (use-package elfeed-goodies)
 (elfeed-goodies/setup)

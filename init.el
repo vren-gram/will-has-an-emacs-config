@@ -4,7 +4,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(org-timeline org-habit-stats eglot pandoc emacsql-sqlite-builtin esqlite company-jedi virtualenv csv-mode pyvenv-auto treesit-auto fontsloth nginx-mode c-mode auto-complete dashboard adaptive-wrap c++-mode irony-eldoc company-irony-c-headers flycheck-google-cpplint rust-mode skewer-mode nodejs-repl js2-mode bundler inf-ruby counsel-pydoc pydoc elpy python-info julia-formatter all-the-icons-ivy ess dired-icon lsp-julia julia-mode ac-octave bash-completion org-gcal vertico lisp-mode smartparens elfeed-goodies elfeed dired-hide-dotfiles dired-single all-the-icons-dired eshell-git-prompt vterm eterm-256color all-the-icons-ibuffer forge magit with-editor company-box company-irony company cpputils-cmake irony python-mode typescript-mode lsp-treemacs lsp-ivy lsp-ui lsp-mode yasnippet ggtags flycheck ws-butler yafolding org-roam-ui websocket org-roam org-download openwith dired-open mu4e mu4e-alert math-symbol-lists djvu mpv valign pdf-tools ac-ispell org-drill auctex ivy-fuz fuzzy flyspell-correct-ivy counsel-tramp eldoc-cmake paredit company-c-headers org-tree-slide minesweeper cmake-font-lock cmake-project cmake-mode cmake-ide cpp-auto-include sudoku auctex-latexmk)))
+   '(slime ace-jump-mode pomm org-timeline org-habit-stats eglot pandoc emacsql-sqlite-builtin esqlite company-jedi virtualenv csv-mode pyvenv-auto treesit-auto fontsloth nginx-mode c-mode auto-complete dashboard adaptive-wrap c++-mode irony-eldoc company-irony-c-headers flycheck-google-cpplint rust-mode skewer-mode nodejs-repl js2-mode bundler inf-ruby counsel-pydoc pydoc elpy python-info julia-formatter all-the-icons-ivy ess dired-icon lsp-julia julia-mode ac-octave bash-completion org-gcal vertico lisp-mode smartparens elfeed-goodies elfeed dired-hide-dotfiles dired-single all-the-icons-dired eshell-git-prompt vterm eterm-256color all-the-icons-ibuffer forge magit with-editor company-box company-irony company cpputils-cmake irony python-mode typescript-mode lsp-treemacs lsp-ivy lsp-ui lsp-mode yasnippet ggtags flycheck ws-butler yafolding org-roam-ui websocket org-roam org-download openwith dired-open mu4e mu4e-alert math-symbol-lists djvu mpv valign pdf-tools ac-ispell org-drill auctex ivy-fuz fuzzy flyspell-correct-ivy counsel-tramp eldoc-cmake paredit company-c-headers org-tree-slide minesweeper cmake-font-lock cmake-project cmake-mode cmake-ide cpp-auto-include sudoku auctex-latexmk)))
 
 ;; (setq custom-safe-themes
       ;; '("7a7b1d475b42c1a0b61f3b1d1225dd249ffa1abb1b7f726aec59ac7ca3bf4dae" default))
@@ -20,6 +20,7 @@
  '(mu4e-ok-face ((t (:inherit font-lock-comment-face :foreground "medium spring green" :slant normal :weight bold))))
  '(org-agenda-clocking ((t (:background "medium sea green" :foreground "blanched almond"))))
  '(org-agenda-done ((t (:inherit org-done :foreground "DarkSeaGreen4"))))
+ '(org-imminent-deadline ((t (:inherit org-warning))))
  '(org-scheduled ((t (:foreground "pale green"))))
  '(org-scheduled-previously ((t (:foreground "OrangeRed1"))))
  '(org-scheduled-today ((t (:foreground "lemon chiffon"))))
@@ -67,7 +68,7 @@
 (setq resize-mini-windows t)
 (setq byte-compile-warnings '(cl-functions))
 (put 'downcase-region 'disabled nil)
-
+(put 'upcase-region 'disabled nil)
 ;; ============================================================
 ;; eldoc
 (setq eldoc-echo-area-use-multiline-p 2)
@@ -387,15 +388,18 @@
     (setq visual-fill-column-width 105))
 
 ;; ============================================================
-(use-package auctex)
-(use-package auctex-latexmk)
-(setq TeX-view-program-selection '(((output-dvi has-no-display-manager)
-                                    "dvi2tty")
-                                   ((output-dvi style-pstricks)
-                                    "dvips and gv")
-                                   (output-dvi "xdvi")
-                                   (output-pdf "Zathura")
-                                   (output-html "xdg-open")))
+(use-package tex
+  :ensure auctex)
+
+(use-package auctex-latexmk
+  :config
+  (setq TeX-view-program-selection '(((output-dvi has-no-display-manager)
+                                      "dvi2tty")
+                                     ((output-dvi style-pstricks)
+                                      "dvips and gv")
+                                     (output-dvi "xdvi")
+                                     (output-pdf "Zathura")
+                                     (output-html "xdg-open"))))
 
 ;; ============================================================
 ;; org
@@ -629,9 +633,9 @@
               #'org-roam-reflinks-section))
 
   (setq org-roam-capture-templates
-        '(("d" "default" plain "%?" :target
-           (file+head "${slug}.org"
-                      "#+title: ${title}\n#+STARTUP: = latexpreview")
+        '(("d" "default" plain "%?"
+           :target (file+head "${slug}.org"
+                              "#+title: ${title} \n#+STARTUP: = latexpreview")
            :unnarrowed t)))
 
   (setq org-ellipsis " ▾")
@@ -926,6 +930,17 @@
 (use-package djvu)
 (use-package bash-completion
   :hook (bash-mode . (lambda () (bash-completion-setup))))
+;; ============================================================
+(use-package pomm
+  :hook
+  ((after-init . pomm-mode-line-mode))
+  :config
+  (when (eq system-type 'windows-nt)
+    (setq pomm-audio-enabled nil)
+    (setq pomm-audio-player-executable ""))
+  (setq pomm-state-tile-location "~/.emacs.d/var/pomm"))
+
+
 
 (load "~/.emacs.d/conf/will-global-keybindings.el")
 (load "~/.emacs.d/conf/ibuffer-conf.el")
