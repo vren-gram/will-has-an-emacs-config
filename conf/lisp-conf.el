@@ -39,18 +39,19 @@
 
 (use-package slime
 			 :bind ((:map slime-repl-mode-map
-						  ("TAB" . slime-fuzzy-indent-and-complete-symbol)
+						  ("TAB" . slime-indent-and-complete-symbol)
 						  ("C-c C-z" . other-window))
 					(:map slime-fuzzy-completions-map
 						  ("C-d" . slime-describe-symbol)
 						  ("q" . quit-window)))
 			 :hook ((slime-repl-mode . (lambda () (paredit-mode +1)))
 					(slime-repl-mode . (lambda () (rainbow-delimiters-mode +1)))
-					;; (slime-repl-mode . (lambda () (auto-complete-mode '1)))
+					(slime-repl-mode . (lambda () (auto-complete-mode '1)))
 					(slime-repl-mode . slime-autodoc-mode))
 			 :config
 			 (setq slime-description-autofocus t)
 			 (setq lisp-indent-function 'common-lisp-indent-function)
 			 (setq common-lisp-style-default "sbcl"))
 
+(setq slime-fuzzy-completions-in-place t)
 (slime-setup '(slime-fancy slime-quicklisp slime-asdf))

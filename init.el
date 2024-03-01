@@ -4,31 +4,13 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(org-agenda-files
-   '("/home/will/documents/org-mode/orgzly/recurring.org"
-     "/home/will/documents/org-mode/orgzly/tasks.org"
-     "/home/will/documents/org-mode/orgzly/habits.org"
-     "/home/will/documents/org-mode/orgzly/archive.org"))
+   '("/home/will/documents/org-mode/orgzly/feather-tasks.org" "/home/will/documents/org-mode/orgzly/tasks.org" "/home/will/documents/org-mode/orgzly/habits.org" "/home/will/documents/org-mode/orgzly/archive.org" "/home/will/documents/org-mode/orgzly/recurring.org"))
  '(package-selected-packages
-   '(ac-ispell ac-octave adaptive-wrap all-the-icons-dired
-     all-the-icons-ibuffer all-the-icons-ivy auctex auctex-latexmk
-     auto-complete bash-completion bundler c++-mode c-mode
-     cmake-font-lock cmake-ide cmake-mode cmake-project company
-     company-box company-c-headers company-irony
-     company-irony-c-headers counsel-pydoc counsel-tramp
-     cpp-auto-include cpputils-cmake dashboard dired-hide-dotfiles
-     dired-icon dired-open dired-single dired-subtree djvu eldoc-cmake
-     elfeed elfeed-goodies elpy eshell-git-prompt ess eterm-256color
-     flycheck flycheck-google-cpplint flyspell-correct-ivy forge fuzzy
-     ggtags inf-ruby irony irony-eldoc ivy-fuz js2-mode
-     julia-formatter julia-mode lisp-mode lsp-ivy lsp-julia lsp-mode
-     lsp-treemacs lsp-ui magit math-symbol-lists minesweeper mpv mu4e
-     mu4e-alert nginx-mode nodejs-repl openwith org-download org-drill
-     org-gcal org-roam org-roam-ui org-tree-slide paredit pdf-tools
-     pomm pydoc python-info python-mode pyvenv rust-mode skewer-mode
-     smartparens sudoku typescript-mode valign vertico vterm websocket
-     with-editor ws-butler yafolding yasnippet))
+   '(slime ac-ispell ac-octave adaptive-wrap all-the-icons-dired all-the-icons-ibuffer all-the-icons-ivy auctex auctex-latexmk auto-complete bash-completion bundler c++-mode c-mode cmake-font-lock cmake-ide cmake-mode cmake-project company company-box company-c-headers company-irony company-irony-c-headers counsel-pydoc counsel-tramp cpp-auto-include cpputils-cmake dashboard dired-hide-dotfiles dired-icon dired-open dired-single dired-subtree djvu eldoc-cmake elfeed elfeed-goodies elpy eshell-git-prompt ess eterm-256color flycheck flycheck-google-cpplint flyspell-correct-ivy forge fuzzy ggtags inf-ruby irony irony-eldoc ivy-fuz js2-mode julia-formatter julia-mode lisp-mode lsp-ivy lsp-julia lsp-mode lsp-treemacs lsp-ui magit math-symbol-lists minesweeper mpv mu4e mu4e-alert nginx-mode nodejs-repl openwith org-download org-drill org-gcal org-roam org-roam-ui org-tree-slide paredit pdf-tools pomm pydoc python-info python-mode pyvenv rust-mode skewer-mode smartparens sudoku typescript-mode valign vertico vterm websocket with-editor ws-butler yafolding yasnippet))
  '(safe-local-variable-values
-   '((Package . CL-PPCRE) (Base . 10) (Package . CL-USER)
+   '((Package . CL-PPCRE)
+     (Base . 10)
+     (Package . CL-USER)
      (Syntax . COMMON-LISP))))
 
 ;; (setq custom-safe-themes
@@ -106,12 +88,12 @@
 (defalias 'yes-or-no-p 'y-or-n-p)
 
 ;; redefining behavior to kill by default
-(defun quit-window (&optional kill window)
-  (interactive "P")
-  (with-current-buffer (window-buffer (window-normalize-window window))
-    (run-hooks 'quit-window-hook))
-  ;; used to be 'kill 'bury
-  (quit-restore-window window (if kill 'kill 'kill)))
+;; (defun quit-window (&optional kill window)
+;;   (interactive "P")
+;;   (with-current-buffer (window-buffer (window-normalize-window window))
+;;     (run-hooks 'quit-window-hook))
+;;   ;; used to be 'kill 'bury
+;;   (quit-restore-window window (if kill 'kill 'kill)))
 
 ;; ============================================================
 ;; backups
@@ -565,10 +547,17 @@
 (setq calendar-longitude -71.057)
 (setq calendar-location-name "Providence, RI")
 
+(defun org-summary-todo (n-done n-not-done)
+  "Switch entry to DONE when all subentries are done, to TODO otherwise."
+  (let (org-log-done org-todo-log-states)   ; turn off logging
+    (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
+
+(add-hook 'org-after-todo-statistics-hook #'org-summary-todo)
+
 (use-package org-bullets
-    :hook (org-mode . org-bullets-mode)
-    :custom
-        (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
+             :hook (org-mode . org-bullets-mode)
+             :custom
+             (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
 
 (use-package org-tree-slide)
 
@@ -767,7 +756,7 @@
              (inferior-python-mode . company-mode)
   :config
   (setq python-indent-offset 4)
-  (setq python-shell-interpreter "ipython"))
+  (setq python-shell-interpreter "python3"))
 
 (use-package pyvenv
   :after python-mode
