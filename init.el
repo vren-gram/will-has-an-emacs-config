@@ -81,12 +81,12 @@
 (defalias 'yes-or-no-p 'y-or-n-p)
 
 ;; redefining behavior to kill by default
-(defun quit-window (&optional kill window)
-  (interactive "P")
-  (with-current-buffer (window-buffer (window-normalize-window window))
-    (run-hooks 'quit-window-hook))
-  ;; used to be 'kill 'bury
-  (quit-restore-window window (if kill 'kill 'kill)))
+;; (defun quit-window (&optional kill window)
+;;   (interactive "P")
+;;   (with-current-buffer (window-buffer (window-normalize-window window))
+;;     (run-hooks 'quit-window-hook))
+;;   ;; used to be 'kill 'bury
+;;   (quit-restore-window window (if kill 'kill 'kill)))
 
 ;; ============================================================
 ;; backups
@@ -597,14 +597,14 @@
 
 ;;org download allows images to be yanked from the web and from the clipboard
 (use-package org-download
-    :after org
-    :bind (:map org-mode-map(
-            ("S-Y" . org-download-screenshot)
-            ("S-y" . org-download-clipboard)))
-    :config
-        (setq org-download-screenshot-method "image-magick/convert %s")
-        (setq org-download-annotate-function (lambda (_link) ""))
-        (setq org-download-image-attr-list nil))
+             :after org
+             :bind (:map org-mode-map(
+                                      ("S-Y" . org-download-screenshot)
+                                      ("S-y" . org-download-clipboard)))
+             :config
+             (setq org-download-screenshot-method "image-magick/convert %s")
+             (setq org-download-annotate-function (lambda (_link) ""))
+             (setq org-download-image-attr-list nil))
 
 (add-hook 'emacs-startup-hook #'(lambda () (org-roam-db-autosync-mode 1)))
 

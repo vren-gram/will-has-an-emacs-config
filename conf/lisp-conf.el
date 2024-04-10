@@ -1,6 +1,6 @@
 (require 'slime)
 
-;; (load (expand-file-name "~/.quicklisp/slime-helper.el"))
+;; (load (expand-file-name "~/quicklisp/slime-helper.el"))
 (setq inferior-lisp-program "sbcl.exe")
 
 (use-package smartparens
@@ -39,13 +39,13 @@
 (add-hook 'emacs-lisp-mode-hook '(lambda () (indent-tabs-mode -1)))
 
 (use-package slime
-			 :bind (
-                    (:map slime-repl-mode-map
-						  ("TAB" . slime-fuzzy-indent-and-complete-symbol)
-						  ("C-c C-z" . other-window))
-					(:map slime-fuzzy-completions-map
-						  ("C-d" . slime-describe-symbol)
-						  ("q" . quit-window)))
+			 ;; :bind (
+                    ;; (:map slime-repl-mode-map
+						  ;; ("TAB" . slime-fuzzy-indent-and-complete-symbol)
+						  ;; ("C-c C-z" . other-window))
+					;; (:map slime-fuzzy-completions-map
+						  ;; ("C-d" . slime-describe-symbol)
+						  ;; ("q" . quit-window)))
 			 :hook ((slime-repl-mode . (lambda () (paredit-mode +1)))
 					(slime-repl-mode . (lambda () (rainbow-delimiters-mode +1)))
 					;; (slime-repl-mode . (lambda () (auto-complete-mode '1)))

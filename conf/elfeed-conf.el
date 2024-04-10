@@ -63,7 +63,8 @@
         ("https://eukaryotewritesblog.com/rss/" blog rat Georgia)
         ("https://livingwithinreason.com/feed/" blog rat Wes)
         ("https://hollyelmore.substack.com/feed/" blog rat Holly)
-        ("https://www.bryanbraun.com/rss.xml" blog programming)))
+        ("https://www.bryanbraun.com/rss.xml" blog programming)
+        ("https://buttondown.email/thehypothesis/rss" blog hn)))
 
 (use-package elfeed-goodies)
 (elfeed-goodies/setup)
