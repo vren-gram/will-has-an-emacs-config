@@ -7,3 +7,5 @@
 /.org-generic-id-locations
 /conf/erc-conf.lisp
 *.elc
+/auto-save-list/
+/org-fc-reviews.tsv
