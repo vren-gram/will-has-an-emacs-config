@@ -4,9 +4,9 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(org-agenda-files
-   '("/home/will/documents/org-mode/orgzly/feather-tasks.org" "/home/will/documents/org-mode/orgzly/tasks.org" "/home/will/documents/org-mode/orgzly/habits.org" "/home/will/documents/org-mode/orgzly/archive.org" "/home/will/documents/org-mode/orgzly/recurring.org"))
+   '("~/documents/org-mode/zettel/netherlands_trip.org" "/home/will/documents/org-mode/orgzly/tasks.org" "/home/will/documents/org-mode/orgzly/habits.org" "/home/will/documents/org-mode/orgzly/archive.org" "/home/will/documents/org-mode/orgzly/recurring.org"))
  '(package-selected-packages
-   '(slime ac-ispell ac-octave adaptive-wrap all-the-icons-dired all-the-icons-ibuffer all-the-icons-ivy auctex auctex-latexmk auto-complete bash-completion bundler c++-mode c-mode cmake-font-lock cmake-ide cmake-mode cmake-project company company-box company-c-headers company-irony company-irony-c-headers counsel-pydoc counsel-tramp cpp-auto-include cpputils-cmake dashboard dired-hide-dotfiles dired-icon dired-open dired-single dired-subtree djvu eldoc-cmake elfeed elfeed-goodies elpy eshell-git-prompt ess eterm-256color flycheck flycheck-google-cpplint flyspell-correct-ivy forge fuzzy ggtags inf-ruby irony irony-eldoc ivy-fuz js2-mode julia-formatter julia-mode lisp-mode lsp-ivy lsp-julia lsp-mode lsp-treemacs lsp-ui magit math-symbol-lists minesweeper mpv mu4e mu4e-alert nginx-mode nodejs-repl openwith org-download org-drill org-gcal org-roam org-roam-ui org-tree-slide paredit pdf-tools pomm pydoc python-info python-mode pyvenv rust-mode skewer-mode smartparens sudoku typescript-mode valign vertico vterm websocket with-editor ws-butler yafolding yasnippet))
+   '(anki-editor org-fc slime ac-ispell ac-octave adaptive-wrap all-the-icons-dired all-the-icons-ibuffer all-the-icons-ivy auctex auctex-latexmk auto-complete bash-completion bundler c++-mode c-mode cmake-font-lock cmake-ide cmake-mode cmake-project company company-box company-c-headers company-irony company-irony-c-headers counsel-pydoc counsel-tramp cpp-auto-include cpputils-cmake dashboard dired-hide-dotfiles dired-icon dired-open dired-single dired-subtree djvu eldoc-cmake elfeed elfeed-goodies elpy eshell-git-prompt ess eterm-256color flycheck flycheck-google-cpplint flyspell-correct-ivy forge fuzzy ggtags inf-ruby irony irony-eldoc ivy-fuz js2-mode julia-formatter julia-mode lisp-mode lsp-ivy lsp-julia lsp-mode lsp-treemacs lsp-ui magit math-symbol-lists minesweeper mpv mu4e mu4e-alert nginx-mode nodejs-repl openwith org-download org-drill org-gcal org-roam org-roam-ui org-tree-slide paredit pdf-tools pomm pydoc python-info python-mode pyvenv rust-mode skewer-mode smartparens sudoku typescript-mode valign vertico vterm websocket with-editor ws-butler yafolding yasnippet))
  '(safe-local-variable-values
    '((Package . CL-PPCRE)
      (Base . 10)
@@ -75,7 +75,7 @@
 (setq byte-compile-warnings '(cl-functions))
 ;; ============================================================
 ;; set global auto revert to help with syncthing and magit
-(setq global-auto-revert-mode 't)
+(setq global-auto-revert-mode t)
 ;; ============================================================
 ;; eldoc
 (setq eldoc-echo-area-use-multiline-p 2)
@@ -448,7 +448,8 @@
 
 (defun insert-attr-decls ()
   (interactive)
-  (insert "#+ATTR_ORG: :width 600 :align center\n"))
+  (insert "#+attr_html: :width 400 :align center")
+  (dotimes (n 2) (org-toggle-inline-images)))
 
 (use-package org
   :pin org
@@ -477,10 +478,10 @@
   (setq org-log-into-drawer t)
   (setq org-src-preserve-indentation t)
 
-  (setq org-agenda-files '("~/documents/org-mode/orgzly/tasks.org"
-                           "~/documents/org-mode/orgzly/habits.org"
-                           "~/documents/org-mode/orgzly/archive.org"
-                           "~/documents/org-mode/orgzly/recurring.org"))
+  (setq org-agenda-files '("~/documents/org-mode/zettel/tasks.org"
+                           "~/documents/org-mode/zettel/habits.org"
+                           "~/documents/org-mode/zettel/archive.org"
+                           "~/documents/org-mode/zettel/recurring.org"))
   (setq org-agenda-start-day "-2d")
   (setq org-agenda-span 10)
   (setq org-agenda-loop-over-headlines-in-active-region nil)
@@ -508,9 +509,9 @@
   (setq org-lowest-priority 7)
   (setq org-refile-targets
         '(
-          ("~/documents/org-mode/orgzly/tasks.org" :maxlevel . 2)
-          ("~/documents/org-mode/orgzly/archive.org" :maxlevel . 2)
-          ("~/documents/org-mode/orgzly/habits.org" :maxlevel . 2)))
+          ("~/documents/org-mode/zettel/tasks.org" :maxlevel . 2)
+          ("~/documents/org-mode/zettel/archive.org" :maxlevel . 2)
+          ("~/documents/org-mode/zettel/habits.org" :maxlevel . 2)))
 
   ;; Save Org buffers after refiling!
   (advice-add 'org-refile :after 'org-save-all-org-buffers)
@@ -541,7 +542,7 @@
           ("" "amssymb" t nil)
           ("" "hyperref" t nil)))
 
-  (setq org-image-actual-width '(600)))
+  (setq org-image-actual-width '(400)))
 
 (setq calendar-latitude 42.36)
 (setq calendar-longitude -71.057)
@@ -557,7 +558,7 @@
 (use-package org-bullets
              :hook (org-mode . org-bullets-mode)
              :custom
-             (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
+             (org-bullets-bullet-list '("◉" "⦾" "●" "○" "●" "○" "●")))
 
 (use-package org-tree-slide)
 
@@ -592,20 +593,33 @@
     (add-to-list 'org-structure-template-alist '("sp" . "src spice"))
     (add-to-list 'org-structure-template-alist '("R" . "src R")))
 
-(use-package org-drill)
+(use-package hydra)
+(use-package org-fc
+  :load-path "~/.emacs.d/elpa/org-fc"
+  :custom (org-fc-directories '("~/documents/org-mode/zettel"))
+  :config
+             (require 'org-fc-hydra )
+             (require 'org-fc-keymap-hint)
+             (advice-add 'org-fc-review-quit :after 'org-save-all-org-buffers))
 
 ;;org download allows images to be yanked from the web and from the clipboard
-(use-package org-download
-    :after org
-    :bind (:map org-mode-map(
-            ("s-Y" . org-download-screenshot)
-            ("s-y" . org-download-clipboard)))
-    :config
-        (setq org-download-screenshot-method "spectacle -br -o %s")
-        (setq org-download-annotate-function (lambda (_link) ""))
-        (setq org-download-image-attr-list nil))
+(defun will/org-download-clipboard-and-name ()
+  (interactive)
+  (org-download-clipboard (concat (read-string "filename? ") ".png")))
 
-(add-hook 'emacs-startup-hook #'(lambda () (org-roam-db-autosync-mode 1)))
+(use-package org-download
+             :after org
+             :bind (:map org-mode-map(
+                                      ("s-Y" . org-download-screenshot)
+                                      ("s-y" . will/org-download-clipboard-and-name)))
+             :config
+             (setq org-download-screenshot-method "spectacle -br -o %s")
+             (setq org-download-annotate-function (lambda (_link) ""))
+             (setq org-download-image-attr-list nil)
+             (add-hook 'dired-mode-hook 'org-download-enable)
+             (setq org-download-image-html-width 400)
+             (setq org-download-timestamp ""))
+
 
 (use-package org-roam
   :hook (org-mode . will/org-mode-setup)
@@ -655,8 +669,10 @@
            :target (file+head "%<%Y-%m-%d>.org"
                               "#+title: %<%Y-%m-%d>\n")))))
 
+(use-package anki-editor)
+
 (use-package websocket
-    :after org)
+             :after org)
 
 (use-package org-roam-ui
     :after org
