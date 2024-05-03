@@ -64,7 +64,8 @@
         ("https://livingwithinreason.com/feed/" blog rat Wes)
         ("https://hollyelmore.substack.com/feed/" blog rat Holly)
         ("https://www.bryanbraun.com/rss.xml" blog programming)
-        ("https://buttondown.email/thehypothesis/rss" blog hn)))
+        ("https://buttondown.email/thehypothesis/rss" blog hn)
+        ("https://theunderground.blog/feed.xml" blog joke)))
 
 (use-package elfeed-goodies)
 (elfeed-goodies/setup)

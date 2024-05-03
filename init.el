@@ -58,6 +58,8 @@
 (setq initial-major-mode 'org-mode)
 (setq initial-scratch-message "")
 (setq frame-resize-pixelwise t)
+(setq global-auto-revert-mode t)
+
 ;; ============================================================
 ;; misc
 (setq column-number-mode t)
