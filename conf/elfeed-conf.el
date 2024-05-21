@@ -1,7 +1,11 @@
 
 (use-package elfeed
   :bind (:map elfeed-show-mode-map
-			  ("r" . image-decrease-size)))
+			  ("r" . image-decrease-size)
+              ("<up>" . pixel-scroll-down)
+              ("<down>" . pixel-scroll-up))
+             :hook (elfeed-show-mode . pixel-scroll-mode))
+
 ;;(setq elfeed-search-filter "@6-months-ago")
 
 
@@ -65,7 +69,9 @@
         ("https://hollyelmore.substack.com/feed/" blog rat Holly)
         ("https://www.bryanbraun.com/rss.xml" blog programming)
         ("https://buttondown.email/thehypothesis/rss" blog hn)
-        ("https://theunderground.blog/feed.xml" blog joke)))
+        ("https://theunderground.blog/feed.xml" blog joke)
+        ("https://www.construction-physics.com/feed" blog urbanism)
+        ("https://community.cadence.com/cadence_blogs_8/b/breakfast-bytes/rss" blog electronics)))
 
 (use-package elfeed-goodies)
 (elfeed-goodies/setup)
