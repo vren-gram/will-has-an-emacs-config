@@ -4,7 +4,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(slime ace-jump-mode pomm org-timeline org-habit-stats eglot pandoc emacsql-sqlite-builtin esqlite company-jedi virtualenv csv-mode pyvenv-auto treesit-auto fontsloth nginx-mode c-mode auto-complete dashboard adaptive-wrap c++-mode irony-eldoc company-irony-c-headers flycheck-google-cpplint rust-mode skewer-mode nodejs-repl js2-mode bundler inf-ruby counsel-pydoc pydoc elpy python-info julia-formatter all-the-icons-ivy ess dired-icon lsp-julia julia-mode ac-octave bash-completion org-gcal vertico lisp-mode smartparens elfeed-goodies elfeed dired-hide-dotfiles dired-single all-the-icons-dired eshell-git-prompt vterm eterm-256color all-the-icons-ibuffer forge magit with-editor company-box company-irony company cpputils-cmake irony python-mode typescript-mode lsp-treemacs lsp-ivy lsp-ui lsp-mode yasnippet ggtags flycheck ws-butler yafolding org-roam-ui websocket org-roam org-download openwith dired-open mu4e mu4e-alert math-symbol-lists djvu mpv valign pdf-tools ac-ispell org-drill auctex ivy-fuz fuzzy flyspell-correct-ivy counsel-tramp eldoc-cmake paredit company-c-headers org-tree-slide minesweeper cmake-font-lock cmake-project cmake-mode cmake-ide cpp-auto-include sudoku auctex-latexmk)))
+   '(hide-mode-line iscroll rustic slime ace-jump-mode pomm org-timeline org-habit-stats eglot pandoc emacsql-sqlite-builtin esqlite company-jedi virtualenv csv-mode pyvenv-auto treesit-auto fontsloth nginx-mode c-mode auto-complete dashboard adaptive-wrap c++-mode irony-eldoc company-irony-c-headers flycheck-google-cpplint rust-mode skewer-mode nodejs-repl js2-mode bundler inf-ruby counsel-pydoc pydoc elpy python-info julia-formatter all-the-icons-ivy ess dired-icon lsp-julia julia-mode ac-octave bash-completion org-gcal vertico lisp-mode smartparens elfeed-goodies elfeed dired-hide-dotfiles dired-single all-the-icons-dired eshell-git-prompt vterm eterm-256color all-the-icons-ibuffer forge magit with-editor company-box company-irony company cpputils-cmake irony python-mode typescript-mode lsp-treemacs lsp-ivy lsp-ui lsp-mode yasnippet ggtags flycheck ws-butler yafolding org-roam-ui websocket org-roam org-download openwith dired-open mu4e mu4e-alert math-symbol-lists djvu mpv valign pdf-tools ac-ispell org-drill auctex ivy-fuz fuzzy flyspell-correct-ivy counsel-tramp eldoc-cmake paredit company-c-headers org-tree-slide minesweeper cmake-font-lock cmake-project cmake-mode cmake-ide cpp-auto-include sudoku auctex-latexmk)))
 
 ;; (setq custom-safe-themes
       ;; '("7a7b1d475b42c1a0b61f3b1d1225dd249ffa1abb1b7f726aec59ac7ca3bf4dae" default))
@@ -756,25 +756,38 @@
   :config
   (setq typescript-indent-level 2))
 
-(use-package python
-  :ensure t
-  :bind (:map python-mode-map
-              ("C-c C-d" . pydoc-at-point)
-              ("C-c C-p" . run-python)
-              :map inferior-python-mode-map
-              ("C-c C-d" . pydoc-at-point)
-              ("C-c C-p" . run-python)
-              ("C-c C-z" . other-window))
-  :hook
-  (python-mode . eglot-ensure)
-  (python-mode . whitespace-mode)
-  (python-mode . yas-global-mode)
-  (python-mode . company-mode)
-  (inferior-python-mode . company-mode)
-  (inferior-python-mode . python-shell-completion-native-turn-off)
+(use-package rustic
   :config
-  (setq python-indent-offset 4)
-  (setq python-shell-interpreter "ipython"))
+    (setq rustic-analyzer-command '("C:/Users/william.tower/AppData/Local/cargo/rust-analyzer.exe"))
+    (setq rustic-lsp-client 'eglot)
+  :custom
+    (rustic-analyzer-command '("rustup" "run" "stable" "rust-analyzer")))
+
+(defun rustic-mode-auto-save-hook ()
+  "Enable auto-saving in rustic-mode buffers."
+  (when buffer-file-name
+    (setq-local compilation-ask-about-save nil)))
+(add-hook 'rustic-mode-hook 'rustic-mode-auto-save-hook)
+
+(use-package python
+             :ensure t
+             :bind (:map python-mode-map
+                         ("C-c C-d" . pydoc-at-point)
+                         ("C-c C-p" . run-python)
+                    :map inferior-python-mode-map
+                         ("C-c C-d" . pydoc-at-point)
+                         ("C-c C-p" . run-python)
+                         ("C-c C-z" . other-window))
+             :hook
+             (python-mode . eglot-ensure)
+             (python-mode . whitespace-mode)
+             (python-mode . yas-global-mode)
+             (python-mode . company-mode)
+             (inferior-python-mode . company-mode)
+             (inferior-python-mode . python-shell-completion-native-turn-off)
+             :config
+             (setq python-indent-offset 4)
+             (setq python-shell-interpreter "ipython"))
 
 (use-package pyvenv
   :after python-mode
@@ -941,7 +954,6 @@
     (setq pomm-audio-enabled nil)
     (setq pomm-audio-player-executable ""))
   (setq pomm-state-tile-location "~/.emacs.d/var/pomm"))
-
 
 
 (load "~/.emacs.d/conf/will-global-keybindings.el")
