@@ -29,17 +29,17 @@
 (add-hook 'lisp-mode-hook 'prettify-symbols-mode)
 ;; (add-hook 'lisp-mode-hook 'auto-complete-mode)
 (add-hook 'lisp-mode-hook 'slime-autodoc-mode)
-(add-hook 'lisp-mode-hook '(lambda () (indent-tabs-mode -1)))
+(add-hook 'lisp-mode-hook #'(lambda () (indent-tabs-mode -1)))
 (define-key lisp-mode-map [(tab)] 'slime-fuzzy-indent-and-complete-symbol)
 (define-key lisp-mode-map (kbd "M-z") 'slime)
 
 (add-hook 'emacs-lisp-mode-hook 'will/pretty-lambda)
 (add-hook 'emacs-lisp-mode-hook 'prettify-symbols-mode)
-(add-hook 'emacs-lisp-mode-hook '(lambda () (indent-tabs-mode -1)))
+(add-hook 'emacs-lisp-mode-hook #'(lambda () (indent-tabs-mode -1)))
 
 (use-package slime
 			 :bind ((:map slime-repl-mode-map
-						  ("TAB" . slime-indent-and-complete-symbol)
+						  ("TAB" . slime-fuzzy-indent-and-complete-symbol)
 						  ("C-c C-z" . other-window))
 					(:map slime-fuzzy-completions-map
 						  ("C-d" . slime-describe-symbol)
@@ -53,5 +53,4 @@
 			 (setq lisp-indent-function 'common-lisp-indent-function)
 			 (setq common-lisp-style-default "sbcl"))
 
-(setq slime-fuzzy-completions-in-place t)
 (slime-setup '(slime-fancy slime-quicklisp slime-asdf))

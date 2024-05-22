@@ -518,7 +518,7 @@
 
   (setq org-capture-templates
         '(("t" "TODO" entry
-           (file "~/documents/org-mode/orgzly/tasks.org") "* TODO %? %i %a")))
+           (file "~/documents/org-mode/zettel/tasks.org") "* TODO %? %i %a")))
 
   (setq org-format-latex-options
         '(:foreground default
@@ -605,7 +605,7 @@
 ;;org download allows images to be yanked from the web and from the clipboard
 (defun will/org-download-clipboard-and-name ()
   (interactive)
-  (org-download-clipboard (concat (read-string "filename? ") ".png")))
+  (org-download-screenshot (concat (read-string "filename? ") ".png")))
 
 (use-package org-download
              :after org
@@ -669,7 +669,14 @@
            :target (file+head "%<%Y-%m-%d>.org"
                               "#+title: %<%Y-%m-%d>\n")))))
 
-(use-package anki-editor)
+(use-package anki-editor
+  :after org
+  :bind (:map org-mode-map
+              ("C-c n n" . anki-editor-insert-note)
+              ("C-c n p"  . anki-editor-push-notes))
+  :hook (org-capture-after-finalize . anki-editor-reset-cloze-number) ; Reset cloze-number after each capture.
+  :config (setq anki-editor-create-decks t)
+             (setq anki-editor-org-tags-as-anki-tags t))
 
 (use-package websocket
              :after org)
