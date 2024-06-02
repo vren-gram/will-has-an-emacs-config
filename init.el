@@ -4,16 +4,14 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(org-timeline org-habit-stats eglot pandoc emacsql-sqlite-builtin esqlite company-jedi virtualenv csv-mode pyvenv-auto treesit-auto fontsloth nginx-mode c-mode auto-complete dashboard adaptive-wrap c++-mode irony-eldoc company-irony-c-headers flycheck-google-cpplint rust-mode skewer-mode nodejs-repl js2-mode bundler inf-ruby counsel-pydoc pydoc elpy python-info julia-formatter all-the-icons-ivy ess dired-icon lsp-julia julia-mode ac-octave bash-completion org-gcal vertico lisp-mode smartparens elfeed-goodies elfeed dired-hide-dotfiles dired-single all-the-icons-dired eshell-git-prompt vterm eterm-256color all-the-icons-ibuffer forge magit with-editor company-box company-irony company cpputils-cmake irony python-mode typescript-mode lsp-treemacs lsp-ivy lsp-ui lsp-mode yasnippet ggtags flycheck ws-butler yafolding org-roam-ui websocket org-roam org-download openwith dired-open mu4e mu4e-alert math-symbol-lists djvu mpv valign pdf-tools ac-ispell org-drill auctex ivy-fuz fuzzy flyspell-correct-ivy counsel-tramp eldoc-cmake paredit company-c-headers org-tree-slide minesweeper cmake-font-lock cmake-project cmake-mode cmake-ide cpp-auto-include sudoku auctex-latexmk)))
-
-;; (setq custom-safe-themes
-      ;; '("7a7b1d475b42c1a0b61f3b1d1225dd249ffa1abb1b7f726aec59ac7ca3bf4dae" default))
+   '(cpputils-cmake yasnippet-snippets doom-modeline command-log-mode rainbow-delimiters clean-aindent-mode slime ac-ispell ac-octave adaptive-wrap all-the-icons-dired all-the-icons-ibuffer all-the-icons-ivy auctex auctex-latexmk auto-complete bash-completion bundler c++-mode c-mode cmake-font-lock cmake-mode cmake-project company company-box company-c-headers company-irony company-irony-c-headers counsel-pydoc counsel-tramp cpp-auto-include dashboard dired-hide-dotfiles dired-icon dired-open dired-single dired-subtree djvu eldoc-cmake elfeed elfeed-goodies elpy eshell-git-prompt ess eterm-256color flycheck flycheck-google-cpplint flyspell-correct-ivy forge fuzzy ggtags inf-ruby irony irony-eldoc ivy-fuz js2-mode julia-formatter julia-mode lisp-mode lsp-ivy lsp-julia lsp-mode lsp-treemacs lsp-ui magit math-symbol-lists minesweeper mpv mu4e mu4e-alert nginx-mode nodejs-repl openwith org-download org-drill org-gcal org-roam org-roam-ui org-tree-slide paredit pdf-tools pomm pydoc python-info python-mode pyvenv rust-mode skewer-mode smartparens sudoku typescript-mode valign vertico vterm websocket with-editor ws-butler yafolding yasnippet)))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ivy-minibuffer-match-face-1 ((t (:foreground "#c792ea" :weight light))))
  '(line-number ((t (:foreground "#676E95" :strike-through nil :underline nil :slant normal :weight normal :height 1.0 :width normal :family "Hack"))))
  '(line-number-current-line ((t (:foreground "#676E95" :strike-through nil :underline nil :slant normal :weight normal :height 1.0 :width normal :family "Hack"))))
  '(mu4e-compose-header-face ((t (:inherit message-separator :foreground "white" :slant italic))))
@@ -23,40 +21,51 @@
  '(org-scheduled ((t (:foreground "pale green"))))
  '(org-scheduled-previously ((t (:foreground "OrangeRed1"))))
  '(org-scheduled-today ((t (:foreground "lemon chiffon"))))
- '(org-table ((t (:inherit fixed-pitch :background "black" :foreground "snow" :slant normal :weight regular :height 120 :width normal :foundry "outline" :family "Hack"))))
- '(org-time-grid ((t (:foreground "DarkGoldenrod2"))))
+ '(org-table ((t (:inherit fixed-pitch :background "black" :foreground "snow" :slant normal :weight regular :height 120 :width normal :foundry "SRC" :family "Hack"))))
+ '(org-upcoming-deadline ((t (:foreground "PaleGreen1"))))
+ '(swiper-background-match-face-1 ((t (:inherit swiper-match-face-1))))
+ '(swiper-match-face-1 ((t (:background "#c792ea" :foreground "black"))))
  '(trailing-whitespace ((t (:background "dim gray"))))
  '(whitespace-big-indent ((t (:background "black" :foreground "firebrick")))))
 
 ;; ============================================================
 ;; startup-vars
-(setq gc-cons-threshold (* 50 1000 1000))
-(setq word-wrap t)
+(setq gc-cons-threshold (floor (* 100 1000 1000)))
+;; ============================================================
 ;; visual things
 (setq visible-cursor nil)
 (setq blink-cursor-mode nil)
-(global-visual-line-mode 1)
-(scroll-bar-mode -1)        ; Disable visible scrollbar
 (setq standard-indent 2)
 (setq visible-bell nil)
 (setq ring-bell-function 'ignore)
 (setq indicate-buffer-boundaries nil)
+(setq word-wrap t)
+(scroll-bar-mode -1)        ; Disable visible scrollbar
+(toggle-frame-maximized)
+(global-visual-line-mode t)
+;; ============================================================
+;;disp line numbers
+(setq display-line-numbers-widen t
+      display-line-numbers-grow-only t
+      display-line-numbers-width 2
+      display-line-numbers-width-start 2)
+(global-display-line-numbers-mode t)
 ;; ============================================================
 ;; Default UI
-(setq inhibit-startup-message t)
-(setq inhibit-startup-screen t)
-(setq inhibit-startup-buffer-menu t)
-(tool-bar-mode -1)          ; Disable the toolbar
-(tooltip-mode -1)           ; Disable tooltips
-(menu-bar-mode -1)            ; Disable the menu bar
-;; default transparency settings
-(setq default-frame-alist '((alpha 100 . 100)))
-;; ============================================================
+(setq inhibit-startup-message t
+      inhibit-startup-screen t
+      inhibit-startup-buffer-menu t)
+(tool-bar-mode -1)                 ; Disable the toolbar
+(tooltip-mode -1)                  ; Disable tooltips
+(menu-bar-mode -1)                 ; Disable the menu bar
+(put 'downcase-region 'disabled nil)
+;;============================================================
 ;; initial buffer things
-;; (setq initial-buffer-choice "~/")
-(setq initial-major-mode 'org-mode)
-(setq initial-scratch-message "")
-(setq frame-resize-pixelwise t)
+(setq initial-buffer-choice t
+      ;; TODO remove?
+      ;; initial-major-mode 'org-mode
+      initial-scratch-message ""
+      frame-resize-pixelwise t)
 ;; ============================================================
 ;; misc
 (setq column-number-mode t)
@@ -66,74 +75,87 @@
 (setq case-replace t)
 (setq resize-mini-windows t)
 (setq byte-compile-warnings '(cl-functions))
-(put 'downcase-region 'disabled nil)
-
 ;; ============================================================
-;; eldoc
-(setq eldoc-echo-area-use-multiline-p 2)
-(setq eldoc-echo-area-display-truncation-message nil)
-
+;; global auto revert to help with syncthing and magit
+(global-auto-revert-mode t)
 ;; switch to help windows when invoked
 (setq help-window-select t)
-
 ;; makes all yes prompts into y prompts
 (defalias 'yes-or-no-p 'y-or-n-p)
-
-;; redefining behavior to kill by default
-(defun quit-window (&optional kill window)
-  (interactive "P")
-  (with-current-buffer (window-buffer (window-normalize-window window))
-    (run-hooks 'quit-window-hook))
-  ;; used to be 'kill 'bury
-  (quit-restore-window window (if kill 'kill 'kill)))
-
 ;; ============================================================
 ;; backups
-(setq
- backup-by-copying t                    ; don't clobber symlinks
- backup-directory-alist
- '(("." . "~/.emacs.d/.saves"))             ; don't litter my fs tree
- delete-old-versions t
- kept-new-versions 6
- kept-old-versions 2
- version-control t)       ; use versioned backups
+(setq backup-by-copying t               ; don't clobber symlinks
+      backup-directory-alist
+      '(("." . "~/.emacs.d/.saves"))    ; don't litter my fs tree
+      delete-old-versions t
+      kept-new-versions 6
+      kept-old-versions 2
+      version-control t)       ; use versioned backups
+;; ============================================================
+;; global-keybindings
+(define-key global-map (kbd "C-x C-n") 'next-buffer)
+(define-key global-map (kbd "C-x C-p") 'previous-buffer)
+(define-key global-map (kbd "M-]") 'next-buffer)
+(define-key global-map (kbd "M-[") 'previous-buffer)
+
+(define-key global-map (kbd "C-x C-o") 'other-window)
+(define-key global-map (kbd "C-x C-k") 'kill-this-buffer)
+
+(global-set-key (kbd "C-x 4") 'toggle-window-split)
+(global-set-key (kbd "C-x 6") 'window-swap-states)
+(global-set-key (kbd "C-x C-5") 'toggle-frame-fullscreen)
+
+;; activate whitespace-mode to view all whitespace characters
+(global-set-key (kbd "C-c w") 'whitespace-mode)
+
+(global-set-key (kbd "C-q") 'c-hungry-delete-forward)
+
+;; buffer resizing
+(global-set-key (kbd "C-M-<left>") 'shrink-window-horizontally)
+(global-set-key (kbd "C-M-<right>") 'enlarge-window-horizontally)
+(global-set-key (kbd "C-M-<down>") 'shrink-window)
+(global-set-key (kbd "C-M-<up>") 'enlarge-window)
+
+(global-set-key (kbd "C-x C-d") 'dired)
+
+(global-set-key (kbd "C-j") 'newline)
+
+(defun go-to-init ()
+  (interactive)
+  (find-file "~/.emacs.d/init.el"))
+
+(global-set-key (kbd "<f8>") 'go-to-init)
 
 ;; ============================================================
+;; whitelisted command
+(put 'dired-find-alternate-file 'disabled nil)
+(put 'erase-buffer 'disabled nil)
+(put 'narrow-to-region 'disabled nil)
+;; ============================================================
 ;;scroll-vars
+;; TODO delete?
 (setq scroll-conservatively 1000)
-(setq scroll-down-aggressively 0.01)
-(setq scroll-margin 2)
-(setq scroll-preserve-screen-position nil)
-(setq scroll-step 1)
-(setq scroll-up-aggressively 0.01)
+;; (setq scroll-down-aggressively 0.01)
+;; (setq scroll-margin 2)
+;; (setq scroll-preserve-screen-position nil)
+;; (setq scroll-step 1)
+;; (setq scroll-up-aggressively 0.01)
 (setq next-screen-context-lines 2)
 (setq overline-margin 20)
 ;; ============================================================
-;;disp line numbers
-(global-display-line-numbers-mode t)
-(setq display-line-numbers-grow-only t)
-(setq display-line-numbers-widen t)
-(setq display-line-numbers-width-start 2)
-(setq display-line-numbers-width 2)
-;; ============================================================
-;; indent and tabs
-(setq indent-tabs-mode nil)
-(setq electric-indent-mode nil)
-(setq backward-delete-char-untabify-method 'hungry)
-;;Create a variable for our preferred tab width
-(setq custom-tab-width 4)
-;; set appearance of a tab that is represented by 4 spaces
-(setq-default tab-width 4)
-;;Making electric-indent behave sanely
-(setq-default electric-indent-inhibit t)
-;; Visualize tabs as a pipe character - "|"
-;; This will also show trailing characters as they are useful to spot.
-(setq whitespace-style '(face tabs tab-mark trailing))
-(setq whitespace-display-mappings
-  '((tab-mark 9 [124 9] [92 9]))) ;;124 is the ascii ID for '\|'
-
-;; ============================================================
 ;; font-config
+;; TODO: make fonts system flexible?
+;; (cond
+;;  ((eq system-type 'gnu/linux)
+;;   (when (member "DejaVu Sans Mono" (font-family-list))
+;;     (set-frame-font "DejaVu Sans Mono" t t)))
+;;  ((eq system-type 'windows-nt)
+;;   (when (member "Courier New" (font-family-list))
+;;     (set-frame-font "Courier New" t t)))
+;;  ((eq system-type 'darwin) ; macOS
+;;   (when (member "Menlo" (font-family-list))
+;;     (set-frame-font "Menlo" t t))))
+
 (defvar will/default-font-size 120)
 (defvar will/default-variable-font-size 150)
 
@@ -151,40 +173,40 @@
                     ;; :font "Noto Sans"
                     :height will/default-variable-font-size
                     :weight 'light)
-
 ;; ============================================================
 ;; custom functions
+;; TODO rework this?
 (defun toggle-window-split ()
   (interactive)
-    (if (= (count-windows) 2)
-    (let* ((this-win-buffer (window-buffer))
-        (next-win-buffer (window-buffer (next-window)))
-        (this-win-edges (window-edges (selected-window)))
-        (next-win-edges (window-edges (next-window)))
-        (this-win-2nd (not (and (<= (car this-win-edges)
-        (car next-win-edges))
-        (<= (cadr this-win-edges)
-        (cadr next-win-edges)))))
-        (splitter
-        (if (= (car this-win-edges)
-            (car (window-edges (next-window))))
-            'split-window-horizontally
-            'split-window-vertically)))
-    (delete-other-windows)
+  (if (= (count-windows) 2)
+      (let* ((this-win-buffer (window-buffer))
+             (next-win-buffer (window-buffer (next-window)))
+             (this-win-edges (window-edges (selected-window)))
+             (next-win-edges (window-edges (next-window)))
+             (this-win-2nd (not (and (<= (car this-win-edges)
+                                         (car next-win-edges))
+                                     (<= (cadr this-win-edges)
+                                         (cadr next-win-edges)))))
+             (splitter
+              (if (= (car this-win-edges)
+                     (car (window-edges (next-window))))
+                  'split-window-horizontally
+                'split-window-vertically)))
+        (delete-other-windows)
         (let ((first-win (selected-window)))
-        (funcall splitter)
-        (if this-win-2nd (other-window 1))
-        (set-window-buffer (selected-window) this-win-buffer)
-        (set-window-buffer (next-window) next-win-buffer)
-        (select-window first-win)
-    (if this-win-2nd (other-window 1))))))
+          (funcall splitter)
+          (if this-win-2nd (other-window 1))
+          (set-window-buffer (selected-window) this-win-buffer)
+          (set-window-buffer (next-window) next-win-buffer)
+          (select-window first-win)
+          (if this-win-2nd (other-window 1))))))
 
 (defun will/display-startup-time ()
   (message "Emacs loaded in %s with %d garbage collections."
-    (format "%.2f seconds"
-    (float-time
-     (time-subtract after-init-time before-init-time)))
-    gcs-done))
+           (format "%.2f seconds"
+                   (float-time
+                    (time-subtract after-init-time before-init-time)))
+           gcs-done))
 
 ;; display startup time to user
 (add-hook 'emacs-startup-hook #'will/display-startup-time)
@@ -206,16 +228,14 @@
 (require 'use-package)
 (setq use-package-always-ensure t)
 
-
 (use-package auto-package-update
   :custom
-  (auto-package-update-interval 30) ; 30 days
+  (auto-package-update-interval 30)     ; 30 days
   (auto-package-update-prompt-before-update t)
   (auto-package-update-hide-results t)
   :config
-  (auto-package-update-maybe)
-  (auto-package-update-at-time "09:00"))
-
+  (auto-package-update-at-time "10:00")
+  (auto-package-update-maybe))
 ;; ============================================================
 (use-package no-littering)
 
@@ -224,171 +244,212 @@
   :init
   (add-hook 'after-init-hook
             (lambda () (unless (or noninteractive (server-running-p))
-                         (server-start)))))
-
-(use-package clean-aindent-mode
-  :hook prog-mode)
-
-(use-package rainbow-delimiters
-  :hook (prog-mode . rainbow-delimiters-mode))
-
-(use-package yafolding
-  :ensure t
-  :hook (prog-mode . yafolding-mode))
-
-(use-package ws-butler
-  :hook (prog-mode . ws-butler-mode))
-
-
-(use-package command-log-mode
-             :commands command-log-mode)
-
+                    (server-start)))))
 ;; ============================================================
 (use-package doom-themes
   :init (load-theme 'doom-palenight t)
-  :after all-the-icons)
+  ;; todo why was this here?
+  ;; :after all-the-icons
+)
 
 (use-package doom-modeline
   :ensure t
-  :hook (after-init . doom-modeline-mode)
-  :config
-  (setq doom-modeline-height 15)
-  (setq doom-modeline-icon nil))
-
+  :config (setq doom-modeline-height 15)
+  :custom (doom-modeline-mode t))
 ;; ============================================================
 (use-package which-key
-    :defer 0
-    :diminish which-key-mode
-    :config
-        (which-key-mode 1)
-        (setq which-key-idle-delay 1))
-
+  :defer 0
+  :diminish which-key-mode
+  :config
+  (which-key-mode 1)
+  (setq which-key-idle-delay 1))
 ;; ============================================================
 ;; ivy
+
 (use-package ivy
   :diminish
   :bind (("C-s" . swiper)
          :map ivy-minibuffer-map
          ("TAB" . ivy-alt-done)
          ("C-'" . ivy-immediate-done)
-         ("C-l" . ivy-alt-done)
-         ("C-j" . ivy-next-line)
          ("C-k" . ivy-kill-line)
          :map ivy-switch-buffer-map
          ("C-k" . ivy-previous-line)
          ("C-l" . ivy-done)
          ("C-d" . ivy-switch-buffer-kill)
          :map ivy-reverse-i-search-map
-         ;; ("C-k" . ivy-previous-line)
          ("C-d" . ivy-reverse-i-search-kill))
   :config
   (setq ivy--regex-function 'ivy--regex-plus)
-  ;; (setq ivy--regex-function 'ivy--regex-plus)
   (ivy-mode 1))
 
 (use-package flyspell-correct-ivy)
 
 ;; necessary for ivy to work
-(use-package swiper 
+(use-package swiper
   :after ivy
   :ensure t)
 
 (use-package counsel
   :bind
-    (("C-x b" . counsel-switch-buffer)
-     ("C-x C-f" . counsel-find-file)
-     ("C-c C-f" . counsel-ag)
-     ("M-x" . counsel-M-x)
-     :map minibuffer-local-map
-     ("C-r" . 'counsel-minibuffer-history))
+  (("C-x b" . counsel-switch-buffer)
+   ("C-x C-f" . counsel-find-file)
+   ("C-c C-f" . counsel-ag) ;; TODO this gets shadowed somewhere?
+   ("M-x" . counsel-M-x)
+   :map minibuffer-local-map
+   ("C-r" . 'counsel-minibuffer-history))
   :custom
   (counsel-linux-app-format-function #'counsel-linux-app-format-function-name-only)
   :config
-    (counsel-mode 1))
-
-(use-package counsel-pydoc
-  :after
-  counsel)
-
-(use-package ivy-prescient
-  :after
-  counsel
-  :custom
-             (ivy-prescient-enable-filtering t)
-             (ivy-prescient-retain-classic-highlighting t)
-  :config
-             (prescient-persist-mode 1)
-             (ivy-prescient-mode 1))
-
-(setq completion-styles '(prescient basic partial-completion emacs22))
-
-(use-package helpful
-  :commands
-    (helpful-callable helpful-variable helpful-command helpful-key)
-  :custom
-    (counsel-describe-function-function #'helpful-callable)
-    (counsel-describe-variable-function #'helpful-variable)
-  :bind
-    ([remap describe-function] . counsel-describe-function)
-    ([remap describe-command] . helpful-command)
-    ([remap describe-variable] . counsel-describe-variable)
-    ([remap describe-key] . helpful-key))
+  (counsel-mode 1))
 
 (use-package ivy-rich
   :after ivy
-  :config (ivy-rich-mode t))
+  :config (setq ivy-rich-path-style 'abbrev)
+  :custom (ivy-rich-mode t))
 
-(use-package fuzzy)
-
-(use-package ivy-fuz)
-
-;; (use-package all-the-icons-ivy-rich)
-
+;; line reccomended by package author
 (setcdr (assq t ivy-format-functions-alist) #'ivy-format-function-line)
-(setq ivy-rich-path-style 'abbrev)
 
-(defvar ivy-rich--ivy-switch-buffer-cache
-  (make-hash-table :test 'equal))
+(use-package all-the-icons-ivy-rich
+  :config
+  (all-the-icons-ivy-rich-mode t))
 
-(define-advice ivy-rich--ivy-switch-buffer-transformer
-    (:around (old-fn x) cache)
-  (let ((ret (gethash x ivy-rich--ivy-switch-buffer-cache)))
-    (unless ret
-      (setq ret (funcall old-fn x))
-      (puthash x ret ivy-rich--ivy-switch-buffer-cache))
-    ret))
+(use-package ivy-prescient
+  :after counsel
+  :custom
+  (setq ivy-prescient-enable-filtering t)
+  (setq ivy-prescient-retain-classic-highlighting t)
+  :config
+  (prescient-persist-mode 1)
+  (ivy-prescient-mode 1))
 
-(define-advice +ivy/switch-buffer
-    (:before (&rest _) ivy-rich-reset-cache)
-  (clrhash ivy-rich--ivy-switch-buffer-cache))
+(add-to-list 'completion-styles 'prescient)
 
-;; (setq ivy-rich-display-transformers-list
-;;       '(ivy-switch-buffer (
-;;                            :columns
-;;                            ((ivy-rich-candidate (:width 30))
-;;                             (ivy-rich-switch-buffer-size (:width 8))
-;;                             (ivy-rich-switch-buffer-indicators (:width 4 :face error :align right))
-;;                             (ivy-rich-switch-buffer-major-mode (:width 12 :face warning))
-;;                             (ivy-rich-switch-buffer-project (:width 15 :face success))
-;;                             (ivy-rich-switch-buffer-path (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path
-;;                                                                          (ivy-rich-minibuffer-width 0.3))))))
-;;                            :predicate
-;;                            (lambda (cand) (get-buffer cand)))))
+;; (defvar ivy-rich--ivy-switch-buffer-cache
+;;   (make-hash-table :test 'equal))
 
-(use-package counsel-projectile
-    :after projectile
-    :config  (counsel-projectile-mode))
+;; (define-advice ivy-rich--ivy-switch-buffer-transformer
+;;     (:around (old-fn x) cache)
+;;   (let ((ret (gethash x ivy-rich--ivy-switch-buffer-cache)))
+;;     (unless ret
+;;       (setq ret (funcall old-fn x))
+;;       (puthash x ret ivy-rich--ivy-switch-buffer-cache))
+;;     ret))
 
+;; (define-advice +ivy/switch-buffer
+;;     (:before (&rest _) ivy-rich-reset-cache)
+;;   (clrhash ivy-rich--ivy-switch-buffer-cache))
+
+(setq ivy-rich-display-transformers-list
+      '(ivy-switch-buffer
+        (:columns
+         ((ivy-rich-modify-column
+           'ivy-switch-buffer
+           'ivy-rich-switch-buffer-major-mode
+           '(:width 20 :face error))
+          (ivy-rich-switch-buffer-icon (:width 2))
+          (ivy-rich-candidate (:width 15))
+          (ivy-rich-switch-buffer-size (:width 8))
+          (ivy-rich-switch-buffer-indicators
+           (:width 4 :face error :align right))
+          (ivy-rich-switch-buffer-major-mode
+           (:width 20 :face warning))
+          (ivy-rich-switch-buffer-project
+           (:width 15 :face success))
+          (ivy-rich-switch-buffer-path
+           (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path
+                           (ivy-rich-minibuffer-width 0.3))))))
+         :predicate
+         (lambda (cand)
+           (get-buffer cand)))))
+;; ============================================================
+(use-package dired
+  :ensure nil
+  :commands (dired dired-jump)
+  :bind (("C-x C-j" . dired-jump)
+         :map dired-mode-map
+         ;; ("r" . dired-kill-subdir)
+		 ("w" . dired-open-file)
+		 ("W" . dired-copy-filename-as-kill))
+  :config (setq dired-dwim-target t)
+  :custom ((dired-listing-switches "-agho --group-directories-first")))
+
+(use-package dired-single
+  :commands (dired dired-jump))
+
+(use-package all-the-icons
+  :if (display-graphic-p)
+  :custom  (when (display-graphic-p)))
+
+(use-package all-the-icons-dired
+  :hook (dired-mode . all-the-icons-dired-mode))
+
+(use-package dired-subtree
+             :bind (:map dired-mode-map
+                         ("r" . dired-subtree-remove)
+                         ("i" . dired-subtree-insert)))
+
+(use-package dired-open
+  :commands (dired dired-jump)
+  :config
+  (setq dired-open-extensions '(("mpg" . "mpv --no-border")
+                                ("mpeg" . "mpv --no-border")
+                                ("mp4" . "mpv --no-border")
+                                ("avi" . "mpv --no-border")
+                                ("wmv" . "mpv --no-border")
+                                ("mov" . "mpv --no-border")
+                                ("flv" . "mpv --no-border")
+                                ("ogg" . "mpv --no-border")
+                                ("mkv" . "mpv --no-border")
+                                ("gif" . "mpv --no-border")
+                                ("png" . "geeqie")
+                                ("jpg" . "geeqie")
+                                ("jpeg" . "geeqie")
+                                ("webm" . "geeqie")
+                                ("bmp" . "geeqie")
+                                ("doc" . "libreoffice")
+                                ("xls" . "libreoffice")
+                                ("ppt" . "libreoffice")
+                                ("odt" . "libreoffice")
+                                ("ods" . "libreoffice")
+                                ("odg" . "libreoffice")
+                                ("odp" . "libreoffice")
+                                ("pdf" . "zathura")
+                                ("ps" . "zathura")
+                                ("ps.gz" . "zathura")
+                                ("epub" . "zathura")
+                                ("dvi" . "zathura"))))
+
+(use-package dired-hide-dotfiles
+  :hook (dired-mode . dired-hide-dotfiles-mode)
+  :bind (:map dired-mode-map ("." . dired-hide-dotfiles-mode)))
+;; ============================================================
+(use-package helpful
+  :bind
+  ((:map helpful-mode-map
+         ("q" . kill-this-buffer)))
+  :commands
+  (helpful-callable helpful-variable helpful-command helpful-key)
+  :custom
+  (counsel-describe-function-function #'helpful-callable)
+  (counsel-describe-variable-function #'helpful-variable)
+  :bind
+  ([remap describe-function] . counsel-describe-function)
+  ([remap describe-command] . helpful-command)
+  ([remap describe-variable] . counsel-describe-variable)
+  ([remap describe-key] . helpful-key))
 ;; ============================================================
 (use-package visual-fill-column
   :config
-    (setq visual-fill-column-center-text t)
-    (setq visual-fill-column-enable-sensible-window-split t)
-    (setq visual-fill-column-width 105))
-
+  (setq visual-fill-column-center-text t)
+  (setq visual-fill-column-enable-sensible-window-split t)
+  (setq visual-fill-column-width 105))
 ;; ============================================================
-(use-package auctex)
-(use-package auctex-latexmk)
+(use-package tex
+             :ensure auctex)
+(use-package auctex-latexmk
+             :ensure t)
 (setq TeX-view-program-selection '(((output-dvi has-no-display-manager)
                                     "dvi2tty")
                                    ((output-dvi style-pstricks)
@@ -396,18 +457,112 @@
                                    (output-dvi "xdvi")
                                    (output-pdf "Zathura")
                                    (output-html "xdg-open")))
+;; ============================================================
+(use-package term
+  :commands term
+  :config
+  (setq explicit-shell-file-name "bash")
+  (setq term-prompt-regexp "^[^#$%>\n]*[#$%>] *"))
 
+(use-package eterm-256color
+  :hook (term-mode . eterm-256color-mode))
+
+(use-package vterm
+  :commands vterm
+  :config
+  (setq term-prompt-regexp "^[^#$%>\n]*[#$%>] *")
+  (setq vterm-max-scrollback 10000))
+
+(when (eq system-type 'windows-nt)
+  (setq explicit-shell-file-name "powershell.exe")
+  (setq explicit-powershell.exe-args '()))
+
+(defun efs/configure-eshell ()
+  ;; Save command history when commands are entered
+  (add-hook 'eshell-pre-command-hook 'eshell-save-some-history)
+
+  ;; Truncate buffer for performance
+  (add-to-list 'eshell-output-filter-functions 'eshell-truncate-buffer)
+
+  (setq eshell-history-size         10000
+        eshell-buffer-maximum-lines 10000
+        eshell-hist-ignoredups t
+        eshell-scroll-to-bottom-on-input t))
+
+(use-package eshell-git-prompt
+  :after eshell)
+
+(use-package eshell
+  :hook (eshell-first-time-mode . efs/configure-eshell)
+  :config
+
+  (with-eval-after-load 'esh-opt
+    (setq eshell-destroy-buffer-when-process-dies t)
+    (setq eshell-visual-commands '("htop" "zsh" "vim")))
+
+  (eshell-git-prompt-use-theme 'powerline))
+;; ============================================================
+(use-package all-the-icons-ibuffer)
+
+(use-package ibuffer
+  :bind (("C-x C-b" . ibuffer)
+		 ("C-\\" . ibuffer)
+		 :map ibuffer-mode-map
+		 ("C-\\" . quit-window)
+		 ("C-x C-b" . quit-window))
+  :hook ((ibuffer-mode . ibuffer-auto-mode)
+         (ibuffer-mode . (lambda () (ibuffer-switch-to-saved-filter-groups "home"))))
+  :config
+  (setq ibuffer-saved-filter-groups
+        (quote (("home"
+                 ("emacs-config" (or
+                                  (filename . ".emacs.d")
+                                  (filename . "emacs.org")
+                                  (filename . "init.el")
+                                  (filename . ".emacs.d/conf/")))
+                 ("c++" (mode . c++-mode))
+				 ("python" (or (mode . python-mode)
+							   (mode . inferior-python-mode)))
+                 ("erc" (mode . erc-mode))
+				 ("common-lisp" (or (mode . lisp-mode)
+									(mode . slime-repl-mode)
+									(name . "^\\slime-events\\*$")
+									(name . "^\\*inferior-lisp*\\*$")))
+                 ("emacs" (or
+                           (name . "^\\*scratch\\*$")
+                           (name . "^\\*Messages\\*$")))
+                 ("mu4e" (or (mode . mu4e-headers-mode)
+							 (name . "^\\*mu4e-main*\\*$")))
+                 ("journal" (directory . "/home/will/Documents/org-mode/zettel/daily/"))
+                 ("agenda" (or
+                            (name . "^\\*Org Agenda\\*$")
+							(name . "^\\*Calendar*\\*$")
+                            (filename . "tasks.org")
+                            (filename . "habits.org")
+                            (filename . "archive.org")
+                            (filename . "scratch.org")
+                            (filename . "recurring.org")))
+                 ("org" (mode . org-mode))
+                 ("magit" (or
+                           (name . "\*magit")
+                           (mode . "Magit Process")))
+                 ("dired" (mode . dired-mode))
+				 ("help" (mode . helpful-mode))
+				 ("TeX"
+				  (or
+				   (derived-mode . tex-mode)
+				   (mode . latex-mode)
+				   (mode . context-mode)
+				   (mode . ams-tex-mode)
+				   (mode . bibtex-mode)))))))
+
+  (setq ibuffer-formats '((mark modified read-only locked " " (name 30 30 :left)
+                                " " filename-and-process) (mark " " (name 16 -1) " " filename)))
+
+  (setq ibuffer-expert t)
+  (setq ibuffer-show-empty-filter-groups nil))
 ;; ============================================================
 ;; org
-
-(dolist (mode '(org-mode-hook
-                term-mode-hook
-                shell-mode-hook
-                treemacs-mode-hook
-                eshell-mode-hook))
-  (add-hook mode (lambda () (display-line-numbers-mode 0))))
-
-
 (defun will/org-font-setup ()
   ;; Replace list hyphen with dot
   (font-lock-add-keywords 'org-mode
@@ -452,31 +607,33 @@
 
 (defun will/org-mode-visual-fill ()
   (setq visual-fill-column-width 105)
-  (setq visual-fill-column-center-text t) ; mb not
-  (visual-fill-column-mode 1))
+  (setq visual-fill-column-center-text t)
+  (visual-fill-column-mode t))
 
 (defun insert-attr-decls ()
   (interactive)
-  (insert "#+ATTR_ORG: :width 600 :align center\n"))
+  (insert "#+attr_html: :width 400 :align center")
+  (dotimes (n 2) (org-toggle-inline-images)))
 
 (use-package org
   :pin org
   :commands (org-capture org-agenda)
-  :bind (("C-c n w" . insert-attr-decls)
-         ("C-c l"  . org-store-link)
-         ("C-c a" . org-agenda)
-         ("C-c c" . org-capture)
-         ("C-c j" . org-roam-dailies-goto-today)
-         ("C-c C-x C-j" . org-clock-goto)
-         :map org-mode-map
-         ("C-c C-x C-a" . org-toggle-archive-tag)
-         ("C-M-." . org-time-stamp-inactive))
   :hook ((org-mode . will/org-mode-setup)
          (org-mode . will/org-mode-visual-fill)
          (org-mode . will/org-font-setup))
+  :defer 2
+  :bind (("C-c n w" . insert-attr-decls)
+         ("C-c l" . org-store-link)
+         ("C-c a" . org-agenda)
+         ("C-c c" . org-capture)
+         ("C-c j" . org-roam-dailies-goto-today)
+         ("C-c C-x C-a" . org-toggle-archive-tag)
+         ("C-c a" . org-agenda)
+         ("C-c C-x C-j" . org-clock-goto))
 
   :defer 2
   :config
+  (global-set-key (kbd "C-c a") 'org-agenda)
   (setq org-ellipsis " ▾")
   (setq org-startup-with-inline-images t)
   (setq org-agenda-start-with-log-mode t)
@@ -484,10 +641,21 @@
   (setq org-log-into-drawer t)
   (setq org-src-preserve-indentation t)
   (setq org-agenda-clockreport-parameter-plist '(:link t :maxlevel 2 :block lastmonth :step day))
-  (setq org-agenda-files '("~/org-mode/tasks.org"
-                           "~/org-mode/habits.org"
-                           "~/org-mode/zettel/scratch.org"
-                           "~/org-mode/archive.org"))
+
+  (cond
+   ((eq system-type 'windows-nt)
+    (setq org-agenda-files '("~/org-mode/tasks.org"
+                             "~/org-mode/habits.org"
+                             "~/org-mode/zettel/scratch.org"
+                             "~/org-mode/archive.org")))
+   ((eq system-type 'gnu/linux)
+    (setq org-agenda-files '("~/documents/org-mode/zettel/tasks.org"
+                             "~/documents/org-mode/zettel/habits.org"
+                             "~/documents/org-mode/zettel/archive.org"
+                             "~/documents/org-mode/zettel/recurring.org"))))
+
+
+
   (setq org-agenda-start-day "-2d")
   (setq org-agenda-span 10)
   (setq org-agenda-loop-over-headlines-in-active-region nil)
@@ -500,28 +668,47 @@
 
   (setq org-todo-keywords '((sequence "TODO(t)" "JUGGLING(j)" "BLOCKED(b)" "|" "DONE(d!)" "CANCELLED(c!)")))
 
-  (setq org-priority-highest 1)
-  (setq org-priority-default 3)
-  (setq org-priority-lowest 7)
+  (setq org-priority-highest 1
+        org-priority-default 3
+        org-priority-lowest  7)
 
-  (setq org-clocktable-defaults '(:maxlevel 2
-                                  :lang "en"
-                                  :scope agenda-with-archives
-                                  :block nil
-                                  :wstart 1
-                                  :mstart 1
-                                  :narrow 40!
-                                  :indent t
-                                  :formatter nil))
+  (setq org-clocktable-defaults '(:maxlevel 3
+                                            :lang "en"
+                                            :scope agenda-with-archives
+                                            :block nil
+                                            :wstart 1
+                                            :mstart 1
+                                            :narrow 40!
+                                            :indent t
+                                            :formatter nil))
 
-  (setq org-refile-targets
-        '(("~/org-mode/tasks.org" :maxlevel . 1)
-          ("~/org-mode/archive.org" :maxlevel . 1)
-          ("~/org-mode/habits.org" :maxlevel . 1)))
+  (setq org-highest-priority 1)
+  (setq org-default-priority 3)
+  (setq org-lowest-priority 7)
 
+  (cond
+   ((eq system-type 'windows-nt)
+    '(("~/org-mode/tasks.org" :maxlevel . 1)
+      ("~/org-mode/archive.org" :maxlevel . 1)
+      ("~/org-mode/habits.org" :maxlevel . 1))))
+  ((eq system-type 'gnu/linux)
+   (setq org-refile-targets
+         '(("~/documents/org-mode/zettel/tasks.org" :maxlevel . 2)
+           ("~/documents/org-mode/zettel/archive.org" :maxlevel . 2)
+           ("~/documents/org-mode/zettel/habits.org" :maxlevel . 2)))
+   ;; Save Org buffers after refiling!
+   (advice-add 'org-refile :after 'org-save-all-org-buffers)))
+
+  (cond
+   ((eq system-type 'windows-nt)
+    (setq org-capture-templates
+        '(("t" "TODO" entry
+           (file+headline "~/org-mode/tasks.org" "Tasks") "* TODO %? %i %a"))))
+
+ ((eq system-type 'gnu/linux)
   (setq org-capture-templates
         '(("t" "TODO" entry
-           (file+headline "~/org-mode/tasks.org" "Tasks") "* TODO %? %i %a")))
+           (file "~/documents/org-mode/zettel/tasks.org") "* TODO %? %i %a")))))
 
   (setq org-format-latex-options
         '(:foreground default
@@ -549,12 +736,19 @@
 
 (setq calendar-latitude 42.36)
 (setq calendar-longitude -71.057)
-(setq calendar-location-name "Boston, MA")
+(setq calendar-location-name "Providence, RI")
+
+(defun org-summary-todo (n-done n-not-done)
+  "Switch entry to DONE when all subentries are done, to TODO otherwise."
+  (let (org-log-done org-todo-log-states)   ; turn off logging
+    (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
+
+(add-hook 'org-after-todo-statistics-hook #'org-summary-todo)
 
 (use-package org-bullets
-    :hook (org-mode . org-bullets-mode)
-    :custom
-        (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
+             :hook (org-mode . org-bullets-mode)
+             :custom
+             (org-bullets-bullet-list '("◉" "⦾" "●" "○" "●" "○" "●")))
 
 (use-package org-tree-slide)
 
@@ -589,20 +783,24 @@
     (add-to-list 'org-structure-template-alist '("sp" . "src spice"))
     (add-to-list 'org-structure-template-alist '("R" . "src R")))
 
-(use-package org-drill)
-
 ;;org download allows images to be yanked from the web and from the clipboard
-(use-package org-download
-    :after org
-    :bind (:map org-mode-map(
-            ("S-Y" . org-download-screenshot)
-            ("S-y" . org-download-clipboard)))
-    :config
-        (setq org-download-screenshot-method "image-magick/convert %s")
-        (setq org-download-annotate-function (lambda (_link) ""))
-        (setq org-download-image-attr-list nil))
+(defun will/org-download-clipboard-and-name ()
+  (interactive)
+  (org-download-screenshot (concat (read-string "filename? ") ".png")))
 
-(add-hook 'emacs-startup-hook #'(lambda () (org-roam-db-autosync-mode 1)))
+(use-package org-download
+             :after org
+             :bind (:map org-mode-map(
+                                      ("s-Y" . org-download-screenshot)
+                                      ("s-y" . will/org-download-clipboard-and-name)))
+             :config
+             (setq org-download-screenshot-method "spectacle -br -o %s")
+             (setq org-download-annotate-function (lambda (_link) ""))
+             (setq org-download-image-attr-list nil)
+             (add-hook 'dired-mode-hook 'org-download-enable)
+             (setq org-download-image-html-width 400)
+             (setq org-download-timestamp ""))
+
 
 (use-package org-roam
   :hook (org-mode . will/org-mode-setup)
@@ -613,12 +811,17 @@
          ("C-c n a" . org-roam-alias-add)
          ("C-c n r" . org-roam-node-random))
   :config (require 'org-roam-protocol)
-             (setq org-refile-allow-creating-parent-nodes 'confirm)
-             (setq org-roam-buffer-postrender-functions '(org-latex-preview))
-             (setq org-roam-completion-everywhere t)
-             (setq org-roam-db-autosync-mode t)
-             (setq org-roam-db-update-on-save t)
-             (setq org-roam-directory "~/org-mode/zettel/")
+  (setq org-refile-allow-creating-parent-nodes 'confirm)
+  (setq org-roam-buffer-postrender-functions '(org-latex-preview))
+  (setq org-roam-completion-everywhere t)
+  (setq org-roam-db-autosync-mode t)
+  (setq org-roam-db-update-on-save t)
+  (cond
+   ((eq system-type 'windows-nt )
+    (setq org-roam-directory "~/org-mode/zettel/"))
+   ((eq system-type 'gnu/linux)
+    (setq org-roam-directory "/home/will/documents/org-mode/zettel/")))
+
 
   (setq org-roam-node-display-template
         (concat "${title:*} "
@@ -631,18 +834,8 @@
   (setq org-roam-capture-templates
         '(("d" "default" plain "%?" :target
            (file+head "${slug}.org"
-                      "#+title: ${title}\n#+STARTUP: = latexpreview")
+                      "#+title: ${title}\n#+STARTUP: = latexpreview showall")
            :unnarrowed t)))
-
-  (setq org-ellipsis " ▾")
-
-  (setq org-roam-db-node-include-function
-         (defun will/org-roam-include ()
-           (not (member "drill" (org-get-tags)))))
-
-             ;; Don't forget to run the following commands!
-             ;; M-x org-roam-db-clear-all
-             ;; M-x org-roam-db-sync
 
   ;; roam dailies config
   (setq org-roam-dailies-directory "daily/")
@@ -653,7 +846,7 @@
                               "#+title: %<%Y-%m-%d>\n")))))
 
 (use-package websocket
-    :after org)
+             :after org)
 
 (use-package org-roam-ui
     :after org
@@ -665,8 +858,6 @@
         (setq org-roam-ui-open-on-start t)
     :custom
         (setq org-roam-ui-mode t))
-
-
 ;; ============================================================
 (use-package flyspell
   :custom (setq flyspell-issue-message-flag nil
@@ -679,37 +870,16 @@
 (use-package flycheck
   :ensure t
   :init (global-flycheck-mode 0)
-  :hook ((c++-mode . flycheck-mode)
-         (elisp-mode . flycheck-mode)
-         (octave-mode . flycheck-mode)
-         (typescript-mode . flycheck-mode))
+  ;; TODO delete?
+  ;; :hook ((c++-mode . flycheck-mode)
+  ;;        (elisp-mode . flycheck-mode)
+  ;;        (octave-mode . flycheck-mode)
+  ;;        (typescript-mode . flycheck-mode))
   :config
          (setq flycheck-check-syntax-automatically '(save)))
-
-;; tags for code navigation
-(use-package ggtags
-    :ensure t
-    :hook '((c-mode . ggtags-mode)
-            (c++-mode . ggtags-mode)
-            (java-mode . ggtags-mode)
-            (asm-mode . ggtags-mode))
-    :bind
-        (:map ggtags-mode-map
-        ("C-c g s" . ggtags-find-other-symbol)
-        ("C-c g h" . ggtags-view-tag-history)
-        ("C-c g r" . ggtags-find-reference)
-        ("C-c g f" . ggtags-find-file)
-        ("C-c g c" . ggtags-create-tags)
-        ("C-c g u" . ggtags-update-tags)
-        ("M-," . pop-tag-mark))
-    :custom
-        (setq-local imenu-create-index-function #'ggtags-build-imenu-index))
-
-(use-package yasnippet
-  :ensure t)
-
 ;; ============================================================
-;; misc languages
+;; TODO put with prog mode
+;; tags for code navigation
 (use-package eglot
   :ensure t
   :defer t
@@ -736,13 +906,6 @@
                                              :black (:enabled t)))))))
 
 
-  ;; (setq-default eglot-workspace-configuration
-  ;;               '(:pylsp . (:plugins
-  ;;                           (:jedi_completion (:include_params t :fuzzy t)
-  ;;                                             :pylint (:enabled :json-false)
-  ;;                                             :autopep8 (:enabled :json-false)
-  ;;                                             :black (:enabled t :line_length 80)))
-  ;;                        :gopls (:usePlaceholders t))))
 
 
 (use-package typescript-mode
@@ -750,6 +913,7 @@
   :config
   (setq typescript-indent-level 2))
 
+;; todo fix python config
 (use-package python
   :ensure t
   :bind (:map python-mode-map
@@ -768,7 +932,10 @@
   (inferior-python-mode . python-shell-completion-native-turn-off)
   :config
   (setq python-indent-offset 4)
-  (setq python-shell-interpreter "ipython"))
+  (cond ((eq system-type 'windows-nt)
+         (setq python-shell-interpreter "ipython"))
+        ((eq system-type 'gnu/linux)
+         (setq python-shell-interpreter "python3"))))
 
 (use-package pyvenv
   :after python-mode
@@ -779,6 +946,8 @@
 (setq spice-simulator "ngspice")
 ;;(setq spice-waveform-viewer "ngplot")
 
+;; auto mode finds the mode to activate for a file
+;; based on its ending
 (dolist (amlist '(("\\.cir$" . spice-mode)
                   ("\\.ckt$" . spice-mode)
                   ("\\.inp$" . spice-mode)
@@ -807,58 +976,13 @@
 
 (setq inferior-octave-program "/usr/bin/octave")
 
-;; ============================================================
-;; c-lang conf
+(use-package yasnippet
+  :defer 0
+  :hook ((prog-mode . yas-minor-mode))
+  :bind (:map prog-mode-map
+              (("C-c C-<tab>" . yas-expand))))
 
-(use-package cc-mode
-             :hook (cc-mode . whitespace-mode)
-             :bind (:map c++-mode-map (("C-c o" . ff-find-other-file))
-                         :map c-mode-map (("C-c o" . ff-find-other-file)))
-             :config (setq c-backspace-function 'backward-delete-char)
-             (setq c-basic-offset 4)
-             (setq c-cleanup-list nil)
-             (setq c-default-style '((awk-mode . "awk") (other . "gnu")))
-             (setq c-electric-pound-behavior '(alignleft))
-             (setq c-ignore-auto-fill '(string c c++ cpp code))
-             (setq c-label-minimum-indentation 4)
-             (add-hook 'c-mode-common-hook 'yafolding-mode)
-             (setq c-objc-method-arg-min-delta-to-bracket 0)
-             (setq c-objc-method-arg-unfinished-offset 0)
-             (setq c-objc-method-parameter-offset 0)
-             (setq c-offsets-alist '((substatement-label . 0) (label . 0)))
-             (setq c-syntactic-indentation nil)
-             (setq c-syntactic-indentation-in-macros nil)
-             (setq c-tab-always-indent t)
-             (setq ;; use gdb-many-windows by default
-                   gdb-many-windows t
-                   ;; Non-nil means display source file containing the main routine at startup
-                   gdb-show-main t)
-
-             :custom
-             (global-set-key (kbd "<f5>") (lambda () (interactive)
-                                            (setq-local compilation-read-command nil)
-                                            (cppcm-reload-all)
-                                            (call-interactively 'compile))))
-
-(use-package irony
- :hook
-             (c++-mode . irony-mode)
-             (c-mode . irony-mode)
-             (objc-mode . irony-mode))
-
-;; OPTIONAL, avoid typing full path when starting gdb
-(use-package cpputils-cmake)
-(global-set-key (kbd "C-c C-g C-d") (lambda () (interactive)
-    (gud-gdb (concat "gdb --fullname " (cppcm-get-exe-path-current-buffer)))))
-
-(use-package cmake-mode)
-
-(use-package cmake-font-lock)
-
-(use-package cmake-ide)
-
-(use-package cpp-auto-include)
-
+;; todo do I really want to be using company?
 (use-package company
   :hook ((c-common-mode . company-mode)
          (c++-mode . company-mode)
@@ -866,72 +990,164 @@
          (emacs-lisp-mode . company-mode)
          (bash-mode-hook . company-mode))
   :config
-  (setq company-minimum-prefix-length 0)
-  (setq company-idle-delay 1.5)
+  (setq company-minimum-prefix-length 3)
+  (setq company-idle-delay 2)
   (setq company-show-numbers t)
   (setq company-tooltip-limit 20)
   (setq company-dabbrev-downcase nil)
   :bind (:map company-active-map
-              (("<tab>" . company-select-next)
-               ("<backtab>" . company-select-previous) )
-              ("C-;" . company-complete-selection)
-         :map company-mode-map (("C-'" . company-complete-selection)
-                                ("C-<tab>" . company-complete)))
-  :config
-             (add-to-list 'company-backends
-                          'company-c-headers
-                          'company-irony
-                          'company-gtags))
-
-(use-package company-irony :ensure t :defer t)
-
-(use-package company-c-headers :defer t)
-
-(use-package projectile
-             :diminish projectile-mode
-             :config (projectile-mode)
-             :custom ((projectile-completion-system 'ivy))
-             :bind-keymap
-             ("C-c p" . projectile-command-map)
-             :init
-             ;; NOTE: Set this to the folder where you keep your Git repos!
-             (when (file-directory-p "~/code")
-               (setq projectile-project-search-path '("~/code")))
-             (setq projectile-switch-project-action #'projectile-dired))
-
+              (("C-n" . company-select-next)
+               ("C-p" . company-select-previous) )
+              ;; ("C-;" . company-complete-selection)
+              :map company-mode-map (("C-'" . company-complete-selection)
+                                     ("C-<tab>" . company-complete)))
+  :config (add-to-list 'company-backends
+                       'company-c-headers
+                       'company-irony
+                       'company-gtags))
 ;; ============================================================
 (use-package magit
-             :ensure t
-             :after with-editor
-             :hook (magit-mode . magit-wip-mode)
-             :bind ("C-x g" . magit-status))
+  :ensure t
+  :after with-editor
+  :hook (magit-mode . magit-wip-mode)
+  :bind ("C-x g" . magit-status))
 
 (use-package forge
              :after magit)
 
 (use-package with-editor
              :after magit)
-
 ;; ============================================================
+;; todo what is semantic doing for me?
 (use-package semantic
-             :config
-             (global-semanticdb-minor-mode 1)
-             (global-semantic-idle-scheduler-mode 1)
-             (semantic-mode 1))
+  :config
+  (global-semanticdb-minor-mode 1)
+  (global-semantic-idle-scheduler-mode 1)
+  (semantic-mode 1))
 ;; ============================================================
-(use-package pdf-tools)
-(use-package valign)
-(use-package mpv)
-(use-package math-symbol-lists)
-(use-package djvu)
-(use-package bash-completion
-  :hook (bash-mode . (lambda () (bash-completion-setup))))
+(use-package ggtags
+  :ensure t
+  :hook '((c-mode . ggtags-mode)
+          (c++-mode . ggtags-mode)
+          (java-mode . ggtags-mode)
+          (asm-mode . ggtags-mode))
+  :bind
+  (:map ggtags-mode-map
+        ("C-c g s" . ggtags-find-other-symbol)
+        ("C-c g h" . ggtags-view-tag-history)
+        ("C-c g r" . ggtags-find-reference)
+        ("C-c g f" . ggtags-find-file)
+        ("C-c g c" . ggtags-create-tags)
+        ("C-c g u" . ggtags-update-tags)
+        ("M-," . pop-tag-mark))
+  :custom
+  (setq-local imenu-create-index-function #'ggtags-build-imenu-index))
 
-(load "~/.emacs.d/conf/will-global-keybindings.el")
-(load "~/.emacs.d/conf/ibuffer-conf.el")
-(load "~/.emacs.d/conf/shell-conf.el")
-(load "~/.emacs.d/conf/dired-conf.el")
-(load "~/.emacs.d/conf/elfeed-conf.el")
-(load "~/.emacs.d/conf/mu4e-conf.el")
-(load "~/.emacs.d/conf/erc-conf.el")
-(load "~/.emacs.d/conf/lisp-conf.el")
+(dolist (mode '(term-mode-hook
+                shell-mode-hook
+                treemacs-mode-hook
+                eshell-mode-hook))
+  (add-hook mode (lambda () (display-line-numbers-mode 0))))
+
+;; todo remove?
+;; (use-package counsel-projectile
+;;   :after projectile
+;;   :config  (counsel-projectile-mode t))
+
+(use-package clean-aindent-mode
+  :hook prog-mode)
+
+(use-package rainbow-delimiters
+  :hook prog-mode)
+
+(use-package yafolding
+  :ensure t
+  :hook (prog-mode . yafolding-mode))
+
+(use-package ws-butler
+  :hook (prog-mode . ws-butler-mode))
+
+(use-package command-log-mode
+             :commands command-log-mode)
+
+(use-package counsel-pydoc
+             :after
+             counsel)
+;; ============================================================
+;; TODO cleanup
+(require 'slime)
+
+(load (expand-file-name "~/.quicklisp/slime-helper.el"))
+
+(setq inferior-lisp-program "sbcl --dynamic-space-size 8192")
+
+(use-package smartparens
+    :hook ((lisp-mode . smartparens-mode)
+		   (emacs-lisp-mode . smartparens-mode)))
+
+(use-package paredit
+  :bind (:map paredit-mode-map
+			  ("C-r" . paredit-open-parenthesis)
+			  ("C-M-f" . paredit-forward-slurp-sexp)
+			  ("C-M-b" . paredit-forward-barf-sexp))
+  :hook ((lisp-mode . paredit-mode)
+		 (emacs-lisp-mode . paredit-mode)
+		 (lisp-data-mode . paredit-mode)))
+
+(require 'smartparens-config)
+
+(defun will/pretty-lambda ()
+  "make some word or string show as pretty Unicode symbols"
+  ;; 955= λ
+  (setq prettify-symbols-alist
+        '(("lambda" . 955))))
+
+(add-hook 'lisp-mode-hook 'will/pretty-lambda)
+(add-hook 'lisp-mode-hook 'prettify-symbols-mode)
+;; (add-hook 'lisp-mode-hook 'auto-complete-mode)
+(add-hook 'lisp-mode-hook 'slime-autodoc-mode)
+(add-hook 'lisp-mode-hook #'(lambda () (indent-tabs-mode -1)))
+(define-key lisp-mode-map [(tab)] 'slime-fuzzy-indent-and-complete-symbol)
+(define-key lisp-mode-map (kbd "M-z") 'slime)
+
+(add-hook 'emacs-lisp-mode-hook 'will/pretty-lambda)
+(add-hook 'emacs-lisp-mode-hook 'prettify-symbols-mode)
+(add-hook 'emacs-lisp-mode-hook #'(lambda () (indent-tabs-mode -1)))
+
+(use-package slime
+  :bind ((:map slime-repl-mode-map
+	       ("TAB" . slime-fuzzy-indent-and-complete-symbol)
+	       ("C-c C-z" . other-window))
+	 (:map slime-fuzzy-completions-map
+	       ("C-d" . slime-describe-symbol)
+
+	       ("q" . kill-this-buffer)))
+  :hook ((slime-repl-mode . (lambda () (paredit-mode +1)))
+	 (slime-repl-mode . (lambda () (rainbow-delimiters-mode +1)))
+	 (slime-repl-mode . (lambda () (auto-complete-mode '1)))
+	 (slime-repl-mode . slime-autodoc-mode))
+  :config
+  (setq slime-description-autofocus t)
+  (setq lisp-indent-function 'lisp-indent-function)
+  (setq common-lisp-style-default "sbcl"))
+
+(defun slime-fuzzy-window-configuration-change ()
+  nil)
+
+(slime-setup '(slime-fancy slime-quicklisp slime-asdf))
+;; ============================================================
+;; eldoc
+;; TODO put with PROG mode
+(setq eldoc-echo-area-use-multiline-p 2)
+(setq eldoc-echo-area-display-truncation-message nil)
+
+;; ============================================================
+;; indent and tabs
+;; TODO put with PROG mode
+(setq indent-tabs-mode nil)
+(setq electric-indent-mode t)
+(setq backward-delete-char-untabify-method 'hungry)
+
+(load "/home/will/.emacs.d/conf/elfeed-conf.el")
+(load "/home/will/.emacs.d/conf/mu4e-conf.el")
+(load "/home/will/.emacs.d/conf/erc-conf.el")

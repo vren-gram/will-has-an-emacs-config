@@ -1,25 +1,7 @@
-
 (use-package elfeed
+  :hook (elfeed-show-mode . (lambda () (display-line-numbers-mode 0)))
   :bind (:map elfeed-show-mode-map
-			  ("r" . image-decrease-size)))
-;;(setq elfeed-search-filter "@6-months-ago")
-
-
-;; (use-package all-the-icons-ibuffer)
-
-;; (use-package ibuffer
-;;   :bind (("C-x C-b" . ibuffer)
-;; 		 ("C-\\" . ibuffer)
-;; 		 :map ibuffer-mode-map
-;; 		 ("C-\\" . quit-window)
-;; 		 ("C-x C-b" . quit-window))
-;;   :hook ((ibuffer-mode . ibuffer-auto-mode)
-;;          (ibuffer-mode . (lambda () (ibuffer-switch-to-saved-filter-groups "home"))))
-;;   :config
-
-
-
-
+              ("r" . image-decrease-size)))
 
 (setf elfeed-show-entry-switch
       (lambda (b)
@@ -71,7 +53,7 @@
 '(elfeed-goodies/entry-pane-position 'top)
 
 (add-hook 'elfeed-show-mode-hook
-		  (lambda () (progn (display-line-numbers-mode 0)
-							(set-face-attribute 'variable-pitch nil
-												:font "Hack"
-												:height 120))))
+          (lambda () (progn (display-line-numbers-mode 0)
+                       (set-face-attribute 'variable-pitch nil
+                                           :font "Hack"
+                                           :height 120))))

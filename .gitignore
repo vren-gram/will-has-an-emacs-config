@@ -5,7 +5,15 @@
 /elpy/
 /var/
 /.org-generic-id-locations
+<<<<<<< HEAD
 /server/
 /fonts/
 *.elc
 /auto-save-list/
+||||||| b60261a
+=======
+/conf/erc-conf.lisp
+*.elc
+/auto-save-list/
+/org-fc-reviews.tsv
+>>>>>>> main
