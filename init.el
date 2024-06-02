@@ -732,7 +732,7 @@
           ("" "amssymb" t nil)
           ("" "hyperref" t nil)))
 
-  (setq org-image-actual-width '(400)))
+  (setq org-image-actual-width '(400))
 
 (setq calendar-latitude 42.36)
 (setq calendar-longitude -71.057)
