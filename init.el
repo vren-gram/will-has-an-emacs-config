@@ -642,20 +642,6 @@
   (setq org-src-preserve-indentation t)
   (setq org-agenda-clockreport-parameter-plist '(:link t :maxlevel 2 :block lastmonth :step day))
 
-  (cond
-   ((eq system-type 'windows-nt)
-    (setq org-agenda-files '("~/org-mode/tasks.org"
-                             "~/org-mode/habits.org"
-                             "~/org-mode/zettel/scratch.org"
-                             "~/org-mode/archive.org")))
-   ((eq system-type 'gnu/linux)
-    (setq org-agenda-files '("~/documents/org-mode/zettel/tasks.org"
-                             "~/documents/org-mode/zettel/habits.org"
-                             "~/documents/org-mode/zettel/archive.org"
-                             "~/documents/org-mode/zettel/recurring.org"))))
-
-
-
   (setq org-agenda-start-day "-2d")
   (setq org-agenda-span 10)
   (setq org-agenda-loop-over-headlines-in-active-region nil)
@@ -686,53 +672,65 @@
   (setq org-default-priority 3)
   (setq org-lowest-priority 7)
 
+  :custom
+  (cond
+   ((eq system-type 'windows-nt)
+    (setq org-agenda-files '("~/org-mode/tasks.org"
+                             "~/org-mode/habits.org"
+                             "~/org-mode/zettel/scratch.org"
+                             "~/org-mode/archive.org")))
+   ((eq system-type 'gnu/linux)
+    (setq org-agenda-files '("~/documents/org-mode/zettel/tasks.org"
+                             "~/documents/org-mode/zettel/habits.org"
+                             "~/documents/org-mode/zettel/archive.org"
+                             "~/documents/org-mode/zettel/recurring.org"))))
+
   (cond
    ((eq system-type 'windows-nt)
     '(("~/org-mode/tasks.org" :maxlevel . 1)
       ("~/org-mode/archive.org" :maxlevel . 1)
-      ("~/org-mode/habits.org" :maxlevel . 1))))
-  ((eq system-type 'gnu/linux)
-   (setq org-refile-targets
-         '(("~/documents/org-mode/zettel/tasks.org" :maxlevel . 2)
-           ("~/documents/org-mode/zettel/archive.org" :maxlevel . 2)
-           ("~/documents/org-mode/zettel/habits.org" :maxlevel . 2)))
-   ;; Save Org buffers after refiling!
-   (advice-add 'org-refile :after 'org-save-all-org-buffers)))
+      ("~/org-mode/habits.org" :maxlevel . 1)))
+   ((eq system-type 'gnu/linux)
+    (setq org-refile-targets
+          '(("~/documents/org-mode/zettel/tasks.org" :maxlevel . 2)
+            ("~/documents/org-mode/zettel/archive.org" :maxlevel . 2)
+            ("~/documents/org-mode/zettel/habits.org" :maxlevel . 2)))
+    ;; Save Org buffers after refiling!
+    (advice-add 'org-refile :after 'org-save-all-org-buffers)))
 
   (cond
    ((eq system-type 'windows-nt)
     (setq org-capture-templates
         '(("t" "TODO" entry
            (file+headline "~/org-mode/tasks.org" "Tasks") "* TODO %? %i %a"))))
+   ((eq system-type 'gnu/linux)
+    (setq org-capture-templates
+          '(("t" "TODO" entry
+             (file "~/documents/org-mode/zettel/tasks.org") "* TODO %? %i %a"))))))
 
- ((eq system-type 'gnu/linux)
-  (setq org-capture-templates
-        '(("t" "TODO" entry
-           (file "~/documents/org-mode/zettel/tasks.org") "* TODO %? %i %a")))))
+(setq org-format-latex-options
+      '(:foreground default
+                    :background default
+                    :scale 1.8
+                    :html-foreground "Black"
+                    :html-background "Transparent"
+                    :html-scale 1.0
+                    :matchers ("begin" "$1" "$" "$$" "\\(" "\\[")))
 
-  (setq org-format-latex-options
-        '(:foreground default
-                      :background default
-                      :scale 1.8
-                      :html-foreground "Black"
-                      :html-background "Transparent"
-                      :html-scale 1.0
-                      :matchers ("begin" "$1" "$" "$$" "\\(" "\\[")))
+(setq org-latex-default-packages-alist
+      '(("AUTO" "inputenc" t ("pdflatex"))
+        ("T1" "fontenc" t ("pdflatex"))
+        ("" "graphicx" t nil)
+        ("" "grffile" t nil)
+        ("" "longtable" nil nil)
+        ("" "rotating" nil nil)
+        ("normalem" "ulem" t nil)
+        ("" "amsmath" t nil)
+        ("" "textcomp" t nil)
+        ("" "amssymb" t nil)
+        ("" "hyperref" t nil)))
 
-  (setq org-latex-default-packages-alist
-        '(("AUTO" "inputenc" t ("pdflatex"))
-          ("T1" "fontenc" t ("pdflatex"))
-          ("" "graphicx" t nil)
-          ("" "grffile" t nil)
-          ("" "longtable" nil nil)
-          ("" "rotating" nil nil)
-          ("normalem" "ulem" t nil)
-          ("" "amsmath" t nil)
-          ("" "textcomp" t nil)
-          ("" "amssymb" t nil)
-          ("" "hyperref" t nil)))
-
-  (setq org-image-actual-width '(400))
+(setq org-image-actual-width '(400))
 
 (setq calendar-latitude 42.36)
 (setq calendar-longitude -71.057)
