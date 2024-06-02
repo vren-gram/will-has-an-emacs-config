@@ -4,19 +4,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-<<<<<<< HEAD
    '(cpputils-cmake yasnippet-snippets doom-modeline command-log-mode rainbow-delimiters clean-aindent-mode slime ac-ispell ac-octave adaptive-wrap all-the-icons-dired all-the-icons-ibuffer all-the-icons-ivy auctex auctex-latexmk auto-complete bash-completion bundler c++-mode c-mode cmake-font-lock cmake-mode cmake-project company company-box company-c-headers company-irony company-irony-c-headers counsel-pydoc counsel-tramp cpp-auto-include dashboard dired-hide-dotfiles dired-icon dired-open dired-single dired-subtree djvu eldoc-cmake elfeed elfeed-goodies elpy eshell-git-prompt ess eterm-256color flycheck flycheck-google-cpplint flyspell-correct-ivy forge fuzzy ggtags inf-ruby irony irony-eldoc ivy-fuz js2-mode julia-formatter julia-mode lisp-mode lsp-ivy lsp-julia lsp-mode lsp-treemacs lsp-ui magit math-symbol-lists minesweeper mpv mu4e mu4e-alert nginx-mode nodejs-repl openwith org-download org-drill org-gcal org-roam org-roam-ui org-tree-slide paredit pdf-tools pomm pydoc python-info python-mode pyvenv rust-mode skewer-mode smartparens sudoku typescript-mode valign vertico vterm websocket with-editor ws-butler yafolding yasnippet)))
-||||||| 6bc073c
-   '(org-timeline org-habit-stats eglot pandoc emacsql-sqlite-builtin esqlite company-jedi virtualenv csv-mode pyvenv-auto treesit-auto fontsloth nginx-mode c-mode auto-complete dashboard adaptive-wrap c++-mode irony-eldoc company-irony-c-headers flycheck-google-cpplint rust-mode skewer-mode nodejs-repl js2-mode bundler inf-ruby counsel-pydoc pydoc elpy python-info julia-formatter all-the-icons-ivy ess dired-icon lsp-julia julia-mode ac-octave bash-completion org-gcal vertico lisp-mode smartparens elfeed-goodies elfeed dired-hide-dotfiles dired-single all-the-icons-dired eshell-git-prompt vterm eterm-256color all-the-icons-ibuffer forge magit with-editor company-box company-irony company cpputils-cmake irony python-mode typescript-mode lsp-treemacs lsp-ivy lsp-ui lsp-mode yasnippet ggtags flycheck ws-butler yafolding org-roam-ui websocket org-roam org-download openwith dired-open mu4e mu4e-alert math-symbol-lists djvu mpv valign pdf-tools ac-ispell org-drill auctex ivy-fuz fuzzy flyspell-correct-ivy counsel-tramp eldoc-cmake paredit company-c-headers org-tree-slide minesweeper cmake-font-lock cmake-project cmake-mode cmake-ide cpp-auto-include sudoku auctex-latexmk)))
-
-;; (setq custom-safe-themes
-      ;; '("7a7b1d475b42c1a0b61f3b1d1225dd249ffa1abb1b7f726aec59ac7ca3bf4dae" default))
-=======
-   '(hide-mode-line iscroll rustic slime ace-jump-mode pomm org-timeline org-habit-stats eglot pandoc emacsql-sqlite-builtin esqlite company-jedi virtualenv csv-mode pyvenv-auto treesit-auto fontsloth nginx-mode c-mode auto-complete dashboard adaptive-wrap c++-mode irony-eldoc company-irony-c-headers flycheck-google-cpplint rust-mode skewer-mode nodejs-repl js2-mode bundler inf-ruby counsel-pydoc pydoc elpy python-info julia-formatter all-the-icons-ivy ess dired-icon lsp-julia julia-mode ac-octave bash-completion org-gcal vertico lisp-mode smartparens elfeed-goodies elfeed dired-hide-dotfiles dired-single all-the-icons-dired eshell-git-prompt vterm eterm-256color all-the-icons-ibuffer forge magit with-editor company-box company-irony company cpputils-cmake irony python-mode typescript-mode lsp-treemacs lsp-ivy lsp-ui lsp-mode yasnippet ggtags flycheck ws-butler yafolding org-roam-ui websocket org-roam org-download openwith dired-open mu4e mu4e-alert math-symbol-lists djvu mpv valign pdf-tools ac-ispell org-drill auctex ivy-fuz fuzzy flyspell-correct-ivy counsel-tramp eldoc-cmake paredit company-c-headers org-tree-slide minesweeper cmake-font-lock cmake-project cmake-mode cmake-ide cpp-auto-include sudoku auctex-latexmk)))
-
-;; (setq custom-safe-themes
-      ;; '("7a7b1d475b42c1a0b61f3b1d1225dd249ffa1abb1b7f726aec59ac7ca3bf4dae" default))
->>>>>>> origin/windows-config-dev
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -30,7 +18,6 @@
  '(mu4e-ok-face ((t (:inherit font-lock-comment-face :foreground "medium spring green" :slant normal :weight bold))))
  '(org-agenda-clocking ((t (:background "medium sea green" :foreground "blanched almond"))))
  '(org-agenda-done ((t (:inherit org-done :foreground "DarkSeaGreen4"))))
- '(org-imminent-deadline ((t (:inherit org-warning))))
  '(org-scheduled ((t (:foreground "pale green"))))
  '(org-scheduled-previously ((t (:foreground "OrangeRed1"))))
  '(org-scheduled-today ((t (:foreground "lemon chiffon"))))
@@ -74,25 +61,11 @@
 (put 'downcase-region 'disabled nil)
 ;;============================================================
 ;; initial buffer things
-<<<<<<< HEAD
 (setq initial-buffer-choice t
       ;; TODO remove?
       ;; initial-major-mode 'org-mode
       initial-scratch-message ""
       frame-resize-pixelwise t)
-||||||| 6bc073c
-;; (setq initial-buffer-choice "~/")
-(setq initial-major-mode 'org-mode)
-(setq initial-scratch-message "")
-(setq frame-resize-pixelwise t)
-=======
-;; (setq initial-buffer-choice "~/")
-(setq initial-major-mode 'org-mode)
-(setq initial-scratch-message "")
-(setq frame-resize-pixelwise t)
-(setq global-auto-revert-mode t)
-
->>>>>>> origin/windows-config-dev
 ;; ============================================================
 ;; misc
 (setq column-number-mode t)
@@ -102,14 +75,6 @@
 (setq case-replace t)
 (setq resize-mini-windows t)
 (setq byte-compile-warnings '(cl-functions))
-<<<<<<< HEAD
-||||||| 6bc073c
-(put 'downcase-region 'disabled nil)
-
-=======
-(put 'downcase-region 'disabled nil)
-(put 'upcase-region 'disabled nil)
->>>>>>> origin/windows-config-dev
 ;; ============================================================
 ;; global auto revert to help with syncthing and magit
 (global-auto-revert-mode t)
@@ -117,28 +82,6 @@
 (setq help-window-select t)
 ;; makes all yes prompts into y prompts
 (defalias 'yes-or-no-p 'y-or-n-p)
-<<<<<<< HEAD
-||||||| 6bc073c
-
-;; redefining behavior to kill by default
-(defun quit-window (&optional kill window)
-  (interactive "P")
-  (with-current-buffer (window-buffer (window-normalize-window window))
-    (run-hooks 'quit-window-hook))
-  ;; used to be 'kill 'bury
-  (quit-restore-window window (if kill 'kill 'kill)))
-
-=======
-
-;; redefining behavior to kill by default
-;; (defun quit-window (&optional kill window)
-;;   (interactive "P")
-;;   (with-current-buffer (window-buffer (window-normalize-window window))
-;;     (run-hooks 'quit-window-hook))
-;;   ;; used to be 'kill 'bury
-;;   (quit-restore-window window (if kill 'kill 'kill)))
-
->>>>>>> origin/windows-config-dev
 ;; ============================================================
 ;; backups
 (setq backup-by-copying t               ; don't clobber symlinks
@@ -503,7 +446,6 @@
   (setq visual-fill-column-enable-sensible-window-split t)
   (setq visual-fill-column-width 105))
 ;; ============================================================
-<<<<<<< HEAD
 (use-package tex
              :ensure auctex)
 (use-package auctex-latexmk
@@ -521,30 +463,6 @@
   :config
   (setq explicit-shell-file-name "bash")
   (setq term-prompt-regexp "^[^#$%>\n]*[#$%>] *"))
-||||||| 6bc073c
-(use-package auctex)
-(use-package auctex-latexmk)
-(setq TeX-view-program-selection '(((output-dvi has-no-display-manager)
-                                    "dvi2tty")
-                                   ((output-dvi style-pstricks)
-                                    "dvips and gv")
-                                   (output-dvi "xdvi")
-                                   (output-pdf "Zathura")
-                                   (output-html "xdg-open")))
-=======
-(use-package tex
-  :ensure auctex)
-
-(use-package auctex-latexmk
-  :config
-  (setq TeX-view-program-selection '(((output-dvi has-no-display-manager)
-                                      "dvi2tty")
-                                     ((output-dvi style-pstricks)
-                                      "dvips and gv")
-                                     (output-dvi "xdvi")
-                                     (output-pdf "Zathura")
-                                     (output-html "xdg-open"))))
->>>>>>> origin/windows-config-dev
 
 (use-package eterm-256color
   :hook (term-mode . eterm-256color-mode))
@@ -866,7 +784,6 @@
     (add-to-list 'org-structure-template-alist '("R" . "src R")))
 
 ;;org download allows images to be yanked from the web and from the clipboard
-<<<<<<< HEAD
 (defun will/org-download-clipboard-and-name ()
   (interactive)
   (org-download-screenshot (concat (read-string "filename? ") ".png")))
@@ -883,27 +800,6 @@
              (add-hook 'dired-mode-hook 'org-download-enable)
              (setq org-download-image-html-width 400)
              (setq org-download-timestamp ""))
-||||||| 6bc073c
-(use-package org-download
-    :after org
-    :bind (:map org-mode-map(
-            ("S-Y" . org-download-screenshot)
-            ("S-y" . org-download-clipboard)))
-    :config
-        (setq org-download-screenshot-method "image-magick/convert %s")
-        (setq org-download-annotate-function (lambda (_link) ""))
-        (setq org-download-image-attr-list nil))
-=======
-(use-package org-download
-             :after org
-             :bind (:map org-mode-map(
-                                      ("S-Y" . org-download-screenshot)
-                                      ("S-y" . org-download-clipboard)))
-             :config
-             (setq org-download-screenshot-method "image-magick/convert %s")
-             (setq org-download-annotate-function (lambda (_link) ""))
-             (setq org-download-image-attr-list nil))
->>>>>>> origin/windows-config-dev
 
 
 (use-package org-roam
@@ -936,19 +832,9 @@
               #'org-roam-reflinks-section))
 
   (setq org-roam-capture-templates
-<<<<<<< HEAD
         '(("d" "default" plain "%?" :target
            (file+head "${slug}.org"
                       "#+title: ${title}\n#+STARTUP: = latexpreview showall")
-||||||| 6bc073c
-        '(("d" "default" plain "%?" :target
-           (file+head "${slug}.org"
-                      "#+title: ${title}\n#+STARTUP: = latexpreview")
-=======
-        '(("d" "default" plain "%?"
-           :target (file+head "${slug}.org"
-                              "#+title: ${title} \n#+STARTUP: = latexpreview")
->>>>>>> origin/windows-config-dev
            :unnarrowed t)))
 
   ;; roam dailies config
@@ -1027,7 +913,6 @@
   :config
   (setq typescript-indent-level 2))
 
-<<<<<<< HEAD
 ;; todo fix python config
 (use-package python
   :ensure t
@@ -1045,68 +930,12 @@
   (python-mode . company-mode)
   (inferior-python-mode . company-mode)
   (inferior-python-mode . python-shell-completion-native-turn-off)
-||||||| 6bc073c
-(use-package python
-  :ensure t
-  :bind (:map python-mode-map
-              ("C-c C-d" . pydoc-at-point)
-              ("C-c C-p" . run-python)
-              :map inferior-python-mode-map
-              ("C-c C-d" . pydoc-at-point)
-              ("C-c C-p" . run-python)
-              ("C-c C-z" . other-window))
-  :hook
-  (python-mode . eglot-ensure)
-  (python-mode . whitespace-mode)
-  (python-mode . yas-global-mode)
-  (python-mode . company-mode)
-  (inferior-python-mode . company-mode)
-  (inferior-python-mode . python-shell-completion-native-turn-off)
-=======
-(use-package rustic
->>>>>>> origin/windows-config-dev
   :config
-<<<<<<< HEAD
   (setq python-indent-offset 4)
   (cond ((eq system-type 'windows-nt)
          (setq python-shell-interpreter "ipython"))
         ((eq system-type 'gnu/linux)
          (setq python-shell-interpreter "python3"))))
-||||||| 6bc073c
-  (setq python-indent-offset 4)
-  (setq python-shell-interpreter "ipython"))
-=======
-    (setq rustic-analyzer-command '("C:/Users/william.tower/AppData/Local/cargo/rust-analyzer.exe"))
-    (setq rustic-lsp-client 'eglot)
-  :custom
-    (rustic-analyzer-command '("rustup" "run" "stable" "rust-analyzer")))
-
-(defun rustic-mode-auto-save-hook ()
-  "Enable auto-saving in rustic-mode buffers."
-  (when buffer-file-name
-    (setq-local compilation-ask-about-save nil)))
-(add-hook 'rustic-mode-hook 'rustic-mode-auto-save-hook)
-
-(use-package python
-             :ensure t
-             :bind (:map python-mode-map
-                         ("C-c C-d" . pydoc-at-point)
-                         ("C-c C-p" . run-python)
-                    :map inferior-python-mode-map
-                         ("C-c C-d" . pydoc-at-point)
-                         ("C-c C-p" . run-python)
-                         ("C-c C-z" . other-window))
-             :hook
-             (python-mode . eglot-ensure)
-             (python-mode . whitespace-mode)
-             (python-mode . yas-global-mode)
-             (python-mode . company-mode)
-             (inferior-python-mode . company-mode)
-             (inferior-python-mode . python-shell-completion-native-turn-off)
-             :config
-             (setq python-indent-offset 4)
-             (setq python-shell-interpreter "ipython"))
->>>>>>> origin/windows-config-dev
 
 (use-package pyvenv
   :after python-mode
@@ -1196,7 +1025,6 @@
   (global-semantic-idle-scheduler-mode 1)
   (semantic-mode 1))
 ;; ============================================================
-<<<<<<< HEAD
 (use-package ggtags
   :ensure t
   :hook '((c-mode . ggtags-mode)
@@ -1214,33 +1042,6 @@
         ("M-," . pop-tag-mark))
   :custom
   (setq-local imenu-create-index-function #'ggtags-build-imenu-index))
-||||||| 6bc073c
-(use-package pdf-tools)
-(use-package valign)
-(use-package mpv)
-(use-package math-symbol-lists)
-(use-package djvu)
-(use-package bash-completion
-  :hook (bash-mode . (lambda () (bash-completion-setup))))
-=======
-(use-package pdf-tools)
-(use-package valign)
-(use-package mpv)
-(use-package math-symbol-lists)
-(use-package djvu)
-(use-package bash-completion
-  :hook (bash-mode . (lambda () (bash-completion-setup))))
-;; ============================================================
-(use-package pomm
-  :hook
-  ((after-init . pomm-mode-line-mode))
-  :config
-  (when (eq system-type 'windows-nt)
-    (setq pomm-audio-enabled nil)
-    (setq pomm-audio-player-executable ""))
-  (setq pomm-state-tile-location "~/.emacs.d/var/pomm"))
-
->>>>>>> origin/windows-config-dev
 
 (dolist (mode '(term-mode-hook
                 shell-mode-hook
