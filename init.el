@@ -37,6 +37,7 @@
 (setq blink-cursor-mode nil)
 (setq standard-indent 2)
 (setq visible-bell nil)
+(setq ring-bell-function 'ignore)
 (setq indicate-buffer-boundaries nil)
 (setq word-wrap t)
 (scroll-bar-mode -1)        ; Disable visible scrollbar
@@ -163,10 +164,12 @@
                     :height will/default-font-size)
 
 (set-face-attribute 'fixed-pitch nil
+                    ;; :font "Courier New"
                     :font "SF Mono"
                     :height will/default-font-size)
 
 (set-face-attribute 'variable-pitch nil
+                    ;; :font "Consolas"
                     :font "Noto Sans"
                     :height will/default-variable-font-size
                     :weight 'light)
@@ -322,6 +325,21 @@
   (ivy-prescient-mode 1))
 
 (add-to-list 'completion-styles 'prescient)
+
+;; (defvar ivy-rich--ivy-switch-buffer-cache
+;;   (make-hash-table :test 'equal))
+
+;; (define-advice ivy-rich--ivy-switch-buffer-transformer
+;;     (:around (old-fn x) cache)
+;;   (let ((ret (gethash x ivy-rich--ivy-switch-buffer-cache)))
+;;     (unless ret
+;;       (setq ret (funcall old-fn x))
+;;       (puthash x ret ivy-rich--ivy-switch-buffer-cache))
+;;     ret))
+
+;; (define-advice +ivy/switch-buffer
+;;     (:before (&rest _) ivy-rich-reset-cache)
+;;   (clrhash ivy-rich--ivy-switch-buffer-cache))
 
 (setq ivy-rich-display-transformers-list
       '(ivy-switch-buffer
@@ -563,6 +581,7 @@
                   (org-level-7 . 1.1)
                   (org-level-8 . 1.1)))
     (set-face-attribute (car face) nil
+                        ;; :font "Microsoft Sans Serif"
                         :font "Cantarell"
                         :weight 'regular
                         :height (cdr face)))
@@ -612,6 +631,7 @@
          ("C-c a" . org-agenda)
          ("C-c C-x C-j" . org-clock-goto))
 
+  :defer 2
   :config
   (global-set-key (kbd "C-c a") 'org-agenda)
   (setq org-ellipsis " ▾")
@@ -620,11 +640,22 @@
   (setq org-log-done 'time)
   (setq org-log-into-drawer t)
   (setq org-src-preserve-indentation t)
+  (setq org-agenda-clockreport-parameter-plist '(:link t :maxlevel 2 :block lastmonth :step day))
 
-  (setq org-agenda-files '("~/documents/org-mode/zettel/tasks.org"
-                           "~/documents/org-mode/zettel/habits.org"
-                           "~/documents/org-mode/zettel/archive.org"
-                           "~/documents/org-mode/zettel/recurring.org"))
+  (cond
+   ((eq system-type 'windows-nt)
+    (setq org-agenda-files '("~/org-mode/tasks.org"
+                             "~/org-mode/habits.org"
+                             "~/org-mode/zettel/scratch.org"
+                             "~/org-mode/archive.org")))
+   ((eq system-type 'gnu/linux)
+    (setq org-agenda-files '("~/documents/org-mode/zettel/tasks.org"
+                             "~/documents/org-mode/zettel/habits.org"
+                             "~/documents/org-mode/zettel/archive.org"
+                             "~/documents/org-mode/zettel/recurring.org"))))
+
+
+
   (setq org-agenda-start-day "-2d")
   (setq org-agenda-span 10)
   (setq org-agenda-loop-over-headlines-in-active-region nil)
@@ -635,32 +666,49 @@
   (add-to-list 'org-modules 'org-habit)
   (setq org-habit-graph-column 60)
 
-  (setq org-todo-keywords '((sequence "TODO(t)" "|" "DONE(d!)" "CANCELLED(c)")))
+  (setq org-todo-keywords '((sequence "TODO(t)" "JUGGLING(j)" "BLOCKED(b)" "|" "DONE(d!)" "CANCELLED(c!)")))
+
+  (setq org-priority-highest 1
+        org-priority-default 3
+        org-priority-lowest  7)
 
   (setq org-clocktable-defaults '(:maxlevel 3
-                                  :lang "en"
-                                  :scope agenda-with-archives
-                                  :block nil
-                                  :wstart 1
-                                  :mstart 1
-                                  :narrow 40!
-                                  :indent t
-                                  :formatter nil))
+                                            :lang "en"
+                                            :scope agenda-with-archives
+                                            :block nil
+                                            :wstart 1
+                                            :mstart 1
+                                            :narrow 40!
+                                            :indent t
+                                            :formatter nil))
 
   (setq org-highest-priority 1)
   (setq org-default-priority 3)
   (setq org-lowest-priority 7)
-  (setq org-refile-targets
-        '(("~/documents/org-mode/zettel/tasks.org" :maxlevel . 2)
-          ("~/documents/org-mode/zettel/archive.org" :maxlevel . 2)
-          ("~/documents/org-mode/zettel/habits.org" :maxlevel . 2)))
 
-  ;; Save Org buffers after refiling!
-  (advice-add 'org-refile :after 'org-save-all-org-buffers)
+  (cond
+   ((eq system-type 'windows-nt)
+    '(("~/org-mode/tasks.org" :maxlevel . 1)
+      ("~/org-mode/archive.org" :maxlevel . 1)
+      ("~/org-mode/habits.org" :maxlevel . 1))))
+  ((eq system-type 'gnu/linux)
+   (setq org-refile-targets
+         '(("~/documents/org-mode/zettel/tasks.org" :maxlevel . 2)
+           ("~/documents/org-mode/zettel/archive.org" :maxlevel . 2)
+           ("~/documents/org-mode/zettel/habits.org" :maxlevel . 2)))
+   ;; Save Org buffers after refiling!
+   (advice-add 'org-refile :after 'org-save-all-org-buffers)))
 
+  (cond
+   ((eq system-type 'windows-nt)
+    (setq org-capture-templates
+        '(("t" "TODO" entry
+           (file+headline "~/org-mode/tasks.org" "Tasks") "* TODO %? %i %a"))))
+
+ ((eq system-type 'gnu/linux)
   (setq org-capture-templates
         '(("t" "TODO" entry
-           (file "~/documents/org-mode/zettel/tasks.org") "* TODO %? %i %a")))
+           (file "~/documents/org-mode/zettel/tasks.org") "* TODO %? %i %a")))))
 
   (setq org-format-latex-options
         '(:foreground default
@@ -684,7 +732,7 @@
           ("" "amssymb" t nil)
           ("" "hyperref" t nil)))
 
-  (setq org-image-actual-width '(400)))
+  (setq org-image-actual-width '(400))
 
 (setq calendar-latitude 42.36)
 (setq calendar-longitude -71.057)
@@ -763,12 +811,17 @@
          ("C-c n a" . org-roam-alias-add)
          ("C-c n r" . org-roam-node-random))
   :config (require 'org-roam-protocol)
-             (setq org-refile-allow-creating-parent-nodes 'confirm)
-             (setq org-roam-buffer-postrender-functions '(org-latex-preview))
-             (setq org-roam-completion-everywhere t)
-             (setq org-roam-db-autosync-mode t)
-             (setq org-roam-db-update-on-save t)
-             (setq org-roam-directory "/home/will/documents/org-mode/zettel/")
+  (setq org-refile-allow-creating-parent-nodes 'confirm)
+  (setq org-roam-buffer-postrender-functions '(org-latex-preview))
+  (setq org-roam-completion-everywhere t)
+  (setq org-roam-db-autosync-mode t)
+  (setq org-roam-db-update-on-save t)
+  (cond
+   ((eq system-type 'windows-nt )
+    (setq org-roam-directory "~/org-mode/zettel/"))
+   ((eq system-type 'gnu/linux)
+    (setq org-roam-directory "/home/will/documents/org-mode/zettel/")))
+
 
   (setq org-roam-node-display-template
         (concat "${title:*} "
@@ -833,8 +886,8 @@
   :bind (:map eglot-mode-map
               ;; ("C-c C-d" . eldoc)
               ("C-c C-e" . eglot-rename)
-              ("C-c C-o" . python-sort-imports)
-              ("C-c C-f" . eglot-format-buffer))
+              ;; ("C-c C-f" . eglot-format-buffer)
+              ("C-c C-o" . python-sort-imports))
   :hook ((python-mode . eglot-ensure)
          (c++-mode . eglot-ensure)
          (typescript-mode . eglot-ensure)
@@ -842,12 +895,18 @@
   :config
   (add-to-list 'eglot-stay-out-of 'flymake 'flycheck)
   (setq-default eglot-workspace-configuration
-                '(:pylsp (:plugins
-                          (:jedi_completion (:include_params t :fuzzy t)
-                                            :pylint (:enabled :json-false)
-                                            :autopep8 (:enabled :json-false)
-                                            :black (:enabled t :line_length 80)))
-                         :gopls (:usePlaceholders t))))
+                `((:pylsp .
+                          (:plugins
+                           (:jedi_completion (:include_params t :fuzzy t)
+                                             :pydocstyle (:enabled nil)
+                                             :pycodestyle (:enabled nil)
+                                             :mccabe (:enabled nil)
+                                             :pyflakes (:enabled nil)
+                                             :autopep8 (:enabled :json-false)
+                                             :black (:enabled t)))))))
+
+
+
 
 (use-package typescript-mode
   :mode "\\.ts\\'"
@@ -864,14 +923,19 @@
               ("C-c C-d" . pydoc-at-point)
               ("C-c C-p" . run-python)
               ("C-c C-z" . other-window))
-  :hook (python-mode . eglot-ensure)
+  :hook
+  (python-mode . eglot-ensure)
   (python-mode . whitespace-mode)
   (python-mode . yas-global-mode)
   (python-mode . company-mode)
   (inferior-python-mode . company-mode)
+  (inferior-python-mode . python-shell-completion-native-turn-off)
   :config
   (setq python-indent-offset 4)
-  (setq python-shell-interpreter "python3"))
+  (cond ((eq system-type 'windows-nt)
+         (setq python-shell-interpreter "ipython"))
+        ((eq system-type 'gnu/linux)
+         (setq python-shell-interpreter "python3"))))
 
 (use-package pyvenv
   :after python-mode
