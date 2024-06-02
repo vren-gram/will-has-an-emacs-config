@@ -1,7 +1,53 @@
 (use-package elfeed
   :hook (elfeed-show-mode . (lambda () (display-line-numbers-mode 0)))
   :bind (:map elfeed-show-mode-map
+<<<<<<< HEAD
               ("r" . image-decrease-size)))
+||||||| 6bc073c
+			  ("r" . image-decrease-size)))
+;;(setq elfeed-search-filter "@6-months-ago")
+
+
+;; (use-package all-the-icons-ibuffer)
+
+;; (use-package ibuffer
+;;   :bind (("C-x C-b" . ibuffer)
+;; 		 ("C-\\" . ibuffer)
+;; 		 :map ibuffer-mode-map
+;; 		 ("C-\\" . quit-window)
+;; 		 ("C-x C-b" . quit-window))
+;;   :hook ((ibuffer-mode . ibuffer-auto-mode)
+;;          (ibuffer-mode . (lambda () (ibuffer-switch-to-saved-filter-groups "home"))))
+;;   :config
+
+
+
+
+=======
+			  ("r" . image-decrease-size)
+              ("<up>" . pixel-scroll-down)
+              ("<down>" . pixel-scroll-up))
+             :hook (elfeed-show-mode . pixel-scroll-mode))
+
+;;(setq elfeed-search-filter "@6-months-ago")
+
+
+;; (use-package all-the-icons-ibuffer)
+
+;; (use-package ibuffer
+;;   :bind (("C-x C-b" . ibuffer)
+;; 		 ("C-\\" . ibuffer)
+;; 		 :map ibuffer-mode-map
+;; 		 ("C-\\" . quit-window)
+;; 		 ("C-x C-b" . quit-window))
+;;   :hook ((ibuffer-mode . ibuffer-auto-mode)
+;;          (ibuffer-mode . (lambda () (ibuffer-switch-to-saved-filter-groups "home"))))
+;;   :config
+
+
+
+
+>>>>>>> origin/windows-config-dev
 
 (setf elfeed-show-entry-switch
       (lambda (b)
@@ -44,7 +90,12 @@
         ("https://www.benkuhn.net/rss" blog rat) ;; ben has come to my house
         ("https://eukaryotewritesblog.com/rss/" blog rat Georgia)
         ("https://livingwithinreason.com/feed/" blog rat Wes)
-        ("https://hollyelmore.substack.com/feed/" blog rat Holly)))
+        ("https://hollyelmore.substack.com/feed/" blog rat Holly)
+        ("https://www.bryanbraun.com/rss.xml" blog programming)
+        ("https://buttondown.email/thehypothesis/rss" blog hn)
+        ("https://theunderground.blog/feed.xml" blog joke)
+        ("https://www.construction-physics.com/feed" blog urbanism)
+        ("https://community.cadence.com/cadence_blogs_8/b/breakfast-bytes/rss" blog electronics)))
 
 (use-package elfeed-goodies)
 (elfeed-goodies/setup)

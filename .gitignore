@@ -10,6 +10,7 @@
 /fonts/
 *.elc
 /auto-save-list/
+<<<<<<< HEAD
 ||||||| b60261a
 =======
 /conf/erc-conf.lisp
@@ -17,3 +18,7 @@
 /auto-save-list/
 /org-fc-reviews.tsv
 >>>>>>> main
+||||||| 6bc073c
+=======
+/etc/
+>>>>>>> origin/windows-config-dev
