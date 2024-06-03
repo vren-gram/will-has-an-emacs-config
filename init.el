@@ -477,7 +477,7 @@
   (setq explicit-shell-file-name "powershell.exe")
   (setq explicit-powershell.exe-args '()))
 
-(defun efs/configure-eshell ()
+(defun configure-eshell ()
   ;; Save command history when commands are entered
   (add-hook 'eshell-pre-command-hook 'eshell-save-some-history)
 
@@ -493,7 +493,7 @@
   :after eshell)
 
 (use-package eshell
-  :hook (eshell-first-time-mode . efs/configure-eshell)
+  :hook (eshell-first-time-mode . configure-eshell)
   :config
 
   (with-eval-after-load 'esh-opt
