@@ -672,7 +672,6 @@
   (setq org-default-priority 3)
   (setq org-lowest-priority 7)
 
-  :custom
   (cond
    ((eq system-type 'windows-nt)
     (setq org-agenda-files '("~/org-mode/tasks.org"
