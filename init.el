@@ -417,6 +417,7 @@
                                 ("odp" . "libreoffice")
                                 ("pdf" . "zathura")
                                 ("ps" . "zathura")
+                                ("docx" . "\"C:/Program Files/Microsoft Office/root/Office16/WINWORD.EXE\"")
                                 ("ps.gz" . "zathura")
                                 ("epub" . "zathura")
                                 ("dvi" . "zathura"))))
