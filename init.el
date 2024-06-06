@@ -1146,6 +1146,6 @@
 (setq electric-indent-mode t)
 (setq backward-delete-char-untabify-method 'hungry)
 
-(load "/home/will/.emacs.d/conf/elfeed-conf.el")
-(load "/home/will/.emacs.d/conf/mu4e-conf.el")
-(load "/home/will/.emacs.d/conf/erc-conf.el")
+(load "~/.emacs.d/conf/elfeed-conf.el")
+(load "~/.emacs.d/conf/mu4e-conf.el")
+(load "~/.emacs.d/conf/erc-conf.el")
