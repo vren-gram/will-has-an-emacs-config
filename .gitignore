@@ -9,3 +9,6 @@
 *.elc
 /auto-save-list/
 /org-fc-reviews.tsv
+/etc/
+/fonts/
+/server/
