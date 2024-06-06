@@ -17,4 +17,9 @@
 /auto-save-list/
 /org-fc-reviews.tsv
 >>>>>>> main
+<<<<<<< HEAD
 /etc/
+||||||| parent of f0ba177 (update gitignore)
+=======
+/transient/
+>>>>>>> f0ba177 (update gitignore)
