@@ -9,6 +9,11 @@
 *.elc
 /auto-save-list/
 /org-fc-reviews.tsv
+<<<<<<< HEAD
 /etc/
 /fonts/
 /server/
+||||||| parent of eaeab03 (update eglot bindings)
+=======
+/transient/
+>>>>>>> eaeab03 (update eglot bindings)
