@@ -370,8 +370,9 @@
   :bind (("C-x C-j" . dired-jump)
          :map dired-mode-map
          ;; ("r" . dired-kill-subdir)
-	 ("w" . dired-open-file)
-	 ("W" . dired-copy-filename-as-kill))
+	 ("w" . browse-url-of-dired-file)
+	 ("W" . dired-copy-filename-as-kill)
+         ("y" . dired-duplicate-this-file))
   :config
   (setq dired-dwim-target t)
   (setq dired-recursive-copies 'always)
@@ -900,7 +901,7 @@
   :bind (:map eglot-mode-map
               ;; ("C-c C-d" . eldoc)
               ("C-c C-e" . eglot-rename)
-              ;; ("C-c C-f" . eglot-format-buffer)
+              ("M-q" . eglot-format-buffer)
               ("C-c C-o" . python-sort-imports))
   :hook ((python-mode . eglot-ensure)
          (c++-mode . eglot-ensure)
