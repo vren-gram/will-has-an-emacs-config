@@ -46,7 +46,8 @@
         ("https://livingwithinreason.com/feed/" blog rat Wes)
         ("https://hollyelmore.substack.com/feed/" blog rat Holly)
         ("https://shkspr.mobi/blog/feed/atom/" blog electronics)
-        ("https://www.eevblog.com/feed/" blog electronics)))
+        ("https://www.eevblog.com/feed/" blog electronics)
+        ("https://progressandpoverty.substack.com/feed/" blog rat urbanism)))
 
 (use-package elfeed-goodies)
 (elfeed-goodies/setup)
